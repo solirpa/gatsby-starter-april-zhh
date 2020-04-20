@@ -16,6 +16,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import SearchIcon from '@material-ui/icons/Search';
 import TimelineIcon from '@material-ui/icons/Timeline';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
+import BookmarkIcon from '@material-ui/icons/Bookmark';
 import TocIcon from '@material-ui/icons/Toc';
 
 import List from '@material-ui/core/List';
@@ -128,7 +129,7 @@ const Header = ({ siteTitle, themeMode }) => {
 
   const mobileMenuId = 'primary-search-account-menu-mobile';
 
-  const menuList = ['search', 'tag', 'timeline', 'about'];
+  const menuList = ['search', 'tags', 'categories', 'timeline', 'about'];
   const getMenuItem = (target) => {
     const ref = React.createRef();
 
@@ -142,12 +143,21 @@ const Header = ({ siteTitle, themeMode }) => {
       };
     }
 
-    if (target === 'tag') {
+    if (target === 'tags') {
       return {
-        title: 'Tag',
+        title: 'Tags',
         icon: <LocalOfferIcon />,
         children: null,
-        href: '/tag',
+        href: '/tags',
+      };
+    }
+
+    if (target === 'categories') {
+      return {
+        title: 'Categories',
+        icon: <BookmarkIcon />,
+        children: null,
+        href: '/categories',
       };
     }
 
@@ -232,22 +242,6 @@ const Header = ({ siteTitle, themeMode }) => {
                   </React.Fragment>
                   )})
                 }
-
-                {/* <IconButton aria-label="show search" color="inherit">
-                  <SearchIcon />
-                </IconButton>
-                <IconButton aria-label="show tag about" href="/tag" color="inherit">
-                  <LocalOfferIcon />
-                </IconButton>
-                <IconButton aria-label="show timeline" href="/timeline" color="inherit">
-                  <TimelineIcon />
-                </IconButton>
-                <IconButton aria-label="switch dark mode" color="inherit">
-                  <ThemeSwitch mode={themeMode.mode} onChange={themeMode.toggle} />
-                </IconButton>
-                <IconButton aria-label="show about" color="inherit">
-                  <About />
-                </IconButton> */}
               </div>
               <div className={classes.sectionMobile}>
               <IconButton aria-label="switch dark mode" color="inherit">

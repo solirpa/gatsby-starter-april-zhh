@@ -5,7 +5,7 @@
  * See: https://www.gatsbyjs.org/docs/use-static-query/
  */
 
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { useStaticQuery, graphql } from "gatsby";
 import Img from "gatsby-image"
@@ -23,6 +23,8 @@ import { useDarkMode, Theme } from '@/components/Theme';
 import Header from "@/components/Navbar/header";
 import Footer from "@/components/Footer/footer";
 import ScrollProgress from "@/components/Progress/Scroll";
+import Head from "@/components/Layout/head";
+
 import "./layout.css";
 
 const useStyles = makeStyles((theme) => ({
@@ -32,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
     top: '0px',
     right: theme.spacing(6),
     display: 'none',
+    cursor: 'pointer',
     [theme.breakpoints.up('sm')]: {
       display: 'block',
     },
@@ -98,9 +101,22 @@ const Layout = (props) => {
   const [themeMode, toggle] = useDarkMode();
   const { children } = props;
 
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.size = 100;
+    script.alpha = 1.5;
+    script.zIndex = 0;
+    script.async = true;
+    script.src = '/background/ribbon-refresh.min.js';
+    document.head.appendChild(script);
+  }, [])
+
   return (
-    <>
+    <div>
+      <Head />
       <Theme mode={themeMode}>
+
         <ScrollProgress />
         <Header
           siteTitle={data.site.siteMetadata.title}
@@ -109,8 +125,8 @@ const Layout = (props) => {
             toggle,
           }}
         />
-        <Toolbar id="back-to-top-anchor"/>
-        
+        <Toolbar id="back-to-top-anchor" />
+
         <main>{children}</main>
 
         <Footer />
@@ -118,7 +134,7 @@ const Layout = (props) => {
           <Img fluid={data.placeholderImage.childImageSharp.fluid} />
         </ScrollTop>
       </Theme>
-    </>
+    </div>
   )
 }
 
