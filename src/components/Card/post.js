@@ -76,6 +76,7 @@ const useStyles = makeStyles(theme => ({
     lineHeight: '22px',
     color: '#fff',
     borderRadius: '10px',
+    // padding: '0 10px'
   },
   category: {
     fontSize: '0.8rem',

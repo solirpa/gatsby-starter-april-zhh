@@ -104,9 +104,9 @@ const Layout = (props) => {
   useEffect(() => {
     const script = document.createElement('script');
     script.type = 'text/javascript';
-    script.size = 100;
-    script.alpha = 1.5;
-    script.zIndex = 0;
+    script.size = 150;
+    script.alpha = 0.6;
+    script.zIndex = -1;
     script.async = true;
     script.src = '/background/ribbon-refresh.min.js';
     document.head.appendChild(script);

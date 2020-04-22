@@ -10,7 +10,7 @@ const wordCloudColors = [
   '#85c1e9',
 ];
 
-const TagCloud = ({ tags = [] }) => {
+const Cloud = ({ datas = [], link }) => {
 
   const getCallback = callbackName => (word, event) => {
     const isActive = callbackName !== 'onWordMouseOut';
@@ -19,7 +19,7 @@ const TagCloud = ({ tags = [] }) => {
     text
       .on('click', () => {
         if (isActive) {
-          window.location.href = `/tags/${word.text}?t=cloud`;
+          window.location.href = `/${link}/${word.text}?t=cloud`;
         }
       })
       .transition()
@@ -56,13 +56,13 @@ const TagCloud = ({ tags = [] }) => {
         onWordMouseOut: getCallback('onWordMouseOut'),
         onWordMouseOver: getCallback('onWordMouseOver'),
       }}
-      words={tags}
+      words={datas}
     />
   )
 }
 
-TagCloud.propTypes = {
-  tags: PropTypes.array,
+Cloud.propTypes = {
+  datas: PropTypes.array,
 };
 
-export default TagCloud;
+export default Cloud;

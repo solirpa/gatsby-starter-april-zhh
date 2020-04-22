@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 
 import { makeStyles } from '@material-ui/core/styles';
 
-import TagChip from './chip';
+import Tab from './tab';
 
 const useStyles = makeStyles(theme => ({
-  headerTag: {
+  headerData: {
     height: '26px',
     lineHeight: '24px',
     margin: '10px 15px',
@@ -28,7 +28,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const tagColors = [
+const colors = [
   // '#1f77b4',
   // '#ff7f0e',
   // '#2ca02c',
@@ -44,21 +44,28 @@ const tagColors = [
   '#f9ebea',
 ];
 
-const TagWall = ({ tags = [], select }) => {
+const Wall = ({ datas = [], link, select }) => {
   const classes = useStyles();
 
   return (
-    tags && tags.map(item => (
-      <div key={item.text} className={classes.headerTag}>
-        <TagChip name={item.text} count={item.value} colors={tagColors} select={item.text === select} />
+    datas && datas.map(item => (
+      <div key={item.text} className={classes.headerData}>
+        <Tab 
+          name={item.text} 
+          count={item.value} 
+          colors={colors} 
+          select={item.text === select} 
+          onClick={() => window.location.href = `/${link}/${item.text}?t=wall`}
+        />
       </div>
     ))
   )
 }
 
-TagWall.propTypes = {
-  tags: PropTypes.array,
+Wall.propTypes = {
+  datas: PropTypes.array,
+  link: PropTypes.string,
   select: PropTypes.string,
 };
 
-export default TagWall;
+export default Wall;

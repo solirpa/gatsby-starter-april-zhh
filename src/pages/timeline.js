@@ -6,6 +6,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 
+// import * as echarts from 'echarts';
 import echarts from 'echarts/lib/echarts';
 import 'echarts/lib/component/calendar';
 import 'echarts/lib/component/axis';
@@ -135,7 +136,7 @@ const TimelinePage = ({ data }) => {
         left: 'center',
         text: '文章日历',
         textStyle: {
-          color: theme.palette.text.secondary
+          color: '#9e9e9e',
         }
       },
       dataZoom: [{
@@ -185,13 +186,13 @@ const TimelinePage = ({ data }) => {
           show: false
         },
         monthLabel: {
-          // nameMap: '<%- nameMap %>',
-          fontSize: 11
+          fontSize: 11,
+          color: '#9e9e9e',
         },
         dayLabel: {
           formatter: '{start}  1st',
-          // nameMap: '<%- nameMap %>',
-          fontSize: 11
+          fontSize: 11,
+          color: '#9e9e9e',
         }
       }],
       series: {

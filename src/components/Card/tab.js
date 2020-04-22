@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
 
 const useStyles = makeStyles(theme => ({
-  tag: {
+  data: {
     color: 'black',
     paddingLeft: '15px',
     boxShadow: '0 3px 5px rgba(0, 0, 0, .12)',
@@ -21,29 +21,30 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const TagChip = ({ name, count, colors, select }) => {
+const Tab = ({ name, count, colors, onClick, select }) => {
   const classes = useStyles();
 
   return (
     <Chip
       style={{ background: colors[Math.floor(Math.random() * colors.length)] }}
-      className={`${classes.tag} ${select ? classes.select : ''}`}
+      className={`${classes.data} ${select ? classes.select : ''}`}
       label={`${name} ${count}`}
       clickable={true}
-      onClick={() => window.location.href = `/tags/${name}?t=wall`}
+      onClick={()=> onClick()}
     />
   )
 };
 
-TagChip.propTypes = {
+Tab.propTypes = {
   name: PropTypes.string.isRequired,
   count: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   colors: PropTypes.array,
   select: PropTypes.bool,
+  onClick: PropTypes.func,
 };
 
-TagChip.defaultProps = {
+Tab.defaultProps = {
   count: '',
 };
 
-export default TagChip;
+export default Tab;

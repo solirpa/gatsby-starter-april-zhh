@@ -64,7 +64,9 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
 
   const tagSet = new Set();
   const tagMap = new Map();
+
   const categorySet = new Set();
+  const categoryMap = new Map();
 
   result.data.allMarkdownRemark.edges.forEach(({ node }) => {
     const { fields, frontmatter } = node;
@@ -85,14 +87,22 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
 
     // 读取分类
     if (categories) {
-      categories.forEach(item => categorySet.add(item));
+      categories.forEach(item => {
+        categorySet.add(item);
+
+        if (categoryMap.has(item)) {
+          categoryMap.set(item, categoryMap.get(item)+1);
+        } else {
+          categoryMap.set(item, 1);
+        }
+      });
     }
 
     createPage({
       path: fields.path,
       component: path.resolve(`src/templates/post/post.js`),
       context: {}, // additional data can be passed via context
-    })
+    });
   });
 
   tagSet.forEach((tag) => {
@@ -109,12 +119,17 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     });
   });
 
+  console.log('categorySet',categorySet)
   categorySet.forEach((category) => {
     createPage({
       path: `/categories/${category}`,
       component: path.resolve('src/templates/category/category.js'),
       context: {
         category,
+        categories: Array.from(categoryMap.keys()).map(category => ({
+          text: category,
+          value: categoryMap.get(category)
+        }))
       },
     });
   });

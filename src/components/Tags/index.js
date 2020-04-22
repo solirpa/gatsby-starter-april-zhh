@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import TagWall from './wall';
-import TagCloud from './cloud';
+import TagWall from '@/components/Card/wall';
+import TagCloud from '@/components/Card/cloud';
 
 const Tags = ({ type, select, tags }) => {
 
   return (
-    type === 'cloud' ? <TagCloud tags={tags} /> : <TagWall tags={tags} select={select} />
+    type === 'cloud' ? <TagCloud datas={tags} link="tags" /> : <TagWall datas={tags} link="tags" select={select} />
   )
 }
 
