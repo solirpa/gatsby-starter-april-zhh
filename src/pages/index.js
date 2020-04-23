@@ -7,14 +7,13 @@ import Zoom from '@material-ui/core/Zoom';
 
 import Layout from "@/components/Layout/layout";
 import SEO from "@/components/Seo/seo";
-import homeimg from "@/images/longmao.png";
 
 import './index.less';
 
 const useStyles = makeStyles((theme) => ({
   homeimg: {
     height: '100vh',
-    background: `url(${homeimg}) center`,
+    background: `url(/longmao.png) center`,
   },
   downIconCtn: {
     height: '3rem',

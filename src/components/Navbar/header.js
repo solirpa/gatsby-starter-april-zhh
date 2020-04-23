@@ -120,6 +120,8 @@ const Header = ({ siteTitle, themeMode }) => {
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
   const handleMobileMenuClose = () => {
+    console.log('handleMobileMenuClose')
+
     setMobileMoreAnchorEl(null);
   };
 
@@ -139,7 +141,7 @@ const Header = ({ siteTitle, themeMode }) => {
         title: 'Search',
         icon: <SearchIcon />,
         child: <Search ref={ref} />,
-        click: () => ref.current.toogle()
+        click: () => ref.current.toggle()
       };
     }
 
@@ -175,7 +177,7 @@ const Header = ({ siteTitle, themeMode }) => {
         title: 'About',
         icon: <AccountCircle />,
         child: <About ref={ref} />,
-        click: () => ref.current.toogle()
+        click: () => ref.current.toggle()
       };
     }
   }
@@ -187,7 +189,6 @@ const Header = ({ siteTitle, themeMode }) => {
       onClose={handleMobileMenuClose}
       id={mobileMenuId}
       keepMounted
-      // open={isMobileMenuOpen}
     >
       <List>
         {
@@ -195,11 +196,15 @@ const Header = ({ siteTitle, themeMode }) => {
             const item = getMenuItem(t);
 
             return (
-              <ListItem button component="a" key={t} onClick={item.click || null} href={item.href || null}>
-                <ListItemIcon>{item.icon}</ListItemIcon>
-                <ListItemText primary={item.title} />
+              <React.Fragment key={t}>
+                <ListItem button component="a" onClick={(() => {
+                  item.click()
+                }) || null} href={item.href || null}>
+                  <ListItemIcon>{item.icon}</ListItemIcon>
+                  <ListItemText primary={item.title} />
+                </ListItem>
                 {item.child}
-              </ListItem>
+              </React.Fragment>
             )
           })
         }
@@ -225,26 +230,30 @@ const Header = ({ siteTitle, themeMode }) => {
                 <IconButton aria-label="switch dark mode" color="inherit">
                   <ThemeSwitch mode={themeMode.mode} onChange={themeMode.toggle} />
                 </IconButton>
-                {menuList.map(t=> {
+                {menuList.map(t => {
                   const item = getMenuItem(t);
 
                   return (
-                  <React.Fragment key={t}>
-                    <IconButton
-                      component="a"
-                      aria-label={t}
-                      color="inherit"
-                      onClick={item.click} href={item.href || null}
-                    >
-                      <>{item.icon}</>
-                    </IconButton>
-                    {item.child}
-                  </React.Fragment>
-                  )})
+                    <React.Fragment key={t}>
+                      <IconButton
+                        component="a"
+                        aria-label={t}
+                        color="inherit"
+                        onClick={() => {
+                          item.click()
+                        }}
+                        href={item.href || null}
+                      >
+                        <>{item.icon}</>
+                      </IconButton>
+                      {item.child}
+                    </React.Fragment>
+                  )
+                })
                 }
               </div>
               <div className={classes.sectionMobile}>
-              <IconButton aria-label="switch dark mode" color="inherit">
+                <IconButton aria-label="switch dark mode" color="inherit">
                   <ThemeSwitch mode={themeMode.mode} onChange={themeMode.toggle} />
                 </IconButton>
                 <IconButton

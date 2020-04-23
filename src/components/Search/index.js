@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     width: 400,
     position: 'absolute',
-    top: '14rem',
+    top: '16rem',
   },
   input: {
     marginLeft: theme.spacing(1),
@@ -46,8 +46,8 @@ const Search = (_, ref) => {
   const inputRef = useRef();
   const [open, setOpen] = useState(false);
   useImperativeHandle(ref, () => ({
-    toogle: () => {
-      setOpen(!open);
+    toggle: () => {
+      setOpen(true);
     }
   }));
 

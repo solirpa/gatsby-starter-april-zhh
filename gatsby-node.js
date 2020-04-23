@@ -119,7 +119,6 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     });
   });
 
-  console.log('categorySet',categorySet)
   categorySet.forEach((category) => {
     createPage({
       path: `/categories/${category}`,

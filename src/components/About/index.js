@@ -1,10 +1,13 @@
 import React, { useState, useImperativeHandle, forwardRef } from 'react';
+import { graphql, useStaticQuery } from 'gatsby';
 
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import Slide from '@material-ui/core/Slide';
 import Backdrop from '@material-ui/core/Backdrop';
 import Modal from '@material-ui/core/Modal';
 import Fade from '@material-ui/core/Fade';
-import { makeStyles } from '@material-ui/core/styles';
-
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles((theme) => ({
   backdrop: {
@@ -22,19 +25,50 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
     position: 'absolute',
-    top: '14rem',
+    top: '16rem',
+    width: '20rem',
   },
+  avatarCtn: {
+    textAlign: 'center',
+    margin: '1rem 0 0 0',
+  },
+  img: {
+    cursor: 'pointer',
+    border: '1px solid #e1e4e8',
+    borderRadius: '50%',
+    webkitTransition: '-webkit-transform 0.3s ease',
+    // transition: '-webkit-transform 0.3s ease',
+    // transition: 'transform 0.3s ease',
+    transition: 'transform 0.3s ease, -webkit-transform 0.3s ease',
+
+    '&:hover': {
+      transform: 'rotate(360deg)',
+      MsTransform: 'rotate(360deg)',
+      /* IE 9 */
+      MozTransform: 'rotate(360deg)',
+      /* Firefox */
+      WebkitTransform: 'rotate(360deg)',
+      /* Safari and Chrome */
+      OTransform: 'rotate(360deg)',
+    }
+  },
+  slug: {
+    textAlign: 'center',
+  }
 }));
 
-const About = (_, ref)=> {
+const About = (_, ref) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
+  const [imgLoad, setImgLoad] = useState(true);
+  const { gravatar } = useStaticQuery(query);
+
   useImperativeHandle(ref, () => ({
-    toogle: () => {
+    toggle: () => {
       setOpen(!open);
     }
-}));
-  
+  }));
+
   const handleClose = () => {
     setOpen(false);
   };
@@ -44,7 +78,7 @@ const About = (_, ref)=> {
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
-        className={classes.modal}
+        className={`${classes.modal}`}
         open={open}
         onClose={handleClose}
         closeAfterTransition
@@ -53,15 +87,45 @@ const About = (_, ref)=> {
           timeout: 500,
         }}
       >
-        <Fade in={open}>
-          <div className={classes.paper}>
-            <h2 id="transition-modal-title">Transition modal</h2>
-            <p id="transition-modal-description">react-transition-group animates me.</p>
-          </div>
-        </Fade>
+        <Slide direction="down" in={open} mountOnEnter unmountOnExit>
+          <Fade in={open}>
+            <div className={classes.paper}>
+              <div className={classes.avatarCtn}>
+                {
+                  imgLoad ? (
+                    <img 
+                      alt="avatar" 
+                      src={gravatar.url} 
+                      className={classes.img} 
+                      onLoad={()=> setImgLoad(true)} 
+                      onClick={()=> window.open("https://github.com/aprilyzl0405")} 
+                    />
+                  ) : <CircularProgress />
+                }
+              </div>
+              <div className={classes.slug}>
+                <Typography variant="h6">
+                  Fishing Engineer
+                </Typography>
+                <Typography variant="subtitle1" component="p">
+                  间接性踌躇满志，持续性混吃等死
+                </Typography>
+              </div>
+            </div>
+          </Fade>
+        </Slide>
       </Modal>
     </>
   )
 }
 
 export default forwardRef(About);
+
+export const query = graphql`
+  query getGravatar {
+    gravatar {
+      url
+    }
+  }
+  
+`;

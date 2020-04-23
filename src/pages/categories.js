@@ -9,8 +9,6 @@ import Paper from '@material-ui/core/Paper';
 import Layout from '@/components/Layout/layout';
 import Categories from '@/components/Categories';
 
-import backgroundimg from "@/images/longmao.png";
-
 const useStyles = makeStyles(theme => ({
   categoryCtn: {
     // display: 'flex',
@@ -22,7 +20,7 @@ const useStyles = makeStyles(theme => ({
   backgroundiv: {
     height: '50vh',
     overflow: 'hidden',
-    background: `URL(${backgroundimg}) center`,
+    background: `url(/longmao.png) center`,
     backgroundPositionY: '-25rem',
     // boxShadow: '8px 10px 20px 10px rgba(19, 19, 0, 0.5), -3px 5px 10px 1px rgba(255,255,255,0.5)'
   },

@@ -91,6 +91,22 @@ module.exports = {
           "@": `src/`,
         }
       }
-    }
+    },
+    {
+      resolve: `gatsby-source-gravatar`,
+      options: {
+        emails: [ { email: `aprilyzl0405@gmail.com`, query: `?s=128` } ],
+      }
+    },
+    {
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+        trackingId: "UA-140673471-1",
+        // this option places the tracking script into the head of the DOM
+        head: true,
+        // other options
+      },
+    },
+    `gatsby-plugin-material-ui`
   ],
 }

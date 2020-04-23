@@ -3,6 +3,8 @@ import { graphql } from 'gatsby';
 
 import dayjs from 'dayjs';
 
+import { useSearchParam } from 'react-use';
+
 import { makeStyles } from '@material-ui/core/styles';
 
 import Layout from '@/components/Layout/layout';
@@ -15,15 +17,11 @@ import Box from '@material-ui/core/Box';
 import Tags from '@/components/Tags';
 import PostCard from '@/components/Card/post';
 
-import { getQueryParam } from '@/utils/utils';
-
-import backgroundimg from "@/images/longmao.png";
-
 const useStyles = makeStyles(theme => ({
   backgroundiv: {
     height: '50vh',
     overflow: 'hidden',
-    background: `URL(${backgroundimg}) center`,
+    background: `/url(/longmao.png) center`,
     backgroundPositionY: '-25rem',
   },
   paper: {
@@ -51,7 +49,7 @@ const TagPage = ({ data, pageContext }) => {
       <Container>
 
         <Paper elevation={3} className={`${classes.paper} ${classes.paperTop} ${classes.tagCtn}`}>
-          <Tags tags={tags} select={tag} type={getQueryParam("t")} />
+          <Tags tags={tags} select={tag} type={useSearchParam("t")} />
         </Paper>
         <div className="col-xl-10 col-lg-7 col-md-12 col-xs-12 order-2">
           <div
