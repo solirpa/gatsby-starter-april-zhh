@@ -1,5 +1,7 @@
 name: Deploy on TXY
-on: repository_dispatch
+on: 
+  watch:
+    types: started
 
 env:
   MY_SERVER_PRIVATE_KEY: ${{ secrets.MY_V2_SERVER_PRIVATE_KEY }} # 服务器私钥
