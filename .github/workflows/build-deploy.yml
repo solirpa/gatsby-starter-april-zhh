@@ -4,7 +4,7 @@ on:
     types: started
 
 env:
-  MY_SERVER_PRIVATE_KEY: ${{ secrets.MY_V2_SERVER_PRIVATE_KEY }} # 服务器私钥
+  MY_SERVER_PRIVATE_KEY: ${{ secrets.MY_SERVER_PRIVATE_KEY }} # 服务器私钥
   MY_USER: ${{ secrets.MY_USER }}
   MY_HOST: ${{ secrets.MY_HOST }}
   MY_DEPLOY_DIR: ${{ secrets.MY_DEPLOY_DIR }}
@@ -16,6 +16,7 @@ jobs:
       - name: checkout
         uses: "actions/checkout@master"
         with:
+          ssh-key: ${{ secrets.MY_SSH_KEY }} 
           submodules: true
       - name: update submodule
         uses: srt32/git-actions@v0.0.3
