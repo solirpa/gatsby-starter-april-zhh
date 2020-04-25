@@ -33,8 +33,8 @@ jobs:
       - name: Upload result
         uses: actions/upload-artifact@v1
         with:
-          name: dist
-          path: dist
+          name: public
+          path: public
           
           
   deploy:
@@ -45,7 +45,7 @@ jobs:
     - name: Download result
       uses: actions/download-artifact@v1
       with:
-        name: dist
+        name: public
 
     - name: rsync deployments
       uses: contention/rsync-deployments@v1.0.0
