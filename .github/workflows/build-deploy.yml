@@ -13,6 +13,10 @@ jobs:
   build-production:
     runs-on: ubuntu-latest
     steps:
+      - name: Install SSH key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.MY_SSH_KEY }}
       - name: checkout
         uses: "actions/checkout@master"
         with:
