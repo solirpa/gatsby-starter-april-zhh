@@ -3,6 +3,8 @@ name: Deploy on TXY
 on: 
   repository_dispatch:
     types: [trigger]
+  push: 
+    branches: master
     
 env:
   MY_SERVER_PRIVATE_KEY: ${{ secrets.MY_SERVER_PRIVATE_KEY }} # 服务器私钥
