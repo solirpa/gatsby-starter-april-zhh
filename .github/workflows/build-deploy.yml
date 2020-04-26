@@ -24,6 +24,9 @@ jobs:
       - uses: webfactory/ssh-agent@v0.1.1
         with:
             ssh-private-key: ${{ secrets.MY_SSH_KEY }}
+      - run: |
+          ssh-add -l
+          echo SSH_AUTH_SOCK is at $SSH_AUTH_SOCK
       - name: Checkout submodules
         uses: srt32/git-actions@v0.0.3
         with:
