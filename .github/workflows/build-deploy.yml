@@ -44,6 +44,11 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Get Time
+        id: time
+        uses: JantHsueh/get-time-action@master
+        with:
+          timeZone: 8
       - name: Build Gatsby Site
         uses: jzweifel/gatsby-cli-github-action@master
         with:
