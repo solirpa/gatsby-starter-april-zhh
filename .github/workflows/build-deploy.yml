@@ -24,13 +24,10 @@ jobs:
       - uses: webfactory/ssh-agent@v0.1.1
         with:
             ssh-private-key: ${{ secrets.MY_SSH_KEY }}
-      - run: |
-          ssh-add -l
-          echo SSH_AUTH_SOCK is at $SSH_AUTH_SOCK
       - name: Checkout submodules
         uses: srt32/git-actions@v0.0.3
         with:
-          args: git submodule update --remote
+          args: "ssh-add; git submodule update --remote;"
       - uses: EndBug/add-and-commit@v4 # You can change this to use a specific version
         with:
           force: true
