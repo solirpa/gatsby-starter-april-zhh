@@ -57,7 +57,7 @@ jobs:
       uses: burnett01/rsync-deployments@4.0
       with:
         switches: -avzr --delete
-        path: public
+        path: public/
         remote_path: ${{ env.MY_DEPLOY_DIR }}
         remote_host: ${{ env.MY_HOST }}
         remote_port: 54321
