@@ -29,7 +29,7 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
     createNodeField({
       node,
       name: "path",
-      value: `/${dayjs(date).format('YYYY/MM/DD')}${relativeFilePath}`,
+      value: encodeURI(`/${dayjs(date).format('YYYY/MM/DD')}${relativeFilePath}`),
     });
   }
 }
