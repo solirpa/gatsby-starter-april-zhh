@@ -4,7 +4,7 @@ import { graphql } from 'gatsby';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
-
+import NoSsr from '@material-ui/core/NoSsr';
 
 import Layout from '@/components/Layout/layout';
 import Categories from '@/components/Categories';
@@ -34,24 +34,24 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const CategoryPage = ({ data })=> {
+const CategoryPage = ({ data }) => {
   const classes = useStyles();
-  const [ categories, setCategories ] = useState([]);
+  const [categories, setCategories] = useState([]);
 
-  useEffect(()=> {
+  useEffect(() => {
     const categoryMap = new Map();
     data.allMarkdownRemark.edges.forEach(({ node }) => {
       const { categories = [] } = node.frontmatter;
-  
+
       categories && categories.forEach((name) => {
         if (categoryMap.has(name)) {
-          categoryMap.set(name, categoryMap.get(name)+1);
+          categoryMap.set(name, categoryMap.get(name) + 1);
         } else {
           categoryMap.set(name, 1);
         }
       });
     });
-  
+
     console.log('categoryMap', categoryMap)
 
     const t = Array.from(categoryMap.keys()).map(category => ({
@@ -59,19 +59,21 @@ const CategoryPage = ({ data })=> {
       value: categoryMap.get(category)
     }));
 
-    setCategories([ ...t ]);
+    setCategories([...t]);
   }, [data]);
 
   return (
     <Layout>
       <div className={classes.backgroundiv} />
       <Container>
-        <Paper elevation={3} className={`${classes.paper} ${classes.paperTop} ${classes.categoryCtn}`}>
-          <Categories categories={categories} type="wall" />
-        </Paper>
-        <Paper elevation={3} className={classes.paper}>
-          <Categories categories={categories} type="radar" />
-        </Paper>
+        <NoSsr>
+          <Paper elevation={3} className={`${classes.paper} ${classes.paperTop} ${classes.categoryCtn}`}>
+            <Categories categories={categories} type="wall" />
+          </Paper>
+          <Paper elevation={3} className={classes.paper}>
+            <Categories categories={categories} type="radar" />
+          </Paper>
+        </NoSsr>
       </Container>
     </Layout>
   )

@@ -4,7 +4,7 @@ import { graphql } from 'gatsby';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
-
+import NoSsr from '@material-ui/core/NoSsr';
 
 import Layout from '@/components/Layout/layout';
 import Tags from '@/components/Tags';
@@ -36,28 +36,28 @@ const useStyles = makeStyles(theme => ({
 
 const TagsPage = ({ data }) => {
   const classes = useStyles();
-  const [ tags, setTags ] = useState([]);
+  const [tags, setTags] = useState([]);
 
-  useEffect(()=> {
+  useEffect(() => {
     const tagMap = new Map();
     data.allMarkdownRemark.edges.forEach(({ node }) => {
       const { tags = [] } = node.frontmatter;
-  
+
       tags && tags.forEach((name) => {
         if (tagMap.has(name)) {
-          tagMap.set(name, tagMap.get(name)+1);
+          tagMap.set(name, tagMap.get(name) + 1);
         } else {
           tagMap.set(name, 1);
         }
       });
     });
-  
+
     const t = Array.from(tagMap.keys()).map(tag => ({
       text: tag,
       value: tagMap.get(tag)
     }));
 
-    setTags([ ...t ]);
+    setTags([...t]);
   }, [data]);
 
 
@@ -65,12 +65,15 @@ const TagsPage = ({ data }) => {
     <Layout>
       <div className={classes.backgroundiv} />
       <Container>
-        <Paper elevation={3} className={`${classes.paper} ${classes.paperTop} ${classes.tagCtn}`}>
-          <Tags tags={tags} type="wall" />
-        </Paper>
-        <Paper elevation={3} className={classes.paper}>
-          <Tags tags={tags} type="cloud" />
-        </Paper>
+        <NoSsr>
+          <Paper elevation={3} className={`${classes.paper} ${classes.paperTop} ${classes.tagCtn}`}>
+            <Tags tags={tags} type="wall" />
+          </Paper>
+
+          <Paper elevation={3} className={classes.paper}>
+            <Tags tags={tags} type="cloud" />
+          </Paper>
+        </NoSsr>
       </Container>
     </Layout>
   )

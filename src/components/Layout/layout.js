@@ -102,6 +102,13 @@ const Layout = (props) => {
   const { children } = props;
 
   useEffect(() => {
+    const jssStyles = document.querySelector('#jss-server-side');
+    if (jssStyles) {
+      jssStyles.parentElement.removeChild(jssStyles);
+    }
+  }, []);
+
+  useEffect(() => {
     const script = document.createElement('script');
     script.type = 'text/javascript';
     script.size = 150;
@@ -110,7 +117,7 @@ const Layout = (props) => {
     script.async = true;
     script.src = '/background/ribbon-refresh.min.js';
     document.head.appendChild(script);
-  }, [])
+  }, []);
 
   return (
     <div>
