@@ -1,8 +1,9 @@
 name: Deploy on TXY
-on: 
-  watch:
-    types: started
 
+on: 
+  repository_dispatch:
+    types: [trigger]
+    
 env:
   MY_SERVER_PRIVATE_KEY: ${{ secrets.MY_SERVER_PRIVATE_KEY }} # 服务器私钥
   MY_USER: ${{ secrets.MY_USER }}
