@@ -13,7 +13,7 @@ import './index.less';
 const useStyles = makeStyles((theme) => ({
   homeimg: {
     height: '100vh',
-    background: `url(/http://static.april-zhh.cn/longmao.png) center`,
+    background: `url(http://static.april-zhh.cn/longmao.png) center`,
   },
   downIconCtn: {
     height: '3rem',
