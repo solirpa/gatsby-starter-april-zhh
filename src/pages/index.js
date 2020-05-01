@@ -13,7 +13,7 @@ import Slide from '@material-ui/core/Slide';
 
 import Layout from "@/components/Layout/layout";
 import Introduce from "@/components/About/introduce";
-import PostRectCard from "@/components/Card/PostRect";
+import PostRectCard from "@/components/Card/postRect";
 import SEO from "@/components/Seo/seo";
 
 import { getHomeImg, getDefaultImg, getOtherImg, getRandom } from "@/utils/utils";
