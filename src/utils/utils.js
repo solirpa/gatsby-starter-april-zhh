@@ -39,7 +39,7 @@ export const getRandom = (arr)=> {
 export const getLinkImg = (type)=> {
   const img = isDebug() ? 
   `${config.img.link[type]}` : 
-  `${config.cdn}/website/link${config.img.other[type]}`
+  `${config.cdn}/website/link${config.img.link[type]}`
 
   return img;
 }
