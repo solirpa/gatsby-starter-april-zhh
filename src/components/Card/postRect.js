@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
     width: '40rem',
     margin: 'auto',
     [theme.breakpoints.down('sm')]: {
-      maxWidth: '25rem',
+      maxWidth: '22rem',
     },
   },
   img: {

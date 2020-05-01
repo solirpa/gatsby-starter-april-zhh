@@ -23,13 +23,17 @@ const useStyles = makeStyles((theme) => ({
     background: 'rgba(0,0,0,.5)',
     height: '5rem',
     borderRadius: '0.5rem',
+
+    [theme.breakpoints.down('xs')]: {
+      width: '23rem',
+    },
   },
   slug: {
     color: 'white',
     margin: 'auto',
     textAlign: 'center',
     paddingTop: '0.5rem',
-    fontSize: '1.25rem',
+    fontSize: '1.1rem',
     fontWeight: 'bolder',
   },
   arrow: {
@@ -52,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-around',
   },
   icon: {
-    width: '1.5rem',
+    width: '1rem',
     cursor: 'pointer',
   }
 }));
@@ -78,10 +82,10 @@ const Introduce = ({ onArrowLeftClick, onArrowRightClick }) => {
   return (
     <>
       <Grid container className={classes.root}>
-        <Grid item md={1} className={`${classes.arrow} arrow-scale`}>
+        <Grid item sm={1} className={`${classes.arrow} arrow-scale`}>
           <ArrowBackIosOutlinedIcon onClick={() => onArrowLeftClick()} />
         </Grid>
-        <Grid item md={10}>
+        <Grid item sm={10}>
           <Typography variant="subtitle1" component="p" className={classes.slug}>
             <FormatQuoteIcon />{config.about.slug}<FormatQuoteIcon />
           </Typography>
@@ -99,7 +103,7 @@ const Introduce = ({ onArrowLeftClick, onArrowRightClick }) => {
             }
           </div>
         </Grid>
-        <Grid item md={1} className={`${classes.arrow} arrow-scale`}>
+        <Grid item sm={1} className={`${classes.arrow} arrow-scale`}>
           <ArrowForwardIosOutlinedIcon onClick={() => onArrowRightClick()} />
         </Grid>
       </Grid>
