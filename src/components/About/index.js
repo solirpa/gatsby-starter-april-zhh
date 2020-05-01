@@ -9,6 +9,8 @@ import Modal from '@material-ui/core/Modal';
 import Fade from '@material-ui/core/Fade';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
+import { getConfig } from '@/utils/utils';
+
 const useStyles = makeStyles((theme) => ({
   backdrop: {
     zIndex: theme.zIndex.drawer + 1,
@@ -58,6 +60,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const About = (_, ref) => {
+  const config = getConfig();
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [imgLoad, setImgLoad] = useState(true);
@@ -98,17 +101,17 @@ const About = (_, ref) => {
                       src={gravatar.url} 
                       className={classes.img} 
                       onLoad={()=> setImgLoad(true)} 
-                      onClick={()=> window.open("https://github.com/aprilyzl0405")} 
+                      onClick={()=> window.open(config.about.github)} 
                     />
                   ) : <CircularProgress />
                 }
               </div>
               <div className={classes.slug}>
                 <Typography variant="h6">
-                  Fishing Engineer
+                  {config.about.title}
                 </Typography>
                 <Typography variant="subtitle1" component="p">
-                  间接性踌躇满志，持续性混吃等死
+                  {config.about.slug}
                 </Typography>
               </div>
             </div>

@@ -8,7 +8,6 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { useStaticQuery, graphql } from "gatsby";
-import Img from "gatsby-image"
 
 import 'typeface-roboto';
 
@@ -25,13 +24,15 @@ import Footer from "@/components/Footer/footer";
 import ScrollProgress from "@/components/Progress/Scroll";
 import Head from "@/components/Layout/head";
 
+import { getOtherImg } from '@/utils/utils';
+
 import "./layout.css";
+import "./scroll.less";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: '50px',
     position: 'fixed',
-    top: '0px',
+    top: '-3rem',
     right: theme.spacing(6),
     display: 'none',
     cursor: 'pointer',
@@ -81,18 +82,12 @@ ScrollTop.propTypes = {
 
 
 const Layout = (props) => {
+  const classes = useStyles();
   const data = useStaticQuery(graphql`
     query imageAndSiteTitleQuery {
       site {
         siteMetadata {
           title
-        }
-      }
-      placeholderImage: file(relativePath: { eq: "scroll.png" }) {
-        childImageSharp {
-          fluid(maxWidth: 30) {
-            ...GatsbyImageSharpFluid
-          }
         }
       }
     }
@@ -134,11 +129,11 @@ const Layout = (props) => {
         />
         <Toolbar id="back-to-top-anchor" />
 
-        <main>{children}</main>
+        <main style={{ position: 'relative', top: '-3.5rem' }}>{children}</main>
 
         <Footer />
         <ScrollTop {...props}>
-          <Img fluid={data.placeholderImage.childImageSharp.fluid} />
+          <img alt="scroll" src={`${getOtherImg('scroll')}`} className={'scroll-top-jump'} />
         </ScrollTop>
       </Theme>
     </div>

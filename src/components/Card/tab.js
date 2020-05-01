@@ -12,7 +12,7 @@ const useStyles = makeStyles(theme => ({
 
     '&:hover': {
       color: '#fff',
-      background: 'linear-gradient(to right, #4cbf30 0%, #0f9d58 100%) !important',
+      background: 'linear-gradient(to right, #da8d00 0%, #e46223 100%) !important',
     }
   },
   select: {

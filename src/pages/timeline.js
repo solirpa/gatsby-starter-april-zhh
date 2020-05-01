@@ -20,6 +20,8 @@ import dayjs from 'dayjs';
 import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeline-component';
 import 'react-vertical-timeline-component/style.min.css';
 
+import { getDefaultImg, getRandom } from '@/utils/utils';
+
 import Layout from '@/components/Layout/layout';
 import PostCard from '@/components/Card/post';
 
@@ -53,7 +55,7 @@ const useStyles = makeStyles(theme => ({
   backgroundiv: {
     height: '50vh',
     overflow: 'hidden',
-    background: `url(/longmao.png) center`,
+    background: `url(/totoro.png.webp) center`,
     backgroundPositionY: '-25rem',
     // boxShadow: '8px 10px 20px 10px rgba(19, 19, 0, 0.5), -3px 5px 10px 1px rgba(255,255,255,0.5)'
   },
@@ -92,7 +94,7 @@ const TimelinePage = ({ data }) => {
         timestamp: parseInt(o.getTime()),
         formatDate: `${year}-${month < 10 ? `0${month}` : month}-${day < 10 ? `0${day}` : day}`,
         ...frontmatter,
-        image: frontmatter.image || 'http://static.blinkfox.com/20190302.png',
+        image: frontmatter.image || getRandom(getDefaultImg()),
         path,
       });
     });

@@ -68,7 +68,7 @@ const useStyles = makeStyles(theme => ({
     marginLeft: 'auto',
   },
   tag: {
-    backgroundImage: 'linear-gradient(to right, #4cbf30 0%, #0f9d58 100%)',
+    backgroundImage: 'linear-gradient(to right, #da8d00 0%,  #e46223 100%)',
     padding: '4px',
     margin: '0 2px',
     fontSize: '0.8rem',

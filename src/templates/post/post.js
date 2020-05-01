@@ -11,7 +11,10 @@ import * as tocbot from 'tocbot';
 import "tocbot/dist/styles.css";
 import "tocbot/dist/tocbot.css";
 
+import { getOtherImg } from '@/utils/utils';
+
 import Layout from "@/components/Layout/layout";
+import BackGround from "@/components/Layout/background";
 import "./post.less";
 
 const useStyles = makeStyles(theme => ({
@@ -46,7 +49,7 @@ const useStyles = makeStyles(theme => ({
         listStyle: 'none',
         paddingInlineStart: '1rem'
       },
-      '& &::-webkit-scrollbar' :{
+      '& &::-webkit-scrollbar': {
         display: 'none',
       }
     },
@@ -103,11 +106,22 @@ const useStyles = makeStyles(theme => ({
       paddingLeft: '0.5rem',
     }
   },
+  backImgCtn: {
+    '&::before': {
+      content: "''",
+      backgroundImage: `url(${getOtherImg('dot')})`,
+      position: 'absolute',
+      width: '100%',
+      height: '50vh',
+      backgroundAttachment: 'fixed',
+    }
+  },
   backgroundiv: {
-    height: '50vh', 
+    height: '50vh',
     overflow: 'hidden',
-    background: `url(/longmao.png) center`,
-    backgroundPositionY: '-25rem',
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+    backgroundPositionY: '-10rem',
     // boxShadow: '8px 10px 20px 10px rgba(19, 19, 0, 0.5), -3px 5px 10px 1px rgba(255,255,255,0.5)'
   },
 }));
@@ -119,7 +133,7 @@ export default function PostPage({
   const { markdownRemark } = data; // data.markdownRemark holds your post data
   const { frontmatter, html } = markdownRemark;
 
-  useEffect(()=> {
+  useEffect(() => {
     const offsetTop = 0 - document.getElementById('postoc').offsetTop;
 
     tocbot.init({
@@ -148,7 +162,7 @@ export default function PostPage({
       toc.style.visibility = 'visible';
     }
 
-    return ()=> {
+    return () => {
       tocbot.destroy();
     }
   }, []);
@@ -156,7 +170,7 @@ export default function PostPage({
   return (
     <Layout>
       <div className={classes.root}>
-        <div className={classes.backgroundiv} />
+        <BackGround image={frontmatter.image} />
         <Grid container className={classes.top}>
           <Grid item md={3} />
           <Grid item lg={6} md={12}>
@@ -195,6 +209,7 @@ export const pageQuery = graphql`
       frontmatter {
         date(formatString: "MMMM DD, YYYY")
         title
+        image
       }
     }
   }

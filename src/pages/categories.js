@@ -6,7 +6,10 @@ import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import NoSsr from '@material-ui/core/NoSsr';
 
+import { getHomeImg, getRandom } from '@/utils/utils';
+
 import Layout from '@/components/Layout/layout';
+import BackGround from "@/components/Layout/background";
 import Categories from '@/components/Categories';
 
 const useStyles = makeStyles(theme => ({
@@ -20,7 +23,7 @@ const useStyles = makeStyles(theme => ({
   backgroundiv: {
     height: '50vh',
     overflow: 'hidden',
-    background: `url(/longmao.png) center`,
+    background: `url(/totoro.png.webp) center`,
     backgroundPositionY: '-25rem',
     // boxShadow: '8px 10px 20px 10px rgba(19, 19, 0, 0.5), -3px 5px 10px 1px rgba(255,255,255,0.5)'
   },
@@ -64,7 +67,7 @@ const CategoryPage = ({ data }) => {
 
   return (
     <Layout>
-      <div className={classes.backgroundiv} />
+      <BackGround image={getRandom(getHomeImg())} />
       <Container>
         <NoSsr>
           <Paper elevation={3} className={`${classes.paper} ${classes.paperTop} ${classes.categoryCtn}`}>

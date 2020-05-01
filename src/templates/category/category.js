@@ -7,7 +7,6 @@ import { useSearchParam } from 'react-use';
 
 import { makeStyles } from '@material-ui/core/styles';
 
-import Layout from '@/components/Layout/layout';
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -15,6 +14,10 @@ import Slide from '@material-ui/core/Slide';
 import Box from '@material-ui/core/Box';
 import NoSsr from '@material-ui/core/NoSsr';
 
+import { getHomeImg, getDefaultImg, getRandom } from '@/utils/utils';
+
+import Layout from '@/components/Layout/layout';
+import BackGround from "@/components/Layout/background";
 import Categories from '@/components/Categories';
 import PostCard from '@/components/Card/post';
 
@@ -22,7 +25,7 @@ const useStyles = makeStyles(theme => ({
   backgroundiv: {
     height: '50vh',
     overflow: 'hidden',
-    background: `url(/longmao.png) center`,
+    background: `url(/totoro.png.webp) center`,
     backgroundPositionY: '-25rem',
   },
   paper: {
@@ -45,7 +48,7 @@ const CategoryPage = ({ data, pageContext }) => {
 
   return (
     <Layout>
-      <div className={classes.backgroundiv} />
+      <BackGround image={getRandom(getHomeImg())} />
       <NoSsr>
         <Container>
 
@@ -68,7 +71,7 @@ const CategoryPage = ({ data, pageContext }) => {
               {
                 edges.map(({ node }) => {
                   const { frontmatter, fields: { path } } = node;
-                  const image = frontmatter.image || 'http://static.blinkfox.com/20190302.png';
+                  const image = frontmatter.image || getRandom(getDefaultImg());
                   const formatDate = dayjs(frontmatter.date).format('YYYY-MM-DD');
                   const { title, description, tags, categories } = frontmatter;
 

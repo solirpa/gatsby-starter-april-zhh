@@ -1,9 +1,11 @@
+const config = require('./config');
+
 module.exports = {
   siteMetadata: {
-    siteUrl: `https://april-zhh.cn`,
-    title: `April5's Fairyland`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
+    siteUrl: config.url,
+    title: config.meta.title,
+    description: config.meta.description,
+    author: config.about.name,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -73,17 +75,6 @@ module.exports = {
         icon: `src/images/favicons.png`, // This path is relative to the root of the site.
       },
     },
-    // this (optional) plugin enables Progressive Web App + Offline functionality
-    // To learn more, visit: https://gatsby.dev/offline
-    // `gatsby-plugin-offline`,
-    // `gatsby-plugin-sass`,
-
-    // {
-    //   resolve: 'gatsby-plugin-layout',
-    //   options: {
-    //     component: require.resolve('./src/components/Layout/layout.js'),
-    //   },
-    // },
     {
       resolve: `gatsby-alias-imports`,
       options: {

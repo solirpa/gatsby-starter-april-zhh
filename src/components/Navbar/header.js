@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 
-import { fade, makeStyles } from '@material-ui/core/styles';
+import { fade, makeStyles, useTheme } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -18,6 +18,8 @@ import TimelineIcon from '@material-ui/icons/Timeline';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
 import TocIcon from '@material-ui/icons/Toc';
+import Grow from '@material-ui/core/Grow';
+import lightGreen from '@material-ui/core/colors/lightGreen';
 
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -31,6 +33,14 @@ import About from "@/components/About";
 const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
+  },
+  background: {
+    padding: '0 0.5rem',
+    color: 'white',
+    borderRadius: '0.25rem',
+    "&:hover": {
+      color: '#ff8f00',
+    }
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -117,11 +127,11 @@ HideOnScroll.propTypes = {
 
 const Header = ({ siteTitle, themeMode }) => {
   const classes = useStyles();
+  const theme = useTheme();
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
+  const [appbarTransparent, setAppbarTransparent] = useState(false);
 
   const handleMobileMenuClose = () => {
-    console.log('handleMobileMenuClose')
-
     setMobileMoreAnchorEl(null);
   };
 
@@ -217,40 +227,58 @@ const Header = ({ siteTitle, themeMode }) => {
       <CssBaseline />
       <HideOnScroll>
         <div className={classes.grow}>
-          <AppBar color={'default'}>
+          <AppBar
+            color={'default'}
+            style={{ background: 'transparent' }}
+            onMouseOver={() => setAppbarTransparent(true)}
+            onMouseLeave={() => setAppbarTransparent(false)}
+          >
             <Toolbar>
-              <Typography variant="h6">
+              <Typography variant="h6" className={classes.background}>
                 <Link href="/" color="inherit" underline="none">
                   {siteTitle}
                 </Link>
               </Typography>
 
               <div className={classes.grow} />
-              <div className={classes.sectionDesktop}>
-                <IconButton aria-label="switch dark mode" color="inherit">
-                  <ThemeSwitch mode={themeMode.mode} onChange={themeMode.toggle} />
-                </IconButton>
+              <div className={`${classes.sectionDesktop}`} style={{ color: 'white' }}>
                 {menuList.map(t => {
                   const item = getMenuItem(t);
 
                   return (
                     <React.Fragment key={t}>
-                      <IconButton
-                        component="a"
-                        aria-label={t}
-                        color="inherit"
-                        onClick={() => {
-                          item.click()
-                        }}
-                        href={item.href || null}
+                      <Grow
+                        in={appbarTransparent}
+                        style={{ transformOrigin: '0 0 0' }}
+                        {...(appbarTransparent ? { timeout: 1000 } : {})}
                       >
-                        <>{item.icon}</>
-                      </IconButton>
+                        <IconButton
+                          component="a"
+                          aria-label={t}
+                          className={classes.background}
+                          color="inherit"
+                          onClick={() => {
+                            item.click()
+                          }}
+                          href={item.href || null}
+                        >
+                          <>{item.icon}</>
+                        </IconButton>
+                      </Grow>
                       {item.child}
                     </React.Fragment>
                   )
                 })
                 }
+                <Grow
+                  in={true}
+                  style={{ transformOrigin: '0 0 0' }}
+                  {...(appbarTransparent ? { timeout: 1000 } : {})}
+                >
+                  <IconButton aria-label="switch dark mode" color="inherit" className={classes.background}>
+                    <ThemeSwitch mode={themeMode.mode} onChange={themeMode.toggle} />
+                  </IconButton>
+                </Grow>
               </div>
               <div className={classes.sectionMobile}>
                 <IconButton aria-label="switch dark mode" color="inherit">
