@@ -56,7 +56,6 @@ const useStyles = makeStyles(theme => ({
   backgroundiv: {
     height: '50vh',
     overflow: 'hidden',
-    background: `url(/totoro.png.webp) center`,
     backgroundPositionY: '-25rem',
     // boxShadow: '8px 10px 20px 10px rgba(19, 19, 0, 0.5), -3px 5px 10px 1px rgba(255,255,255,0.5)'
   },

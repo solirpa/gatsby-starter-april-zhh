@@ -25,7 +25,6 @@ const useStyles = makeStyles(theme => ({
   backgroundiv: {
     height: '50vh',
     overflow: 'hidden',
-    background: `url(/totoro.png.webp) center`,
     backgroundPositionY: '-25rem',
   },
   paper: {
