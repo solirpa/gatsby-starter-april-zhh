@@ -55,8 +55,6 @@ const CategoryPage = ({ data }) => {
       });
     });
 
-    console.log('categoryMap', categoryMap)
-
     const t = Array.from(categoryMap.keys()).map(category => ({
       text: category,
       value: categoryMap.get(category)

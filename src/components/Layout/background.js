@@ -15,6 +15,15 @@ const useStyles = makeStyles(theme => ({
       width: '100%',
       height: '50vh',
       backgroundAttachment: 'fixed',
+    },
+    '&::after': {
+      position: 'absolute',
+      content: "''",
+      width: '100%',
+      height: '50vh',
+      top: 0,
+      left: 0,
+      boxShadow: `0 -10px 10px 0 ${theme.palette.background.default} inset`,
     }
   },
   backgroundiv: {
@@ -31,8 +40,8 @@ const BackGround = ({ image }) => {
 
   return (
     <Box className={classes.backImgCtn}>
-    <div className={classes.backgroundiv} style={{ backgroundImage: `url(${image || getRandom(getDefaultImg())})` }} />
-  </Box>
+      <div className={classes.backgroundiv} style={{ backgroundImage: `url(${image || getRandom(getDefaultImg())})` }} />
+    </Box>
   )
 }
 

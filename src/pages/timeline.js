@@ -20,9 +20,10 @@ import dayjs from 'dayjs';
 import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeline-component';
 import 'react-vertical-timeline-component/style.min.css';
 
-import { getDefaultImg, getRandom } from '@/utils/utils';
+import { getHomeImg, getDefaultImg, getRandom } from '@/utils/utils';
 
 import Layout from '@/components/Layout/layout';
+import BackGround from "@/components/Layout/background";
 import PostCard from '@/components/Card/post';
 
 import './timeline.less';
@@ -204,7 +205,7 @@ const TimelinePage = ({ data }) => {
 
   return (
     <Layout>
-      <div className={classes.backgroundiv} />
+      <BackGround image={getRandom(getHomeImg())} />
       <Container className={classes.tlRoot} maxWidth="md">
         <Paper elevation={3} className={`${classes.paper}`}>
           <div>

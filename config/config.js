@@ -11,9 +11,16 @@ const config = {
   "about": {
     "name": "April5",
     "title": "Fishing Engineer",
-    "slug": "间断性踌躇满志，持续性混吃等死",
+    "slug": "混吃等死一条鱼，踌躇满志磨洋工",
     "email": "996586214@qq.com",
     "github": "https://github.com/aprilyzl0405",
+  },
+  "link": {
+    "github": "https://github.com/aprilyzl0405",
+    "mail": "aprilyzl0405@gmail.com",
+    "zhihu": "https://www.zhihu.com/people/lan-jing-lin-88",
+    "weibo": "https://weibo.com/2306221832/profile",
+    "rss": "/sitemap.xml",
   },
   "img": {
     "home": [
@@ -38,6 +45,13 @@ const config = {
       "/sophon.png.webp",
       "/mapleleaf.png.webp",
     ],
+    "link": {
+      "github": "/github.png",
+      "zhihu": "/zhihu.png",
+      "mail": "/mail.png",
+      "weibo": "/weibo.png",
+      "rss": "/rss.png"
+    },
     "other": {
       "dot": "/dot.gif",
       "scroll": "/scroll.png",

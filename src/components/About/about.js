@@ -3,6 +3,7 @@ import { graphql, useStaticQuery } from 'gatsby';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
 import Slide from '@material-ui/core/Slide';
 import Backdrop from '@material-ui/core/Backdrop';
 import Modal from '@material-ui/core/Modal';
@@ -56,9 +57,14 @@ const useStyles = makeStyles((theme) => ({
   },
   slug: {
     textAlign: 'center',
+  },
+  button: {
+    background: 'transparent',
+    border: 0,
   }
 }));
 
+/* eslint-disable */
 const About = (_, ref) => {
   const config = getConfig();
   const classes = useStyles();
@@ -96,13 +102,18 @@ const About = (_, ref) => {
               <div className={classes.avatarCtn}>
                 {
                   imgLoad ? (
-                    <img 
-                      alt="avatar" 
-                      src={gravatar.url} 
-                      className={classes.img} 
-                      onLoad={()=> setImgLoad(true)} 
+                    <Box 
+                      component="button" 
+                      className={classes.button} 
                       onClick={()=> window.open(config.about.github)} 
-                    />
+                    >
+                      <img
+                        alt="avatar"
+                        src={gravatar.url}
+                        className={classes.img}
+                        onLoad={()=> setImgLoad(true)}
+                      />
+                    </Box>
                   ) : <CircularProgress />
                 }
               </div>

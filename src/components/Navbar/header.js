@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 
-import { fade, makeStyles, useTheme } from '@material-ui/core/styles';
+import { fade, makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -19,7 +19,6 @@ import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
 import TocIcon from '@material-ui/icons/Toc';
 import Grow from '@material-ui/core/Grow';
-import lightGreen from '@material-ui/core/colors/lightGreen';
 
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -28,7 +27,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 import { ThemeSwitch, themeSwitchProp } from "@/components/Theme";
 import Search from "@/components/Search";
-import About from "@/components/About";
+import About from "@/components/About/about";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -127,7 +126,6 @@ HideOnScroll.propTypes = {
 
 const Header = ({ siteTitle, themeMode }) => {
   const classes = useStyles();
-  const theme = useTheme();
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const [appbarTransparent, setAppbarTransparent] = useState(false);
 
@@ -141,7 +139,7 @@ const Header = ({ siteTitle, themeMode }) => {
 
   const mobileMenuId = 'primary-search-account-menu-mobile';
 
-  const menuList = ['search', 'tags', 'categories', 'timeline', 'about'];
+  const menuList = ['search', 'tags', 'categories', 'timeline'/* , 'about' */];
   const getMenuItem = (target) => {
     const ref = React.createRef();
 
@@ -230,6 +228,7 @@ const Header = ({ siteTitle, themeMode }) => {
           <AppBar
             color={'default'}
             style={{ background: 'transparent' }}
+            onFocus={()=>{}}
             onMouseOver={() => setAppbarTransparent(true)}
             onMouseLeave={() => setAppbarTransparent(false)}
           >

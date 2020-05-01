@@ -1,19 +1,26 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { graphql } from 'gatsby';
+
+import dayjs from 'dayjs';
 
 import { makeStyles } from '@material-ui/core/styles';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import Zoom from '@material-ui/core/Zoom';
 import Box from '@material-ui/core/Box';
+import Grow from '@material-ui/core/Grow';
+import Slide from '@material-ui/core/Slide';
 
 import Layout from "@/components/Layout/layout";
+import Introduce from "@/components/About/introduce";
+import PostRectCard from "@/components/Card/PostRect";
 import SEO from "@/components/Seo/seo";
 
-import { getHomeImg, getOtherImg, getRandom } from "@/utils/utils";
+import { getHomeImg, getDefaultImg, getOtherImg, getRandom } from "@/utils/utils";
 
 import './index.less';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   homeImgCtn: {
     '&::before': {
       content: "''",
@@ -34,8 +41,8 @@ const useStyles = makeStyles((theme) => ({
   downIconCtn: {
     height: '3rem',
     width: '100%',
-    position: 'relative',
-    bottom: '4.5rem',
+    position: 'absolute',
+    top: '45rem',
     zIndex: theme.zIndex.drawer + 1,
     textAlign: 'center',
     cursor: 'pointer',
@@ -45,7 +52,6 @@ const useStyles = makeStyles((theme) => ({
     color: '#fff',
   },
   content: {
-    height: '10rem',
     borderRadius: '0',
   }
 }));
@@ -82,15 +88,48 @@ ScrollTop.propTypes = {
 
 const IndexPage = (props) => {
   const classes = useStyles();
+  const [imgShow, setImgShow] = useState(true);
+  const [direction, setDirection] = useState('right');
+  const { data } = props;
+  const { edges } = data.allMarkdownRemark;
   const imgs = getHomeImg();
-  const [ homeImg, setHomeImg ] = useState(getRandom(imgs));
+  const [homeImg, setHomeImg] = useState(getRandom(imgs));
+
+  const onArrowClick = (direction) => {
+
+    return () => {
+      let img = getRandom(imgs);
+
+      setImgShow(!imgShow);
+      setDirection(direction);
+
+      while (img === homeImg) {
+        img = getRandom(imgs);
+      }
+
+      setTimeout(() => {
+        setImgShow(true);
+        setHomeImg(img);
+      }, 350);
+    }
+  }
 
   return (
     <Layout>
       <SEO title="Home" />
-      <Box className={classes.homeImgCtn}>
-        <div style={{ backgroundImage: `url(${homeImg})` }} className={classes.homeImg} />
-      </Box>
+      <Grow
+        in={imgShow}
+        style={{ transformOrigin: `center ${direction}` }}
+      // {...(imgShow ? { timeout: 1500 } : {})}
+      >
+        <Box className={classes.homeImgCtn}>
+          <div
+            style={{ backgroundImage: `url(${homeImg || getRandom(getDefaultImg())})` }}
+            className={classes.homeImg}
+          />
+        </Box>
+      </Grow>
+      <Introduce onArrowLeftClick={onArrowClick('left')} onArrowRightClick={onArrowClick('right')} />
       <div className={`${classes.downIconCtn}`}>
         <ScrollTop {...props}>
           <KeyboardArrowDownIcon size="large" className={`${classes.downIcon} arrow-jump`} />
@@ -98,9 +137,58 @@ const IndexPage = (props) => {
       </div>
 
       <div id="content" className={classes.content}>
+        {
+          edges.map(({ node }) => {
+            const { frontmatter, fields: { path } } = node;
+            const image = frontmatter.image || getRandom(getDefaultImg());
+            const formatDate = dayjs(frontmatter.date).format('YYYY-MM-DD');
+            const { title, description, tags, categories } = frontmatter;
+
+            return (
+              <React.Fragment key={path}>
+                <Slide direction="left" in={true} mountOnEnter unmountOnExit timeout={800}>
+                  <Box>
+                    <PostRectCard
+                      path={path}
+                      image={image}
+                      date={formatDate}
+                      title={title}
+                      description={description}
+                      tags={tags}
+                      categories={categories}
+                    />
+                  </Box>
+                </Slide>
+              </React.Fragment>
+            )
+          })
+        }
       </div>
     </Layout>
   )
 }
 
-export default IndexPage
+export default IndexPage;
+
+export const pageQuery = graphql`
+  query getAllPost {
+    allMarkdownRemark(sort: {order: DESC, fields: frontmatter___date}, limit: 10) {
+      edges {
+        node {
+          id
+          fields {
+            path
+          }
+          frontmatter {
+            title
+            date
+            tags
+            categories
+            description
+            image
+          }
+        }
+      }
+    }
+  }
+`;

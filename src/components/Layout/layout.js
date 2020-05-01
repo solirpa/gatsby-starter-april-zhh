@@ -82,7 +82,6 @@ ScrollTop.propTypes = {
 
 
 const Layout = (props) => {
-  const classes = useStyles();
   const data = useStaticQuery(graphql`
     query imageAndSiteTitleQuery {
       site {
@@ -110,7 +109,7 @@ const Layout = (props) => {
     script.alpha = 0.6;
     script.zIndex = -1;
     script.async = true;
-    script.src = '/background/ribbon-refresh.min.js';
+    script.src = '/background/canvas-nest.js';
     document.head.appendChild(script);
   }, []);
 
