@@ -1,8 +1,6 @@
 name: Deploy on TXY
 
-on: 
-  repository_dispatch:
-    types: [trigger]
+on:
   push: 
     branches: master
     
