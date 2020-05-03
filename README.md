@@ -59,5 +59,12 @@ description: 采用 Material Design 开发的响应式 Gatsby 主题。
 
 
 ## 参考项目
+
+一直以来都比较倾向于 hugo 和 hexo 这类比较轻量级的静态页面构建工具，但无奈很多主题在可定制性上比较欠缺，而且模板语法写起来比较耗费精力，鉴于自己对 React 比较熟悉，因此选用了 gatsby 进行建站。
+
+由于本人在建站方面毫无设计感，因此参考了几个项目，选用了一些自认为比较好的设计和交互，也是作为自己练习 CSS 的一个阶段性产物。
+
+下面是参考得比较多的项目：
+
  - [hexo-theme-matery](https://github.com/blinkfox/hexo-theme-matery)
  - [hexo-theme-sakura](https://github.com/honjun/hexo-theme-sakura)
