@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 
-import { fade, makeStyles } from '@material-ui/core/styles';
+import { fade, makeStyles, useTheme } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -24,6 +25,10 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+
+import GithubCorner from 'react-github-corner';
+
+import { getConfig } from '@/utils/utils';
 
 import { ThemeSwitch, themeSwitchProp } from "@/components/Theme";
 import Search from "@/components/Search";
@@ -89,6 +94,8 @@ const useStyles = makeStyles((theme) => ({
   },
   sectionDesktop: {
     display: 'none',
+    position: 'relative',
+    right: '2rem',
     [theme.breakpoints.up('md')]: {
       display: 'flex',
     },
@@ -126,8 +133,12 @@ HideOnScroll.propTypes = {
 
 const Header = ({ siteTitle, themeMode }) => {
   const classes = useStyles();
+  const theme = useTheme();
+  const matchesUp = useMediaQuery(theme.breakpoints.up('md'));
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const [appbarTransparent, setAppbarTransparent] = useState(false);
+
+  const config = getConfig();
 
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
@@ -228,7 +239,7 @@ const Header = ({ siteTitle, themeMode }) => {
           <AppBar
             color={'default'}
             style={{ background: 'transparent' }}
-            onFocus={()=>{}}
+            onFocus={() => { }}
             onMouseOver={() => setAppbarTransparent(true)}
             onMouseLeave={() => setAppbarTransparent(false)}
           >
@@ -279,6 +290,21 @@ const Header = ({ siteTitle, themeMode }) => {
                   </IconButton>
                 </Grow>
               </div>
+              {
+                matchesUp ? (
+                  <GithubCorner
+                    href={config.repo}
+                    target="_blank"
+                    svgStyle={{
+                      mixBlendMode: "darken",
+                    }}
+                    bannerColor="rgb(18, 150, 219)"
+                    octoColor="#fff"
+                    size={64}
+                    direction="right"
+                  />
+                ) : null
+              }
               <div className={classes.sectionMobile}>
                 <IconButton aria-label="switch dark mode" color="inherit" className={classes.background}>
                   <ThemeSwitch mode={themeMode.mode} onChange={themeMode.toggle} />

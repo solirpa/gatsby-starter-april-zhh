@@ -2,6 +2,7 @@ const config = {
   "url": "https://april-zhh.cn",
   "cdn": "https://static.april-zhh.cn",
   "wordings": ["GatsbyJS", "React"],
+  "repo": "https://github.com/aprilyzl0405/gatsby-starter-april-zhh",
   "meta": {
     "title": "April5's Fairyland",
     "description": "记录些有的没的",

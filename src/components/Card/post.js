@@ -26,6 +26,8 @@ const useStyles = makeStyles(theme => ({
 
     [theme.breakpoints.up('sm')]: {
       maxWidth: '20rem',
+      margin: '0',
+      marginBottom: '2rem',
     },
   },
   imgCtn: {
@@ -81,13 +83,14 @@ const useStyles = makeStyles(theme => ({
     marginLeft: 'auto',
   },
   tag: {
-    backgroundImage: 'linear-gradient(to right, #da8d00 0%,  #e46223 100%)',
+    // backgroundImage: 'linear-gradient(to right, #da8d00 0%,  #e46223 100%)',
+    background: theme.palette.background,
     padding: '4px 6px',
     margin: '0 2px',
     fontSize: '0.8rem',
     fontWeight: '400',
     lineHeight: '22px',
-    color: '#fff',
+    color: theme.palette.text.secondary,
     borderRadius: '10px',
     // padding: '0 10px'
   },

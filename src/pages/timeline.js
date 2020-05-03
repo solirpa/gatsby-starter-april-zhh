@@ -39,9 +39,9 @@ const useStyles = makeStyles(theme => ({
     }
   },
   verticalTlRoot: {
-    overflow: 'unset',
-    [theme.breakpoints.up('md')]: {
-      overflow: 'hidden',
+    overflow: 'hidden',
+    [theme.breakpoints.down('md')]: {
+      overflow: 'unset',
     },
     padding: '0 0 2rem 0',
   },
@@ -72,7 +72,7 @@ const TimelinePage = ({ data }) => {
   const theme = useTheme();
   // const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
 
-  const matchesUpMd = useMediaQuery(theme.breakpoints.up('md'));
+  const matchesUp = useMediaQuery('(min-width:1170px)');
   const { allMarkdownRemark } = data;
 
   const timeline = useMemo(() => {
@@ -272,7 +272,7 @@ const TimelinePage = ({ data }) => {
                                     <VerticalTimelineElement
                                       className={classes.verticalContent}
                                       style={{
-                                        left: matchesUpMd ? '0.5rem' : 0,
+                                        left: matchesUp ? '0.5rem' : 0,
                                         top: '1rem'
                                       }}
                                       iconStyle={{

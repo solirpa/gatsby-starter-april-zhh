@@ -117,7 +117,7 @@ const Layout = (props) => {
 
   return (
     <div>
-            <Seo
+      <Seo
         title={config.meta.title}
         description={config.meta.description}
         author={config.about.name}
