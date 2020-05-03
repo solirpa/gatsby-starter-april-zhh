@@ -42,6 +42,7 @@ const useStyles = makeStyles(theme => ({
 
 // eslint-disable-next-line react/prop-types
 const TagPage = ({ data, pageContext }) => {
+  console.log('TagPage', data)
   const classes = useStyles();
   const { edges } = data.allMarkdownRemark;
   const { tag, tags } = pageContext;
@@ -109,7 +110,7 @@ export default TagPage;
 
 export const pageQuery = graphql`
   query tagQuery($tag: [String!]) {
-    allMarkdownRemark(sort: {order: DESC, fields: frontmatter___date}, filter: {frontmatter: {tags: {in: $tag}}}) {
+    allMarkdownRemark(filter: {frontmatter: {tags: {in: $tag}}}) {
       edges {
         node {
           id
@@ -129,4 +130,3 @@ export const pageQuery = graphql`
       totalCount
     }
   }`
-

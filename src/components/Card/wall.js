@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import { makeStyles } from '@material-ui/core/styles';
 
+import { openExtendLink } from '@/utils/utils';
+
 import Tab from './tab';
 
 const useStyles = makeStyles(theme => ({
@@ -46,7 +48,6 @@ const colors = [
 
 const Wall = ({ datas = [], link, select }) => {
   const classes = useStyles();
-
   return (
     datas && datas.map(item => (
       <div key={item.text} className={classes.headerData}>
@@ -55,7 +56,9 @@ const Wall = ({ datas = [], link, select }) => {
           count={item.value} 
           colors={colors} 
           select={item.text === select} 
-          onClick={() => window.location.href = `/${link}/${item.text}?t=wall`}
+          onClick={() => {
+            window.location.href = `/${link}/${openExtendLink(item.text)}?t=wall`
+          }}
         />
       </div>
     ))

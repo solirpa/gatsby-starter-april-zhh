@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import ReactWordcloud from 'react-wordcloud';
 import { select } from 'd3-selection';
 
+import { openExtendLink } from '@/utils/utils';
+
 const wordCloudColors = [
   '#82e0aa',
   '#f9e79f',
@@ -19,7 +21,7 @@ const Cloud = ({ datas = [], link }) => {
     text
       .on('click', () => {
         if (isActive) {
-          window.location.href = `/${link}/${word.text}?t=cloud`;
+          window.location.href = `/${link}/${openExtendLink(word.text)}?t=cloud`;
         }
       })
       .transition()

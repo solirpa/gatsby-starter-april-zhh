@@ -14,6 +14,8 @@ import Tooltip from '@material-ui/core/Tooltip';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 
+import { openExtendLink } from '@/utils/utils';
+
 const useStyles = makeStyles(theme => ({
   root: {
     borderRadius: '.5rem',
@@ -144,7 +146,7 @@ const PostCard = ({
             categories && categories.length ? (
               <Typography className={classes.categore} variant="caption" color="textSecondary" component="span">
                 <BookmarkIcon className={classes.subicon} />
-                <Link className={`${classes.subinfo} ${classes.category}`} onClick={() => window.location.href = `/categories/${categories[0]}`}>{categories[0]}</Link>
+                <Link className={`${classes.subinfo} ${classes.category}`} onClick={() => window.location.href = `/categories/${openExtendLink(categories[0])}`}>{categories[0]}</Link>
               </Typography>
             ) : null
           }
@@ -154,7 +156,7 @@ const PostCard = ({
             <CardActions className={classes.actions} disableSpacing>
               {
                 tags && tags.slice(0, 3).map(tag => (
-                  <Link key={tag} className={classes.tag} onClick={() => window.location.href = `/tags/${tag}`}>{tag}</Link>
+                  <Link key={tag} className={classes.tag} onClick={() => window.location.href = `/tags/${openExtendLink(tag)}`}>{tag}</Link>
                 ))
               }
             </CardActions>

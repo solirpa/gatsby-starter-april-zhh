@@ -56,7 +56,7 @@ const BackGround = ({ image, type }) => {
 
   return (
     <Box className={classes.backImgCtn}>
-      <div className={classes.backgroundiv} style={{ backgroundImage: `url(${showImage})` }} />
+      <div className={classes.backgroundiv} style={{ backgroundImage: showImage && `url(${showImage})` }} />
     </Box>
   )
 }

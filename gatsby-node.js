@@ -10,6 +10,7 @@ const path = require(`path`);
 const { createFilePath } = require(`gatsby-source-filesystem`);
 
 const dayjs = require('dayjs');
+const crypto = require('crypto');
 
 exports.onCreateNode = ({ node, getNode, actions }) => {
   const { createNodeField } = actions;
@@ -78,7 +79,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
         tagSet.add(item);
 
         if (tagMap.has(item)) {
-          tagMap.set(item, tagMap.get(item)+1);
+          tagMap.set(item, tagMap.get(item) + 1);
         } else {
           tagMap.set(item, 1);
         }
@@ -88,10 +89,11 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     // 读取分类
     if (categories) {
       categories.forEach(item => {
+        item = item.toLowerCase();
         categorySet.add(item);
 
         if (categoryMap.has(item)) {
-          categoryMap.set(item, categoryMap.get(item)+1);
+          categoryMap.set(item, categoryMap.get(item) + 1);
         } else {
           categoryMap.set(item, 1);
         }
@@ -105,23 +107,26 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     });
   });
 
-  tagSet.forEach((tag) => {
+  tagSet.forEach(tag => {
+
     createPage({
-      path: `/tags/${tag}`,
+      path: `/tags/${tag}-${crypto.createHash('md5').update(tag).digest("hex")}`,
       component: path.resolve('src/templates/tag/tag.js'),
       context: {
         tag,
-        tags: Array.from(tagMap.keys()).map(tag => ({
-          text: tag,
-          value: tagMap.get(tag)
-        }))
+        tags: Array.from(tagMap.keys()).map(tag => {
+          return {
+            text: tag,
+            value: tagMap.get(tag)
+          }
+        })
       },
     });
   });
 
   categorySet.forEach((category) => {
     createPage({
-      path: `/categories/${category}`,
+      path: `/categories/${category}-${crypto.createHash('md5').update(category).digest("hex")}`,
       component: path.resolve('src/templates/category/category.js'),
       context: {
         category,

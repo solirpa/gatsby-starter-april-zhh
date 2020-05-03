@@ -1,3 +1,5 @@
+import crypto from 'crypto';
+
 import config from '../../config';
 
 export const getConfig = ()=> {
@@ -6,6 +8,10 @@ export const getConfig = ()=> {
 
 export const isDebug = ()=> {
   return process.env.NODE_ENV !== 'production';
+}
+
+export const openExtendLink = (link)=> {
+  return `${link}-${crypto.createHash('md5').update(link).digest("hex")}`;
 }
 
 export const getHomeImg = ()=> {
