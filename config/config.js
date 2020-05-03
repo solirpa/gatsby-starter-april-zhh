@@ -11,7 +11,7 @@ const config = {
   "about": {
     "name": "April5",
     "title": "Fishing Engineer",
-    "slug": "混吃等死一条鱼，踌躇满志磨洋工",
+    "slug": "踌躇满志磨洋工, 混吃等死一条鱼",
     "email": "996586214@qq.com",
     "github": "https://github.com/aprilyzl0405",
   },

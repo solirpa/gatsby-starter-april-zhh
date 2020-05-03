@@ -1,99 +1,60 @@
-<!-- AUTO-GENERATED-CONTENT:START (STARTER) -->
-<p align="center">
-  <a href="https://www.gatsbyjs.org">
-    <img alt="Gatsby" src="https://www.gatsbyjs.org/monogram.svg" width="60" />
-  </a>
-</p>
-<h1 align="center">
-  Gatsby's default starter
-</h1>
+# gatsby-starter-april-zhh
 
-Kick off your project with this default boilerplate. This starter ships with the main Gatsby configuration files you might need to get up and running blazing fast with the blazing fast app generator for React.
+ [![GitHub issues](https://img.shields.io/github/issues/aprilyzl0405/gatsby-starter-april-zhh.svg)](https://github.com/aprilyzl0405/gatsby-starter-april-zhh/issues) [![GitHub license](https://img.shields.io/github/license/aprilyzl0405/gatsby-starter-april-zhh.svg)](https://github.com/aprilyzl0405/gatsby-starter-april-zhh/blob/master/LICENSE) [![Hexo Version](https://img.shields.io/badge/gatsby-%3E%3D%202.2-blue.svg)](https://www.gatsbyjs.org/) [![GitHub forks](https://img.shields.io/github/forks/aprilyzl0405/gatsby-starter-april-zhh.svg)](https://github.com/aprilyzl0405/gatsby-starter-april-zhh/network) [![GitHub stars](https://img.shields.io/github/stars/aprilyzl0405/gatsby-starter-april-zhh.svg)](https://github.com/aprilyzl0405/gatsby-starter-april-zhh/stargazers)
 
-_Have another more specific idea? You may want to check out our vibrant collection of [official and community-created starters](https://www.gatsbyjs.org/docs/gatsby-starters/)._
 
-## 🚀 Quick start
+> 采用 `Material Design` 开发的响应式 Gatsby 主题。
 
-1.  **Create a Gatsby site.**
+## 特性
 
-    Use the Gatsby CLI to create a new site, specifying the default starter.
+- [MATERIAL-UI](https://material-ui.com/zh/) 设计
+- 响应式设计，桌面端、平板、手机等设备上均能很好的展现
+- 支持 Markdown
+- 集成了[不蒜子统计](http://busuanzi.ibruce.info/)、谷歌分析（`Google Analytics`
+- 支持黑暗模式
+- 基于 ```github action``` 进行自动构建
 
-    ```shell
-    # create a new Gatsby site using the default starter
-    gatsby new my-default-starter https://github.com/gatsbyjs/gatsby-starter-default
-    ```
+## 下载
 
-1.  **Start developing.**
+```bash
+git clone https://github.com/aprilyzl0405/gatsby-starter-april-zhh.git
+```
 
-    Navigate into your new site’s directory and start it up.
+## 配置
 
-    ```shell
-    cd my-default-starter/
-    gatsby develop
-    ```
+#### 配置文件 `/config/config.js` :
 
-1.  **Open the source code and start editing!**
+### 图床，图床链接由 ```cdn + img``` 组合而成
+ - cdn：配置 ```cdn``` 域名
+ - img
+   - home：首页和各个引导页的背景图
+   - link：首页链接的图标
+   - default：文章没有配置 image 时的默认图
+   - debug：本地调试用，使用 static 目录下的图片，不使用和 cdn 组成链接
 
-    Your site is now running at `http://localhost:8000`!
+## markdown
 
-    _Note: You'll also see a second link: _`http://localhost:8000/___graphql`_. This is a tool you can use to experiment with querying your data. Learn more about using this tool in the [Gatsby tutorial](https://www.gatsbyjs.org/tutorial/part-five/#introducing-graphiql)._
+markdown ```frontmatter``` 示例 
+```
+---
+title: gatsby-starter-april-zhh
+date: 2020-06-06T06:06:06+08:00
+tags: 
+- gatsby
+- theme
+categories: 
+- gatsby-starter
+description: 采用 Material Design 开发的响应式 Gatsby 主题。
+---
+```
 
-    Open the `my-default-starter` directory in your code editor of choice and edit `src/pages/index.js`. Save your changes and the browser will update in real time!
+## 版本记录
 
-## 🧐 What's inside?
+- v1.0.0
+  - 网站基础功能
+  - ```github action``` 自动构建
 
-A quick look at the top-level files and directories you'll see in a Gatsby project.
 
-    .
-    ├── node_modules
-    ├── src
-    ├── .gitignore
-    ├── .prettierrc
-    ├── gatsby-browser.js
-    ├── gatsby-config.js
-    ├── gatsby-node.js
-    ├── gatsby-ssr.js
-    ├── LICENSE
-    ├── package-lock.json
-    ├── package.json
-    └── README.md
-
-1.  **`/node_modules`**: This directory contains all of the modules of code that your project depends on (npm packages) are automatically installed.
-
-2.  **`/src`**: This directory will contain all of the code related to what you will see on the front-end of your site (what you see in the browser) such as your site header or a page template. `src` is a convention for “source code”.
-
-3.  **`.gitignore`**: This file tells git which files it should not track / not maintain a version history for.
-
-4.  **`.prettierrc`**: This is a configuration file for [Prettier](https://prettier.io/). Prettier is a tool to help keep the formatting of your code consistent.
-
-5.  **`gatsby-browser.js`**: This file is where Gatsby expects to find any usage of the [Gatsby browser APIs](https://www.gatsbyjs.org/docs/browser-apis/) (if any). These allow customization/extension of default Gatsby settings affecting the browser.
-
-6.  **`gatsby-config.js`**: This is the main configuration file for a Gatsby site. This is where you can specify information about your site (metadata) like the site title and description, which Gatsby plugins you’d like to include, etc. (Check out the [config docs](https://www.gatsbyjs.org/docs/gatsby-config/) for more detail).
-
-7.  **`gatsby-node.js`**: This file is where Gatsby expects to find any usage of the [Gatsby Node APIs](https://www.gatsbyjs.org/docs/node-apis/) (if any). These allow customization/extension of default Gatsby settings affecting pieces of the site build process.
-
-8.  **`gatsby-ssr.js`**: This file is where Gatsby expects to find any usage of the [Gatsby server-side rendering APIs](https://www.gatsbyjs.org/docs/ssr-apis/) (if any). These allow customization of default Gatsby settings affecting server-side rendering.
-
-9.  **`LICENSE`**: Gatsby is licensed under the MIT license.
-
-10. **`package-lock.json`** (See `package.json` below, first). This is an automatically generated file based on the exact versions of your npm dependencies that were installed for your project. **(You won’t change this file directly).**
-
-11. **`package.json`**: A manifest file for Node.js projects, which includes things like metadata (the project’s name, author, etc). This manifest is how npm knows which packages to install for your project.
-
-12. **`README.md`**: A text file containing useful reference information about your project.
-
-## 🎓 Learning Gatsby
-
-Looking for more guidance? Full documentation for Gatsby lives [on the website](https://www.gatsbyjs.org/). Here are some places to start:
-
-- **For most developers, we recommend starting with our [in-depth tutorial for creating a site with Gatsby](https://www.gatsbyjs.org/tutorial/).** It starts with zero assumptions about your level of ability and walks through every step of the process.
-
-- **To dive straight into code samples, head [to our documentation](https://www.gatsbyjs.org/docs/).** In particular, check out the _Guides_, _API Reference_, and _Advanced Tutorials_ sections in the sidebar.
-
-## 💫 Deploy
-
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/gatsbyjs/gatsby-starter-default)
-
-[![Deploy with ZEIT Now](https://zeit.co/button)](https://zeit.co/import/project?template=https://github.com/gatsbyjs/gatsby-starter-default)
-
-<!-- AUTO-GENERATED-CONTENT:END -->
+## 参考项目
+ - [hexo-theme-matery](https://github.com/blinkfox/hexo-theme-matery)
+ - [hexo-theme-sakura](https://github.com/honjun/hexo-theme-sakura)
