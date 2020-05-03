@@ -6,6 +6,7 @@ import "katex/dist/katex.min.css";
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
+import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 
 import * as tocbot from 'tocbot';
 import "tocbot/dist/styles.css";
@@ -126,10 +127,10 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function PostPage({
-  data, // this prop will be injected by the GraphQL query below.
-}) {
+export default function PostPage(props) {
   const classes = useStyles();
+  const { data, window } = props;
+  const trigger = useScrollTrigger({ disableHysteresis: true, target: window ? window() : undefined, threshold: 390 });
   const { markdownRemark } = data; // data.markdownRemark holds your post data
   const { frontmatter, html } = markdownRemark;
 
@@ -191,8 +192,13 @@ export default function PostPage({
               </div>
             </Paper>
           </Grid>
-          <Grid item md={3} id="postoc" className={classes.toc}>
-            <Paper className={classes.paper}>xs=3</Paper>
+          <Grid item md={3} className={classes.toc}>
+            <div id="postoc" style={{
+              // position: 'sticky',
+              position: trigger ? 'fixed' : 'sticky',
+              top: '4rem',
+            }}>
+            </div>
           </Grid>
         </Grid>
       </div>

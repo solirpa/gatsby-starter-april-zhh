@@ -18,17 +18,28 @@ const useStyles = makeStyles(theme => ({
   root: {
     borderRadius: '.5rem',
     color: '#000',
+    // width: '25rem',
+    margin: 'auto',
+    marginBottom: '2rem',
 
     [theme.breakpoints.up('sm')]: {
       maxWidth: '20rem',
     },
   },
+  imgCtn: {
+    height: '10rem',
+    overflow: 'hidden',
+  },
   img: {
     objectFit: 'cover',
-    height: '10rem',
+    height: '100%',
     width: '100%',
-    display: 'block',
     borderRadius: '.5rem .5rem 0 0',
+    transition: 'all 0.4s ease-in-out',
+
+    '&:hover': {
+      transform: 'scale(1.2)'
+    }
   },
   actions: {
     borderTop: `.1rem ${theme.palette.text.disabled} solid`,
@@ -69,7 +80,7 @@ const useStyles = makeStyles(theme => ({
   },
   tag: {
     backgroundImage: 'linear-gradient(to right, #da8d00 0%,  #e46223 100%)',
-    padding: '4px',
+    padding: '4px 6px',
     margin: '0 2px',
     fontSize: '0.8rem',
     fontWeight: '400',
@@ -106,12 +117,14 @@ const PostCard = ({
   return (
     <Card className={classes.root}>
       <CardActionArea>
+        <div className={classes.imgCtn}>
         <CardMedia
           className={classes.img}
           image={image}
           title="Contemplative Reptile"
           onClick={() => handleMore(path)}
         />
+        </div>
         <CardContent className={classes.content} onClick={() => handleMore(path)}>
           <Tooltip title={title} placement="top-end" arrow>
             <Typography className={classes.title} gutterBottom variant="h5" color="textPrimary" component="h1">

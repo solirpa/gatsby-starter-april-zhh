@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     width: '27rem',
     margin: 'auto',
     position: 'relative',
-    top: '-30rem',
+    bottom: '60vh',
     background: 'rgba(0,0,0,.5)',
     height: '5rem',
     borderRadius: '0.5rem',

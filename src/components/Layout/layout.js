@@ -23,8 +23,9 @@ import Header from "@/components/Navbar/header";
 import Footer from "@/components/Footer/footer";
 import ScrollProgress from "@/components/Progress/Scroll";
 import Head from "@/components/Layout/head";
+import Seo from "@/components/Seo/seo";
 
-import { getOtherImg } from '@/utils/utils';
+import { getOtherImg, getConfig } from '@/utils/utils';
 
 import "./layout.css";
 import "./scroll.less";
@@ -82,6 +83,7 @@ ScrollTop.propTypes = {
 
 
 const Layout = (props) => {
+  const config = getConfig();
   const data = useStaticQuery(graphql`
     query imageAndSiteTitleQuery {
       site {
@@ -115,6 +117,12 @@ const Layout = (props) => {
 
   return (
     <div>
+            <Seo
+        title={config.meta.title}
+        description={config.meta.description}
+        author={config.about.name}
+        lang={"zh"}
+      />
       <Head />
       <Theme mode={themeMode}>
 

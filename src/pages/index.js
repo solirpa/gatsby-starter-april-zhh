@@ -16,20 +16,20 @@ import Introduce from "@/components/About/introduce";
 import PostRectCard from "@/components/Card/postRect";
 import SEO from "@/components/Seo/seo";
 
-import { getHomeImg, getDefaultImg, getOtherImg, getRandom } from "@/utils/utils";
+import { getHomeImg, getDefaultImg, getRandom } from "@/utils/utils";
 
 import './index.less';
 
 const useStyles = makeStyles(theme => ({
   homeImgCtn: {
-    '&::before': {
-      content: "''",
-      backgroundImage: `url(${getOtherImg('dot')})`,
-      position: 'absolute',
-      width: '100%',
-      height: '100vh',
-      backgroundAttachment: 'fixed',
-    }
+    // '&::before': {
+    //   content: "''",
+    //   backgroundImage: `url(${getOtherImg('dot')})`,
+    //   position: 'absolute',
+    //   width: '100%',
+    //   height: '100vh',
+    //   backgroundAttachment: 'fixed',
+    // }
   },
   homeImg: {
     height: '100vh',
@@ -42,7 +42,7 @@ const useStyles = makeStyles(theme => ({
     height: '3rem',
     width: '100%',
     position: 'absolute',
-    top: '45rem',
+    top: '90vh',
     zIndex: theme.zIndex.drawer + 1,
     textAlign: 'center',
     cursor: 'pointer',
@@ -138,7 +138,7 @@ const IndexPage = (props) => {
 
       <div id="content" className={classes.content}>
         {
-          edges.map(({ node }) => {
+          edges.map(({ node }, index) => {
             const { frontmatter, fields: { path } } = node;
             const image = frontmatter.image || getRandom(getDefaultImg());
             const formatDate = dayjs(frontmatter.date).format('YYYY-MM-DD');
@@ -149,6 +149,7 @@ const IndexPage = (props) => {
                 <Slide direction="left" in={true} mountOnEnter unmountOnExit timeout={800}>
                   <Box>
                     <PostRectCard
+                      direction={index % 2 === 0 ? 'right' : 'left'}
                       path={path}
                       image={image}
                       date={formatDate}

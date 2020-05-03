@@ -280,13 +280,14 @@ const Header = ({ siteTitle, themeMode }) => {
                 </Grow>
               </div>
               <div className={classes.sectionMobile}>
-                <IconButton aria-label="switch dark mode" color="inherit">
+                <IconButton aria-label="switch dark mode" color="inherit" className={classes.background}>
                   <ThemeSwitch mode={themeMode.mode} onChange={themeMode.toggle} />
                 </IconButton>
                 <IconButton
                   aria-label="show more"
                   aria-controls={mobileMenuId}
                   aria-haspopup="true"
+                  className={classes.background}
                   onClick={handleMobileMenuOpen}
                   color="inherit"
                 >

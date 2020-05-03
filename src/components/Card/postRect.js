@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from "prop-types";
 
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Link from '@material-ui/core/Link';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -14,36 +15,62 @@ import Tooltip from '@material-ui/core/Tooltip';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 
+import PostCard from './post';
+
 const useStyles = makeStyles(theme => ({
   root: {
     borderRadius: '.5rem',
     color: '#000',
     width: '40rem',
+    height: '15rem',
     margin: 'auto',
+    marginBottom: '2rem',
     [theme.breakpoints.down('sm')]: {
       maxWidth: '22rem',
     },
   },
+  cardroot: {
+    height: '100%',
+  },
+  details: {
+    width: '45%',
+    height: '100%',
+    display: 'inline-flex',
+    justifyContent: 'space-around',
+    flexDirection: 'column',
+    padding: '0 1rem'
+  },
+  imgCtn: {
+    width: '55%',
+    height: '100%',
+    display: 'inline-block',
+  },
   img: {
     objectFit: 'cover',
-    height: '10rem',
     width: '100%',
-    display: 'block',
-    borderRadius: '.5rem .5rem 0 0',
+    height: '100%',
+    transition: 'all 0.4s ease-in-out',
+
+    '&:hover': {
+      transform: 'scale(1.2)'
+    }
   },
   actions: {
     borderTop: `.1rem ${theme.palette.text.disabled} solid`,
-    height: '3rem'
+    height: '3rem',
+    padding: 0,
   },
   content: {
-    padding: '.5rem',
+    padding: '.5rem 0',
+  },
+  contentmain: {
+    height: '70%',
   },
   title: {
     fontSize: '1.2rem',
     margin: 0,
-    position: 'absolute',
     top: '7.5rem',
-    color: 'white',
+    color: theme.palette.text.primary
   },
   desc: {
     lineHeight: '1.5em',
@@ -70,7 +97,7 @@ const useStyles = makeStyles(theme => ({
   },
   tag: {
     backgroundImage: 'linear-gradient(to right, #da8d00 0%,  #e46223 100%)',
-    padding: '4px',
+    padding: '4px 6px',
     margin: '0 2px',
     fontSize: '0.8rem',
     fontWeight: '400',
@@ -87,17 +114,22 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const PostRectCard = ({
-  path,
-  image,
-  date,
-  title,
-  description,
-  tags = [],
-  tagShow = true,
-  categories = [],
-  categorieShow = true
-}) => {
+const PostRectCard = (props) => {
+  const {
+    path,
+    image,
+    date,
+    title,
+    description,
+    tags = [],
+    direction = 'right',
+    tagShow = true,
+    categories = [],
+    categorieShow = true
+  } = props;
+
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up('md'));
   const classes = useStyles();
 
   const handleMore = (path) => {
@@ -105,51 +137,57 @@ const PostRectCard = ({
   }
 
   return (
-    <Card className={classes.root}>
-      <CardActionArea>
-        <CardMedia
-          className={classes.img}
-          image={image}
-          title="Contemplative Reptile"
-          onClick={() => handleMore(path)}
-        />
-        <CardContent className={classes.content} onClick={() => handleMore(path)}>
-          <Tooltip title={title} placement="top-end" arrow>
-            <Typography className={classes.title} gutterBottom variant="h5" color="textPrimary" component="h1">
-              {title.length >= 15 ? title.substring(0, 15) + '...' : title}
-            </Typography>
-          </Tooltip>
-          <Typography className={classes.desc} variant="body2" color="textSecondary" component="span">
-            {description && description.length >= 100 ? description.substring(0, 100) + '...' : description}
-          </Typography>
-        </CardContent>
-        <CardContent className={classes.content}>
-          <Typography className={classes.clock} variant="caption" color="textSecondary" component="span">
-            <AccessTimeIcon className={classes.subicon} />
-            <span className={classes.subinfo}>{date}</span>
-          </Typography>
-          {
-            categories && categories.length ? (
-              <Typography className={classes.categore} variant="caption" color="textSecondary" component="span">
-                <BookmarkIcon className={classes.subicon} />
-                <Link className={`${classes.subinfo} ${classes.category}`} onClick={() => window.location.href = `/categories/${categories[0]}`}>{categories[0]}</Link>
+    matches ? (
+      <Card className={classes.root}>
+        <CardActionArea className={classes.cardroot}>
+          <div style={{ float: direction, overflow: 'hidden' }} className={classes.imgCtn}>
+            <CardMedia
+              className={classes.img}
+              image={image}
+              title="Contemplative Reptile"
+              onClick={() => handleMore(path)}
+            />
+          </div>
+          <div className={classes.details} style={{ float: direction }}>
+            <CardContent className={classes.content}>
+              <Typography className={classes.clock} variant="caption" color="textSecondary" component="span">
+                <AccessTimeIcon className={classes.subicon} />
+                <span className={classes.subinfo}>{date}</span>
               </Typography>
-            ) : null
-          }
-        </CardContent>
-        {
-          tagShow ? (
-            <CardActions className={classes.actions} disableSpacing>
               {
-                tags && tags.slice(0, 3).map(tag => (
-                  <Link key={tag} className={classes.tag} onClick={() => window.location.href = `/tags/${tag}`}>{tag}</Link>
-                ))
+                categorieShow && categories && categories.length ? (
+                  <Typography className={classes.categore} variant="caption" color="textSecondary" component="span">
+                    <BookmarkIcon className={classes.subicon} />
+                    <Link className={`${classes.subinfo} ${classes.category}`} onClick={() => window.location.href = `/categories/${categories[0]}`}>{categories[0]}</Link>
+                  </Typography>
+                ) : null
               }
-            </CardActions>
-          ) : null
-        }
-      </CardActionArea>
-    </Card>
+            </CardContent>
+            <CardContent className={`${classes.content} ${classes.contentmain}`} onClick={() => handleMore(path)}>
+              <Tooltip title={title} placement="top-end" arrow>
+                <Typography className={classes.title} gutterBottom variant="h5" color="textPrimary" component="h1">
+                  {title.length >= 15 ? title.substring(0, 15) + '...' : title}
+                </Typography>
+              </Tooltip>
+              <Typography className={classes.desc} variant="body2" color="textSecondary" component="span">
+                {description && description.length >= 100 ? description.substring(0, 100) + '...' : description}
+              </Typography>
+            </CardContent>
+            {
+              tagShow ? (
+                <CardActions className={classes.actions} disableSpacing>
+                  {
+                    tags && tags.slice(0, 3).map(tag => (
+                      <Link key={tag} className={classes.tag} onClick={() => window.location.href = `/tags/${tag}`}>{tag}</Link>
+                    ))
+                  }
+                </CardActions>
+              ) : null
+            }
+          </div>
+        </CardActionArea>
+      </Card>
+    ) : <PostCard {...props} />
   )
 }
 

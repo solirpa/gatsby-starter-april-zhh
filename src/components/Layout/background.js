@@ -31,9 +31,12 @@ const useStyles = makeStyles(theme => ({
     overflow: 'hidden',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
-    backgroundPositionY: '-10rem',
-    [theme.breakpoints.down('md')]: {
-      backgroundPositionY: 0,
+    // backgroundPositionY: '-10rem',
+    // [theme.breakpoints.down('md')]: {
+    //   backgroundPositionY: 0,
+    // },
+    [theme.breakpoints.down('xs')]: {
+      backgroundPositionX: '-8rem',
     },
   },
 }));
