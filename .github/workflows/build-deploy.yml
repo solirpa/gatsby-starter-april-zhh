@@ -14,6 +14,11 @@ jobs:
   build-production:
     runs-on: ubuntu-latest
     steps:
+      - name: checkout
+        uses: "actions/checkout@master"
+        with:
+          ssh-key: ${{ secrets.MY_SSH_KEY }} 
+          submodules: true
       - name: Build Gatsby Site
         uses: jzweifel/gatsby-cli-github-action@master
         with:
