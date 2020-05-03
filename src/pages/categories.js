@@ -6,8 +6,6 @@ import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import NoSsr from '@material-ui/core/NoSsr';
 
-import { getHomeImg, getRandom } from '@/utils/utils';
-
 import Layout from '@/components/Layout/layout';
 import BackGround from "@/components/Layout/background";
 import Categories from '@/components/Categories';
@@ -58,7 +56,7 @@ const CategoryPage = ({ data }) => {
 
   return (
     <Layout>
-      <BackGround image={getRandom(getHomeImg())} />
+      <BackGround type="home" />
       <Container>
         <NoSsr>
           <Paper elevation={3} className={`${classes.paper} ${classes.paperTop} ${classes.categoryCtn}`}>

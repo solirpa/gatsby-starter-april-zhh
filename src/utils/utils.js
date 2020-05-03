@@ -33,7 +33,8 @@ export const getOtherImg = (type)=> {
 }
 
 export const getRandom = (arr)=> {
-  return arr[Math.floor(Math.random() * arr.length)];
+  const random = Math.floor(Math.random() * arr.length);
+  return arr[random];
 }
 
 export const getLinkImg = (type)=> {

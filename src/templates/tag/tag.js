@@ -14,7 +14,7 @@ import Slide from '@material-ui/core/Slide';
 import Box from '@material-ui/core/Box';
 import NoSsr from '@material-ui/core/NoSsr';
 
-import { getHomeImg, getDefaultImg, getRandom } from '@/utils/utils';
+import { getDefaultImg, getRandom } from '@/utils/utils';
 
 import Layout from '@/components/Layout/layout';
 import BackGround from "@/components/Layout/background";
@@ -48,7 +48,7 @@ const TagPage = ({ data, pageContext }) => {
 
   return (
     <Layout>
-      <BackGround image={getRandom(getHomeImg())} />
+      <BackGround type="home" />
       <NoSsr>
         <Container>
 

@@ -206,7 +206,7 @@ const Header = ({ siteTitle, themeMode }) => {
             return (
               <React.Fragment key={t}>
                 <ListItem button component="a" onClick={(() => {
-                  item.click()
+                  item.click && item.click()
                 }) || null} href={item.href || null}>
                   <ListItemIcon>{item.icon}</ListItemIcon>
                   <ListItemText primary={item.title} />
@@ -257,7 +257,7 @@ const Header = ({ siteTitle, themeMode }) => {
                           className={classes.background}
                           color="inherit"
                           onClick={() => {
-                            item.click()
+                            item.click && item.click()
                           }}
                           href={item.href || null}
                         >

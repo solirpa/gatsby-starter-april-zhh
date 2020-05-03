@@ -5,6 +5,7 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
+import NoSsr from '@material-ui/core/NoSsr';
 
 // import * as echarts from 'echarts';
 import echarts from 'echarts/lib/echarts';
@@ -20,7 +21,7 @@ import dayjs from 'dayjs';
 import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeline-component';
 import 'react-vertical-timeline-component/style.min.css';
 
-import { getHomeImg, getDefaultImg, getRandom } from '@/utils/utils';
+import { getDefaultImg, getRandom } from '@/utils/utils';
 
 import Layout from '@/components/Layout/layout';
 import BackGround from "@/components/Layout/background";
@@ -75,7 +76,6 @@ const TimelinePage = ({ data }) => {
   const { allMarkdownRemark } = data;
 
   const timeline = useMemo(() => {
-
     const _timeline = {};
     allMarkdownRemark.edges.forEach(({ node }) => {
       const { frontmatter, fields: { path } } = node;
@@ -204,131 +204,133 @@ const TimelinePage = ({ data }) => {
 
   return (
     <Layout>
-      <BackGround image={getRandom(getHomeImg())} />
+      <BackGround type="home" />
       <Container className={classes.tlRoot} maxWidth="md">
         <Paper elevation={3} className={`${classes.paper}`}>
           <div>
             <div id="echarts" style={{ height: '10rem' }} />
           </div>
         </Paper>
-        <VerticalTimeline className={classes.verticalTlRoot}>
-          {
-            // year
-            Object.keys(timeline).sort((a, b) => b - a).map(y => (
-              <React.Fragment key={y}>
-                <VerticalTimelineElement
-                  style={{
-                    margin: '60px 0 50px -20px',
-                  }}
-                  iconStyle={{
-                    width: '80px',
-                    height: '80px',
-                    padding: '21px 10px',
-                    color: '#fff',
-                    fontWeight: 1000,
-                    background: '#ff5722',
-                    top: '-1.5rem',
-                  }}
-                  icon={
-                    <div className={classes.iconCtn} style={{ top: '28%' }}>
-                      {y}
-                    </div>
-                  }
-                />
-                {
-                  // month
-                  Object.keys(timeline[y]).sort((a, b) => b - a).map(m => {
+        <NoSsr>
+          <VerticalTimeline className={classes.verticalTlRoot}>
+            {
+              // year
+              Object.keys(timeline).sort((a, b) => b - a).map(y => (
+                <React.Fragment key={y}>
+                  <VerticalTimelineElement
+                    style={{
+                      margin: '60px 0 50px -20px',
+                    }}
+                    iconStyle={{
+                      width: '80px',
+                      height: '80px',
+                      padding: '21px 10px',
+                      color: '#fff',
+                      fontWeight: 1000,
+                      background: '#ff5722',
+                      top: '-1.5rem',
+                    }}
+                    icon={
+                      <div className={classes.iconCtn} style={{ top: '28%' }}>
+                        {y}
+                      </div>
+                    }
+                  />
+                  {
+                    // month
+                    Object.keys(timeline[y]).sort((a, b) => b - a).map(m => {
 
-                    return (
-                      <React.Fragment key={`${y}-${m}`}>
-                        <VerticalTimelineElement
-                          style={{
-                            left: '.5rem',
-                            top: '1.5rem',
-                            margin: '10px 0 30px -20px',
-                          }}
-                          iconStyle={{
-                            width: '60px',
-                            height: '60px',
-                            padding: '21px 10px',
-                            color: '#fff',
-                            fontWeight: 800,
-                            background: '#ef6c00',
-                            top: '-0.6rem',
-                          }}
-                          icon={
-                            <div className={classes.iconCtn} style={{ top: 0 }}>
-                              {m}
-                            </div>
+                      return (
+                        <React.Fragment key={`${y}-${m}`}>
+                          <VerticalTimelineElement
+                            style={{
+                              left: '.5rem',
+                              top: '1.5rem',
+                              margin: '10px 0 30px -20px',
+                            }}
+                            iconStyle={{
+                              width: '60px',
+                              height: '60px',
+                              padding: '21px 10px',
+                              color: '#fff',
+                              fontWeight: 800,
+                              background: '#ef6c00',
+                              top: '-0.6rem',
+                            }}
+                            icon={
+                              <div className={classes.iconCtn} style={{ top: 0 }}>
+                                {m}
+                              </div>
+                            }
+                          />
+                          {
+                            // day
+                            Object.keys(timeline[y][m]).sort((a, b) => b - a).map(d => {
+                              return (
+                                timeline[y][m][d].sort((a, b) => b.timestamp - a.timestamp).map(item => (
+                                  <React.Fragment key={`${item.title}`}>
+                                    <VerticalTimelineElement
+                                      className={classes.verticalContent}
+                                      style={{
+                                        left: matchesUpMd ? '0.5rem' : 0,
+                                        top: '1rem'
+                                      }}
+                                      iconStyle={{
+                                        width: '40px',
+                                        height: '40px',
+                                        padding: '21px 10px',
+                                        color: 'white',
+                                        fontWeight: 800,
+                                        background: '#ffa726',
+                                        zIndex: 1200
+                                      }}
+                                      contentStyle={{
+                                        background: '#ffffff00',
+                                        boxShadow: '0 0',
+                                        right: '0.3rem',
+                                        position: 'absoulte',
+                                        padding: 0,
+                                      }}
+                                      contentArrowStyle={{
+                                        borderColor: '#ffa726',
+                                        content: '',
+                                        height: 0,
+                                        width: '32px',
+                                        border: '1px dashed #ffa726',
+                                        zIndex: 1001,
+                                      }}
+                                      icon={
+                                        <div className={classes.iconCtn} style={{ top: '-.5rem' }}>
+                                          {d}
+                                        </div>
+                                      }
+                                    // onTimelineElementClick={() => window.location.href = item.path}
+                                    >
+                                      <PostCard
+                                        path={item.path}
+                                        image={item.image}
+                                        date={item.formatDate}
+                                        title={item.title}
+                                        description={item.description}
+                                        tags={item.tags}
+                                        categories={item.categories}
+                                      />
+                                    </VerticalTimelineElement>
+                                  </React.Fragment>
+                                ))
+
+                              )
+                            })
                           }
-                        />
-                        {
-                          // day
-                          Object.keys(timeline[y][m]).sort((a, b) => b - a).map(d => {
-                            return (
-                              timeline[y][m][d].sort((a, b) => b.timestamp - a.timestamp).map(item => (
-                                <React.Fragment key={`${item.title}`}>
-                                  <VerticalTimelineElement
-                                    className={classes.verticalContent}
-                                    style={{
-                                      left: matchesUpMd ? '0.5rem' : 0,
-                                      top: '1rem'
-                                    }}
-                                    iconStyle={{
-                                      width: '40px',
-                                      height: '40px',
-                                      padding: '21px 10px',
-                                      color: 'white',
-                                      fontWeight: 800,
-                                      background: '#ffa726',
-                                      zIndex: 1200
-                                    }}
-                                    contentStyle={{
-                                      background: '#ffffff00',
-                                      boxShadow: '0 0',
-                                      right: '0.3rem',
-                                      position: 'absoulte',
-                                      padding: 0,
-                                    }}
-                                    contentArrowStyle={{
-                                      borderColor: '#ffa726',
-                                      content: '',
-                                      height: 0,
-                                      width: '32px',
-                                      border: '1px dashed #ffa726',
-                                      zIndex: 1001,
-                                    }}
-                                    icon={
-                                      <div className={classes.iconCtn} style={{ top: '-.5rem' }}>
-                                        {d}
-                                      </div>
-                                    }
-                                  // onTimelineElementClick={() => window.location.href = item.path}
-                                  >
-                                    <PostCard
-                                      path={item.path}
-                                      image={item.image}
-                                      date={item.formatDate}
-                                      title={item.title}
-                                      description={item.description}
-                                      tags={item.tags}
-                                      categories={item.categories}
-                                    />
-                                  </VerticalTimelineElement>
-                                </React.Fragment>
-                              ))
-
-                            )
-                          })
-                        }
-                      </React.Fragment>
-                    )
-                  })
-                }
-              </React.Fragment>
-            ))
-          }
-        </VerticalTimeline>
+                        </React.Fragment>
+                      )
+                    })
+                  }
+                </React.Fragment>
+              ))
+            }
+          </VerticalTimeline>
+        </NoSsr>
       </Container>
     </Layout>
   )

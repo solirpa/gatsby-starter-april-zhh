@@ -3,7 +3,6 @@ const config = {
   "cdn": "https://static.april-zhh.cn",
   "wordings": ["GatsbyJS", "React"],
   "meta": {
-    "favicon": "https://i.imgur.com/PO9Y4fT.jpg",
     "title": "April5's Fairyland",
     "description": "记录些有的没的",
     "gaTrackId": "UA-140673471-1"
@@ -39,11 +38,11 @@ const config = {
     ],
     "debug": [
       "/totoro.png.webp",
-      // "/floatingcastle.png.webp",
       "/arrowgirl.png.webp",
-      // "/fakeface.png.webp",
       "/sophon.png.webp",
       "/mapleleaf.png.webp",
+      // "/floatingcastle.png.webp",
+      "/fakeface.png.webp",
     ],
     "link": {
       "github": "/github.png",
