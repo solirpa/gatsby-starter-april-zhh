@@ -53,6 +53,7 @@ const useStyles = makeStyles(theme => ({
   },
   content: {
     borderRadius: '0',
+    paddingTop: '1.5rem'
   }
 }));
 
