@@ -238,7 +238,7 @@ const Header = ({ siteTitle, themeMode }) => {
         <div className={classes.grow}>
           <AppBar
             color={'default'}
-            style={{ background: 'transparent' }}
+            style={{ background: 'transparent', boxShadow: '0 0 0' }}
             onFocus={() => { }}
             onMouseOver={() => setAppbarTransparent(true)}
             onMouseLeave={() => setAppbarTransparent(false)}
