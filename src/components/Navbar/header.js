@@ -131,7 +131,7 @@ function ElevationScroll(props) {
   })
 
   return React.cloneElement(children, {
-    elevation: trigger ? 4 : 0
+    elevation: trigger ? 4 : 0,
   })
 }
 
@@ -283,10 +283,13 @@ const Header = ({ siteTitle, themeMode, window }) => {
         <div className={classes.grow}>
           <AppBar
             color={"default"}
-            style={{ 
-              background: "rgba(255,255,255,.38)", 
-              boxShadow: appbarTransparent || scroll ? "rgba(0, 0, 0, 0.2) 0px 3px 3px -2px, rgba(0, 0, 0, 0.14) 0px 3px 4px 0px, rgba(0, 0, 0, 0.12) 0px 1px 8px 0px" : "0 0 0", 
-              height: '48px' 
+            style={{
+              background: "rgba(255,255,255,.38)",
+              boxShadow:
+                appbarTransparent || scroll
+                  ? "rgba(0, 0, 0, 0.2) 0px 3px 3px -2px, rgba(0, 0, 0, 0.14) 0px 3px 4px 0px, rgba(0, 0, 0, 0.12) 0px 1px 8px 0px"
+                  : "0 0 0",
+              height: "48px",
             }}
             onFocus={() => {}}
             onMouseOver={() => setAppbarTransparent(true)}
@@ -296,7 +299,7 @@ const Header = ({ siteTitle, themeMode, window }) => {
               <div className={classes.appbarBackground} />
             </Fade>
 
-            <Toolbar style={{ minHeight: '48px' }}>
+            <Toolbar style={{ minHeight: "48px" }}>
               <Typography variant="h6" className={classes.background}>
                 <Link href="/" color="inherit" underline="none">
                   {siteTitle}
@@ -313,24 +316,18 @@ const Header = ({ siteTitle, themeMode, window }) => {
 
                   return (
                     <React.Fragment key={t}>
-                      <Grow
-                        in={appbarTransparent}
-                        style={{ transformOrigin: "0 0 0" }}
-                        {...(appbarTransparent ? { timeout: 1000 } : {})}
+                      <IconButton
+                        component="a"
+                        aria-label={t}
+                        className={classes.background}
+                        color="inherit"
+                        onClick={() => {
+                          item.click && item.click()
+                        }}
+                        href={item.href || null}
                       >
-                        <IconButton
-                          component="a"
-                          aria-label={t}
-                          className={classes.background}
-                          color="inherit"
-                          onClick={() => {
-                            item.click && item.click()
-                          }}
-                          href={item.href || null}
-                        >
-                          <>{item.icon}</>
-                        </IconButton>
-                      </Grow>
+                        <>{item.icon}</>
+                      </IconButton>
                       {item.child}
                     </React.Fragment>
                   )
@@ -359,8 +356,8 @@ const Header = ({ siteTitle, themeMode, window }) => {
                   svgStyle={{
                     mixBlendMode: "darken",
                   }}
-                  bannerColor="rgb(18, 150, 219)"
-                  octoColor="#fff"
+                  bannerColor={'black'}
+                  octoColor={'white'}
                   size={48}
                   direction="right"
                 />

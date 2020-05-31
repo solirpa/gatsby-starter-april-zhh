@@ -14394,31 +14394,6 @@ typedarray@^0.0.6:
   resolved "https://registry.npm.taobao.org/typedarray/download/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typeface-cute-font@^0.0.61:
-  version "0.0.61"
-  resolved "https://registry.npm.taobao.org/typeface-cute-font/download/typeface-cute-font-0.0.61.tgz#48127af6c2a1a75b681a0193d743b38c62cb9384"
-  integrity sha1-SBJ69sKhp1toGgGT10OzjGLLk4Q=
-
-typeface-noto-sans-sc@^0.0.71:
-  version "0.0.71"
-  resolved "https://registry.npm.taobao.org/typeface-noto-sans-sc/download/typeface-noto-sans-sc-0.0.71.tgz#214f27e781f59535a7a4d63de6d490124e8076b2"
-  integrity sha1-IU8n54H1lTWnpNY95tSQEk6AdrI=
-
-typeface-noto-serif-sc@^0.0.75:
-  version "0.0.75"
-  resolved "https://registry.npm.taobao.org/typeface-noto-serif-sc/download/typeface-noto-serif-sc-0.0.75.tgz#31076d228fca7d23fcb7fc8c0c60793fe18fee3c"
-  integrity sha1-MQdtIo/KfSP8t/yMDGB5P+GP7jw=
-
-typeface-noto-serif@^0.0.72:
-  version "0.0.72"
-  resolved "https://registry.npm.taobao.org/typeface-noto-serif/download/typeface-noto-serif-0.0.72.tgz#798e917662322443cec944ac68e2ebd42c2dd2ec"
-  integrity sha1-eY6RdmIyJEPOyUSsaOLr1Cwt0uw=
-
-typeface-open-sans@^0.0.75:
-  version "0.0.75"
-  resolved "https://registry.npm.taobao.org/typeface-open-sans/download/typeface-open-sans-0.0.75.tgz#20d0c330f14c0c40463c334adbedd6005389abe4"
-  integrity sha1-INDDMPFMDEBGPDNK2+3WAFOJq+Q=
-
 typeface-roboto@^0.0.75:
   version "0.0.75"
   resolved "https://registry.npm.taobao.org/typeface-roboto/download/typeface-roboto-0.0.75.tgz#98d5ba35ec234bbc7172374c8297277099cc712b"

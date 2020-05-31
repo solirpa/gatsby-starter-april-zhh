@@ -59,6 +59,8 @@ const useStyles = makeStyles((theme) => ({
   icon: {
     width: '1rem',
     cursor: 'pointer',
+    top: '0.3rem',
+    position: 'relative',
   }
 }));
 

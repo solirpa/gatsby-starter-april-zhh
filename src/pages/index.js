@@ -16,20 +16,20 @@ import Introduce from "@/components/About/introduce";
 import PostRectCard from "@/components/Card/postRect";
 import SEO from "@/components/Seo/seo";
 
-import { getHomeImg, getDefaultImg, getOtherImg, getRandom } from "@/utils/utils";
+import { getHomeImg, getDefaultImg, getRandom } from "@/utils/utils";
 
 import './index.less';
 
 const useStyles = makeStyles(theme => ({
   homeImgCtn: {
-    '&::before': {
-      content: "''",
-      backgroundImage: `url(${getOtherImg('dot')})`,
-      position: 'absolute',
-      width: '100%',
-      height: '100vh',
-      backgroundAttachment: 'fixed',
-    }
+    // '&::before': {
+    //   content: "''",
+    //   backgroundImage: `url(${getOtherImg('dot')})`,
+    //   position: 'absolute',
+    //   width: '100%',
+    //   height: '100vh',
+    //   backgroundAttachment: 'fixed',
+    // }
   },
   homeImg: {
     height: '100vh',
