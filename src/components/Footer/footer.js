@@ -25,7 +25,7 @@ const Footer = () => {
     <>
       <footer className={classes.footer}>
         <Typography className={classes.root}>
-          {
+          {/* {
             !isDebug() ? (
               <>
                 <span id="busuanzi_container_site_pv" style={{ display: 'block' }}>本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
@@ -33,7 +33,7 @@ const Footer = () => {
                 <br />
               </>
             ) : null
-          }
+          } */}
           © {new Date().getFullYear()}, Built with
           {` `}
           <Link

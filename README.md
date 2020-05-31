@@ -10,7 +10,7 @@
 - [MATERIAL-UI](https://material-ui.com/zh/) 设计
 - 响应式设计，桌面端、平板、手机等设备上均能很好的展现
 - 支持 Markdown
-- 集成了[不蒜子统计](http://busuanzi.ibruce.info/)、谷歌分析（`Google Analytics`)
+- 集成了谷歌分析（`Google Analytics`)
 - 支持黑暗模式
 - 基于 ```github action``` 进行自动构建
 

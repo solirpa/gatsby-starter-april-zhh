@@ -99,6 +99,9 @@ module.exports = {
         // other options
       },
     },
+    {
+      resolve: 'gatsby-plugin-zopfli'
+    },
     `gatsby-plugin-material-ui`
   ],
 }

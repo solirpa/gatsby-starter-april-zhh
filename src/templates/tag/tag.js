@@ -42,7 +42,6 @@ const useStyles = makeStyles(theme => ({
 
 // eslint-disable-next-line react/prop-types
 const TagPage = ({ data, pageContext }) => {
-  console.log('TagPage', data)
   const classes = useStyles();
   const { edges } = data.allMarkdownRemark;
   const { tag, tags } = pageContext;

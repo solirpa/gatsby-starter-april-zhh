@@ -12,6 +12,16 @@ const { createFilePath } = require(`gatsby-source-filesystem`);
 const dayjs = require('dayjs');
 const crypto = require('crypto');
 
+// gatsby-node.js
+exports.onCreateWebpackConfig = ({ actions, stage }) => {
+  if (stage === 'build-javascript') {
+    // turn off source-maps
+    actions.setWebpackConfig({
+      devtool: false
+    })
+  }
+};
+
 exports.onCreateNode = ({ node, getNode, actions }) => {
   const { createNodeField } = actions;
   // Ensures we are processing only markdown files
