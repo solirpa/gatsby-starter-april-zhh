@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 
-import { isDebug } from '@/utils/utils';
+// import { isDebug } from '@/utils/utils';
 
 const useStyles = makeStyles(theme => ({
   root: {

@@ -100,6 +100,14 @@ module.exports = {
       },
     },
     {
+      resolve: 'gatsby-plugin-web-font-loader',
+      options: {
+        google: {
+          families: ['Noto Sans SC', 'Noto Serif SC']
+        }
+      }
+    },
+    {
       resolve: 'gatsby-plugin-zopfli'
     },
     `gatsby-plugin-material-ui`

@@ -21,7 +21,7 @@ import PostCard from './post';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    borderRadius: '.5rem',
+    // borderRadius: '.5rem',
     color: '#000',
     width: '40rem',
     height: '15rem',
@@ -106,7 +106,7 @@ const useStyles = makeStyles(theme => ({
     fontWeight: '400',
     lineHeight: '22px',
     color: theme.palette.text.secondary,
-    borderRadius: '10px',
+    // borderRadius: '10px',
     // padding: '0 10px'
   },
   category: {

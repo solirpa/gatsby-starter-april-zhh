@@ -20,10 +20,10 @@ const useStyles = makeStyles(theme => ({
       position: 'absolute',
       content: "''",
       width: '100%',
-      height: '50vh',
-      top: 0,
+      height: '10vh',
+      top: '50vh',
       left: 0,
-      boxShadow: `0 -10px 10px 0 ${theme.palette.background.default} inset`,
+      boxShadow: `0 -20px 10px 10px ${theme.palette.background.default}`,
     }
   },
   backgroundiv: {

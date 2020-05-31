@@ -18,7 +18,7 @@ import { openExtendLink } from '@/utils/utils';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    borderRadius: '.5rem',
+    // borderRadius: '.5rem',
     color: '#000',
     // width: '25rem',
     margin: 'auto',
@@ -38,7 +38,7 @@ const useStyles = makeStyles(theme => ({
     objectFit: 'cover',
     height: '100%',
     width: '100%',
-    borderRadius: '.5rem .5rem 0 0',
+    // borderRadius: '.5rem .5rem 0 0',
     transition: 'all 0.4s ease-in-out',
 
     '&:hover': {

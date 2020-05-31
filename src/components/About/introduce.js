@@ -30,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
   slug: {
     color: 'white',
+    textShadow: '0 0 5px #c3c3c3',
     margin: 'auto',
     textAlign: 'center',
     paddingTop: '0.5rem',

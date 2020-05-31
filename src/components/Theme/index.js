@@ -34,6 +34,9 @@ export const Theme = ({ children, mode }) => {
 
   const theme = React.useMemo(() =>
       createMuiTheme({
+        typography: {
+          fontFamily: 'Noto Serif SC',
+        },
         palette: {
           type: prefersDarkMode ? 'dark' : 'light',
         },

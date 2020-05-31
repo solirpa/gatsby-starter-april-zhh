@@ -20,6 +20,7 @@ import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
 import TocIcon from '@material-ui/icons/Toc';
 import Grow from '@material-ui/core/Grow';
+import Fade from '@material-ui/core/Fade';
 
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -40,11 +41,20 @@ const useStyles = makeStyles((theme) => ({
   },
   background: {
     padding: '0 0.5rem',
-    color: 'white',
+    color: theme.palette.text.primary,
+    textShadow: `0 0 1px ${theme.palette.text.primary}`,
     borderRadius: '0.25rem',
     "&:hover": {
-      color: '#ff8f00',
+      color: 'gray',
     }
+  },
+  appbarBackground: {
+    position: 'absolute',
+    height: '64px',
+    width: '100%',
+    display: 'block',
+    background: theme.palette.background.default,
+    zIndex: -1
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -121,6 +131,32 @@ function HideOnScroll(props) {
     </Slide>
   );
 }
+
+function ElevationScroll(props) {
+  const { children, window } = props;
+  // Note that you normally won't need to set the window ref as useScrollTrigger
+  // will default to window.
+  // This is only being set here because the demo is in an iframe.
+  const trigger = useScrollTrigger({
+    disableHysteresis: true,
+    threshold: 0,
+    target: window ? window() : undefined,
+  });
+
+  return React.cloneElement(children, {
+    elevation: trigger ? 4 : 0,
+  });
+}
+
+ElevationScroll.propTypes = {
+  children: PropTypes.element.isRequired,
+  /**
+   * Injected by the documentation to work in an iframe.
+   * You won't need it on your project.
+   */
+  window: PropTypes.func,
+};
+
 
 HideOnScroll.propTypes = {
   children: PropTypes.element.isRequired,
@@ -234,15 +270,19 @@ const Header = ({ siteTitle, themeMode }) => {
   return (
     <>
       <CssBaseline />
-      <HideOnScroll>
+      <ElevationScroll>
         <div className={classes.grow}>
           <AppBar
             color={'default'}
-            style={{ background: 'transparent', boxShadow: '0 0 0' }}
+            style={{ background: 'rgba(255,255,255,.38)', boxShadow: '0 0 0' }}
             onFocus={() => { }}
             onMouseOver={() => setAppbarTransparent(true)}
             onMouseLeave={() => setAppbarTransparent(false)}
           >
+            <Fade in={appbarTransparent} timeout={1000}>
+            <div className={classes.appbarBackground} />
+            </Fade>
+            
             <Toolbar>
               <Typography variant="h6" className={classes.background}>
                 <Link href="/" color="inherit" underline="none">
@@ -251,7 +291,7 @@ const Header = ({ siteTitle, themeMode }) => {
               </Typography>
 
               <div className={classes.grow} />
-              <div className={`${classes.sectionDesktop}`} style={{ color: 'white' }}>
+              <div className={`${classes.sectionDesktop}`} style={{ color: theme.palette.text.primary }}>
                 {menuList.map(t => {
                   const item = getMenuItem(t);
 
@@ -323,7 +363,7 @@ const Header = ({ siteTitle, themeMode }) => {
             </Toolbar>
           </AppBar>
         </div>
-      </HideOnScroll>
+      </ElevationScroll>
       {renderMobileMenu}
     </>
   )

@@ -100,6 +100,10 @@ const useStyles = makeStyles(theme => ({
   },
   blogPostContainer: {
     overflow: 'auto',
+
+    '& h1,h2,h3': {
+      fontFamily: 'Noto Serif SC',
+    }
   },
   blogPostContent: {
     '& .line-numbers-rows': {
