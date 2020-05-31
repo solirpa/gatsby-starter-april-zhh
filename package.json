@@ -54,6 +54,7 @@
     "react-wordcloud": "^1.2.2",
     "scrollprogress": "^3.0.2",
     "tocbot": "^4.11.1",
+    "typeface-roboto": "^0.0.75",
     "use-dark-mode": "^2.3.1"
   },
   "devDependencies": {
