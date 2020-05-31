@@ -157,7 +157,7 @@ export default function PostPage(props) {
       listClass: 'tocbot-list',
       isCollapsedClass: 'tocbot-is-collapsed',
       collapsibleClass: 'tocbot-is-collapsible',
-      collapseDepth: 2,
+      collapseDepth: 1,
       headingsOffset: offsetTop,
       //orderedList: false,
     });
