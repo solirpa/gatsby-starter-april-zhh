@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
     margin: 'auto',
     marginBottom: '2rem',
 
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up('md')]: {
       maxWidth: '20rem',
       margin: '0',
       marginBottom: '2rem',
