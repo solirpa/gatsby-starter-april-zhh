@@ -10,6 +10,7 @@ import Zoom from "@material-ui/core/Zoom"
 import Box from "@material-ui/core/Box"
 // import Grow from "@material-ui/core/Grow"
 import Slide from "@material-ui/core/Slide"
+import NoSsr from "@material-ui/core/NoSsr"
 
 import Layout from "@/components/Layout/layout"
 import Introduce from "@/components/About/introduce"
@@ -20,7 +21,7 @@ import { getHomeImg, getDefaultImg, getRandom } from "@/utils/utils"
 
 import "./index.less"
 
-const postLimit = 10;
+const postLimit = 10
 
 const useStyles = makeStyles(theme => ({
   homeImgCtn: {
@@ -57,14 +58,13 @@ const useStyles = makeStyles(theme => ({
     position: "relative",
     height: `${postLimit * 19}rem`,
 
-    [theme.breakpoints.up('md')]: {
+    [theme.breakpoints.up("md")]: {
       height: `${postLimit * 16.5}rem`,
     },
-
   },
   content: {
     borderRadius: "0",
-    width: '100%',
+    width: "100%",
     paddingTop: "1.5rem",
     position: "absolute",
     top: "-3.5rem",
@@ -124,7 +124,7 @@ const IndexPage = props => {
       }
 
       setTimeout(() => {
-        setDirection('down')
+        setDirection(direction === "left" ? "right" : "left")
         setImgShow(true)
         setHomeImg(img)
       }, 300)
@@ -134,72 +134,85 @@ const IndexPage = props => {
   return (
     <Layout>
       <SEO title="Home" />
-      {/* <Grow
+      <NoSsr>
+        {/* <Grow
         in={imgShow}
         style={{ transformOrigin: `center ${direction}` }}
       > */}
-     <Slide direction={direction === 'down' ? direction : (direction === 'left' ? 'right' : 'left')} in={imgShow} style={{ transformOrigin: `center ${direction}` }}>
-        <Box className={classes.homeImgCtn}>
-          <div
-            style={{
-              backgroundImage: `url(${homeImg || getRandom(getDefaultImg())})`,
-            }}
-            className={classes.homeImg}
-          />
-        </Box>
-      </Slide>
-      {/* </Grow> */}
-      <Introduce
-        onArrowLeftClick={onArrowClick("left")}
-        onArrowRightClick={onArrowClick("right")}
-      />
-      <div className={`${classes.downIconCtn}`}>
-        <ScrollTop {...props}>
-          <KeyboardArrowDownIcon
-            size="large"
-            className={`${classes.downIcon} arrow-jump`}
-          />
-        </ScrollTop>
-      </div>
-
-      <div className={classes.contentContainer}>
-        <div id="content" className={classes.content}>
-          {edges.map(({ node }, index) => {
-            const {
-              frontmatter,
-              fields: { path },
-            } = node
-            const image = frontmatter.image || getRandom(getDefaultImg())
-            const formatDate = dayjs(frontmatter.date).format("YYYY-MM-DD")
-            const { title, description, tags, categories } = frontmatter
-
-            return (
-              <React.Fragment key={path}>
-                <Slide
-                  direction="left"
-                  in={true}
-                  mountOnEnter
-                  unmountOnExit
-                  timeout={800}
-                >
-                  <Box>
-                    <PostRectCard
-                      direction={index % 2 === 0 ? "right" : "left"}
-                      path={path}
-                      image={image}
-                      date={formatDate}
-                      title={title}
-                      description={description}
-                      tags={tags}
-                      categories={categories}
-                    />
-                  </Box>
-                </Slide>
-              </React.Fragment>
-            )
-          })}
+        <Slide
+          direction={
+            direction === "down"
+              ? direction
+              : direction === "left"
+              ? "right"
+              : "left"
+          }
+          in={imgShow}
+          style={{ transformOrigin: `center ${direction}` }}
+        >
+          <Box className={classes.homeImgCtn}>
+            <div
+              style={{
+                backgroundImage: `url(${homeImg ||
+                  getRandom(getDefaultImg())})`,
+              }}
+              className={classes.homeImg}
+            />
+          </Box>
+        </Slide>
+        {/* </Grow> */}
+        <Introduce
+          onArrowLeftClick={onArrowClick("left")}
+          onArrowRightClick={onArrowClick("right")}
+        />
+        <div className={`${classes.downIconCtn}`}>
+          <ScrollTop {...props}>
+            <KeyboardArrowDownIcon
+              size="large"
+              className={`${classes.downIcon} arrow-jump`}
+            />
+          </ScrollTop>
         </div>
-      </div>
+
+        <div className={classes.contentContainer}>
+          <div id="content" className={classes.content}>
+            {edges.map(({ node }, index) => {
+              const {
+                frontmatter,
+                fields: { path },
+              } = node
+              const image = frontmatter.image || getRandom(getDefaultImg())
+              const formatDate = dayjs(frontmatter.date).format("YYYY-MM-DD")
+              const { title, description, tags, categories } = frontmatter
+
+              return (
+                <React.Fragment key={path}>
+                  <Slide
+                    direction="left"
+                    in={true}
+                    mountOnEnter
+                    unmountOnExit
+                    timeout={800}
+                  >
+                    <Box>
+                      <PostRectCard
+                        direction={index % 2 === 0 ? "right" : "left"}
+                        path={path}
+                        image={image}
+                        date={formatDate}
+                        title={title}
+                        description={description}
+                        tags={tags}
+                        categories={categories}
+                      />
+                    </Box>
+                  </Slide>
+                </React.Fragment>
+              )
+            })}
+          </div>
+        </div>
+      </NoSsr>
     </Layout>
   )
 }
