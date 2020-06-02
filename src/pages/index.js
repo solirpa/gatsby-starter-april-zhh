@@ -108,12 +108,13 @@ ScrollTop.propTypes = {
   window: PropTypes.func,
 }
 
+const imgs = getHomeImg().sort(()=> Math.random()>.5 ? -1 : 1);
+
 const IndexPage = props => {
   const classes = useStyles();
-  const [slideIndex, setSlideIndex] = useState(1);
+  const [slideIndex, setSlideIndex] = useState(2);
   const { data } = props;
   const { edges } = data.allMarkdownRemark;
-  const imgs = getHomeImg();
 
   const onArrowClick = direction => {
     return () => {
@@ -134,7 +135,6 @@ const IndexPage = props => {
         }
       }
 
-      console.log('index', index)
       setSlideIndex(index);
     }
   }
@@ -148,8 +148,6 @@ const IndexPage = props => {
               <Carousel
                 withoutControls={true}
                 slideIndex={slideIndex}
-                wrapAround={true}
-                dragging={false}
                 swiping={false}
               >
                 {
