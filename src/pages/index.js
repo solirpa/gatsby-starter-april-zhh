@@ -41,6 +41,11 @@ const useStyles = makeStyles(theme => ({
     backgroundPosition: "center",
     MozBackgroundSize: "100%",
   },
+  image: {
+    height: '100vh',
+    width: '100%',
+    objectFit: 'cover'
+  },
   downIconCtn: {
     height: "3rem",
     width: "100%",
@@ -129,6 +134,7 @@ const IndexPage = props => {
         }
       }
 
+      console.log('index', index)
       setSlideIndex(index);
     }
   }
@@ -143,10 +149,12 @@ const IndexPage = props => {
                 withoutControls={true}
                 slideIndex={slideIndex}
                 wrapAround={true}
+                dragging={false}
+                swiping={false}
               >
                 {
                   imgs.map((item, index)=> (
-                    <img key={`home_${index}`} src={item} alt={`home_${index}`} />
+                    <img key={`home_${index}`} className={classes.image} src={item} alt={`home_${index}`} />
                   ))
                 }
               </Carousel>
