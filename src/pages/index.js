@@ -61,7 +61,7 @@ const useStyles = makeStyles(theme => ({
   },
   contentContainer: {
     position: "relative",
-    height: `${postLimit * 19}rem`,
+    height: `${postLimit * 19.2}rem`,
 
     [theme.breakpoints.up("md")]: {
       height: `${postLimit * 16.5}rem`,
@@ -70,7 +70,7 @@ const useStyles = makeStyles(theme => ({
   content: {
     borderRadius: "0",
     width: "100%",
-    paddingTop: "1.5rem",
+    paddingTop: "3.5rem",
     position: "absolute",
     top: "-3.5rem",
   },
