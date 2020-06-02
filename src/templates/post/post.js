@@ -162,13 +162,15 @@ export default function PostPage(props) {
   const trigger = useScrollTrigger({
     disableHysteresis: true,
     target: window ? window() : undefined,
-    threshold: 390,
+    threshold: 638,
   })
   const { markdownRemark } = data // data.markdownRemark holds your post data
   const { frontmatter, html } = markdownRemark
 
   const _html = useMemo(()=> {
-    return html.replace(/<\/h3>/g, '</h4>').replace(/<h3/g, '<h4').replace(/<\/h2>/g, '</h3>').replace(/<h2/g, '<h3').replace(/<\/h1>/g, '</h2>').replace(/<h1/g, '<h2');
+    return html.replace(/<\/h3>/g, '</h4>').replace(/<h3/g, '<h4')
+                .replace(/<\/h2>/g, '</h3>').replace(/<h2/g, '<h3')
+                .replace(/<\/h1>/g, '</h2>').replace(/<h1/g, '<h2');
   }, [html]);
 
   useEffect(() => {

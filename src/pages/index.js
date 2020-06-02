@@ -3,12 +3,12 @@ import PropTypes from "prop-types"
 import { graphql } from "gatsby"
 
 import dayjs from "dayjs"
+import Carousel from "nuka-carousel"
 
 import { makeStyles } from "@material-ui/core/styles"
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown"
 import Zoom from "@material-ui/core/Zoom"
 import Box from "@material-ui/core/Box"
-// import Grow from "@material-ui/core/Grow"
 import Slide from "@material-ui/core/Slide"
 import NoSsr from "@material-ui/core/NoSsr"
 
@@ -104,30 +104,32 @@ ScrollTop.propTypes = {
 }
 
 const IndexPage = props => {
-  const classes = useStyles()
-  const [imgShow, setImgShow] = useState(true)
-  const [direction, setDirection] = useState("right")
-  const { data } = props
-  const { edges } = data.allMarkdownRemark
-  const imgs = getHomeImg()
-  const [homeImg, setHomeImg] = useState(getRandom(imgs))
+  const classes = useStyles();
+  const [slideIndex, setSlideIndex] = useState(1);
+  const { data } = props;
+  const { edges } = data.allMarkdownRemark;
+  const imgs = getHomeImg();
 
   const onArrowClick = direction => {
     return () => {
-      let img = getRandom(imgs)
+      let index = 1;
+      if (direction === 'right') {
+        index = slideIndex - 1;
 
-      setImgShow(!imgShow)
-      setDirection(direction)
-
-      while (img === homeImg) {
-        img = getRandom(imgs)
+        if (index < 0) {
+          index = 0;
+        }
       }
 
-      setTimeout(() => {
-        setDirection(direction === "left" ? "right" : "left")
-        setImgShow(true)
-        setHomeImg(img)
-      }, 300)
+      if (direction === 'left') {
+        index = slideIndex + 1;
+
+        if (index === imgs.length) {
+          index = imgs.length - 1;
+        }
+      }
+
+      setSlideIndex(index);
     }
   }
 
@@ -135,33 +137,26 @@ const IndexPage = props => {
     <Layout>
       <SEO title="Home" />
       <NoSsr>
-        {/* <Grow
-        in={imgShow}
-        style={{ transformOrigin: `center ${direction}` }}
-      > */}
-        <Slide
-          direction={
-            direction === "down"
-              ? direction
-              : direction === "left"
-              ? "right"
-              : "left"
-          }
-          in={imgShow}
-          style={{ transformOrigin: `center ${direction}` }}
-        >
           <Box className={classes.homeImgCtn}>
-            <div
-              style={{
-                backgroundImage: `url(${homeImg ||
-                  getRandom(getDefaultImg())})`,
-              }}
-              className={classes.homeImg}
-            />
+            <div className={classes.homeImg}>
+              <Carousel
+                withoutControls={true}
+                slideIndex={slideIndex}
+                wrapAround={true}
+              >
+                {
+                  imgs.map((item, index)=> (
+                    <img key={`home_${index}`} src={item} alt={`home_${index}`} />
+                  ))
+                }
+              </Carousel>
+            </div>
           </Box>
-        </Slide>
-        {/* </Grow> */}
         <Introduce
+          disableArrow={(()=> {
+            if (slideIndex === 0) return 'right';
+            if (slideIndex === imgs.length - 1) return 'left';
+          })()}
           onArrowLeftClick={onArrowClick("left")}
           onArrowRightClick={onArrowClick("right")}
         />
