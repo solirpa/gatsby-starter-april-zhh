@@ -118,6 +118,11 @@ const useStyles = makeStyles(theme => ({
       paddingTop: "1rem",
       paddingLeft: "0.5rem",
     },
+
+    "& pre[class*=\"language-\"]": {
+      background: '#011627',
+      border: 'unset'
+    }
   },
   backImgCtn: {
     // "&::before": {
