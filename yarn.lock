@@ -879,6 +879,13 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
+"@babel/runtime@^7.7.7":
+  version "7.10.2"
+  resolved "https://registry.npm.taobao.org/@babel/runtime/download/@babel/runtime-7.10.2.tgz#d103f21f2602497d38348a32e008637d506db839"
+  integrity sha1-0QPyHyYCSX04NIoy4AhjfVBtuDk=
+  dependencies:
+    regenerator-runtime "^0.13.4"
+
 "@babel/standalone@^7.9.5":
   version "7.9.6"
   resolved "https://registry.npm.taobao.org/@babel/standalone/download/@babel/standalone-7.9.6.tgz#7a5f82c6fa29959b12f708213be6de8ec0b79338"
@@ -4172,7 +4179,7 @@ csso@^4.0.2:
   dependencies:
     css-tree "1.0.0-alpha.39"
 
-csstype@^2.2.0, csstype@^2.5.2, csstype@^2.5.5, csstype@^2.6.5, csstype@^2.6.7:
+csstype@^2.2.0, csstype@^2.5.2, csstype@^2.5.5, csstype@^2.6.5, csstype@^2.6.6, csstype@^2.6.7:
   version "2.6.10"
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-2.6.10.tgz#e63af50e66d7c266edb6b32909cfd0aabe03928b"
   integrity sha512-D34BqZU4cIlMCY93rZHbrq9pjTAQJ3U8S8rfBqjwHxkGPThWFjzZDQpgMJY0QViLxth6ZKYiwFBo14RdN44U/w==
@@ -4220,7 +4227,7 @@ d3-dispatch@1, d3-dispatch@^1.0.3, d3-dispatch@^1.0.6:
   resolved "https://registry.npm.taobao.org/d3-dispatch/download/d3-dispatch-1.0.6.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fd3-dispatch%2Fdownload%2Fd3-dispatch-1.0.6.tgz#00d37bcee4dd8cd97729dd893a0ac29caaba5d58"
   integrity sha1-ANN7zuTdjNl3Kd2JOgrCnKq6XVg=
 
-d3-ease@1:
+d3-ease@1, d3-ease@^1.0.3:
   version "1.0.6"
   resolved "https://registry.npm.taobao.org/d3-ease/download/d3-ease-1.0.6.tgz#ebdb6da22dfac0a22222f2d4da06f66c416a0ec0"
   integrity sha1-69ttoi36wKIiIvLU2gb2bEFqDsA=
@@ -4273,7 +4280,7 @@ d3-time@1:
   resolved "https://registry.npm.taobao.org/d3-time/download/d3-time-1.1.0.tgz#b1e19d307dae9c900b7e5b25ffc5dcc249a8a0f1"
   integrity sha1-seGdMH2unJALflsl/8XcwkmooPE=
 
-d3-timer@1:
+d3-timer@1, d3-timer@^1.0.9:
   version "1.0.10"
   resolved "https://registry.npm.taobao.org/d3-timer/download/d3-timer-1.0.10.tgz?cache=0&sync_timestamp=1573938297645&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fd3-timer%2Fdownload%2Fd3-timer-1.0.10.tgz#dfe76b8a91748831b13b6d9c793ffbd508dd9de5"
   integrity sha1-3+dripF0iDGxO22ceT/71QjdneU=
@@ -5438,7 +5445,7 @@ executable@^4.1.0:
   dependencies:
     pify "^2.2.0"
 
-exenv@^1.2.1:
+exenv@^1.2.0, exenv@^1.2.1:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/exenv/-/exenv-1.2.2.tgz#2ae78e85d9894158670b03d47bec1f03bd91bb9d"
   integrity sha1-KueOhdmJQVhnCwPUe+wfA72Ru50=
@@ -8895,6 +8902,13 @@ jsx-ast-utils@^2.2.1, jsx-ast-utils@^2.2.3:
     array-includes "^3.0.3"
     object.assign "^4.1.0"
 
+kapellmeister@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.npm.taobao.org/kapellmeister/download/kapellmeister-3.0.1.tgz#419b715cd221acda3db79892caedf63e1c9f7d25"
+  integrity sha1-QZtxXNIhrNo9t5iSyu32PhyffSU=
+  dependencies:
+    d3-timer "^1.0.9"
+
 katex@^0.11.1:
   version "0.11.1"
   resolved "https://registry.npm.taobao.org/katex/download/katex-0.11.1.tgz#df30ca40c565c9df01a466a00d53e079e84ffaa2"
@@ -10231,6 +10245,18 @@ nth-check@^1.0.1, nth-check@^1.0.2, nth-check@~1.0.1:
   integrity sha1-sr0pXDfj3VijvwcAN2Zjuk2c8Fw=
   dependencies:
     boolbase "~1.0.0"
+
+nuka-carousel@^4.7.0:
+  version "4.7.0"
+  resolved "https://registry.npm.taobao.org/nuka-carousel/download/nuka-carousel-4.7.0.tgz#30d56304fdf1de28ded2781be6cc280efc6bae0e"
+  integrity sha1-MNVjBP3x3ije0ngb5swoDvxrrg4=
+  dependencies:
+    csstype "^2.6.6"
+    d3-ease "^1.0.3"
+    exenv "^1.2.0"
+    prop-types "^15.6.0"
+    react-move "^6.1.0"
+    wicg-inert "^3.0.3"
 
 null-loader@^3.0.0:
   version "3.0.0"
@@ -11600,7 +11626,7 @@ prompts@^2.3.2:
     kleur "^3.0.3"
     sisteransi "^1.0.4"
 
-prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.2:
+prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.2:
   version "15.7.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
@@ -11937,6 +11963,15 @@ react-lifecycles-compat@^3.0.4:
   version "3.0.4"
   resolved "https://registry.npm.taobao.org/react-lifecycles-compat/download/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha1-TxonOv38jzSIqMUWv9p4+HI1I2I=
+
+react-move@^6.1.0:
+  version "6.1.0"
+  resolved "https://registry.npm.taobao.org/react-move/download/react-move-6.1.0.tgz#c1cc8211f0d722bca0077816a0666992fbe600c8"
+  integrity sha1-wcyCEfDXIrygB3gWoGZpkvvmAMg=
+  dependencies:
+    "@babel/runtime" "^7.7.7"
+    kapellmeister "^3.0.1"
+    prop-types "^15.7.2"
 
 react-reconciler@^0.24.0:
   version "0.24.0"
@@ -14394,31 +14429,6 @@ typedarray@^0.0.6:
   resolved "https://registry.npm.taobao.org/typedarray/download/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typeface-cute-font@^0.0.61:
-  version "0.0.61"
-  resolved "https://registry.npm.taobao.org/typeface-cute-font/download/typeface-cute-font-0.0.61.tgz#48127af6c2a1a75b681a0193d743b38c62cb9384"
-  integrity sha1-SBJ69sKhp1toGgGT10OzjGLLk4Q=
-
-typeface-noto-sans-sc@^0.0.71:
-  version "0.0.71"
-  resolved "https://registry.npm.taobao.org/typeface-noto-sans-sc/download/typeface-noto-sans-sc-0.0.71.tgz#214f27e781f59535a7a4d63de6d490124e8076b2"
-  integrity sha1-IU8n54H1lTWnpNY95tSQEk6AdrI=
-
-typeface-noto-serif-sc@^0.0.75:
-  version "0.0.75"
-  resolved "https://registry.npm.taobao.org/typeface-noto-serif-sc/download/typeface-noto-serif-sc-0.0.75.tgz#31076d228fca7d23fcb7fc8c0c60793fe18fee3c"
-  integrity sha1-MQdtIo/KfSP8t/yMDGB5P+GP7jw=
-
-typeface-noto-serif@^0.0.72:
-  version "0.0.72"
-  resolved "https://registry.npm.taobao.org/typeface-noto-serif/download/typeface-noto-serif-0.0.72.tgz#798e917662322443cec944ac68e2ebd42c2dd2ec"
-  integrity sha1-eY6RdmIyJEPOyUSsaOLr1Cwt0uw=
-
-typeface-open-sans@^0.0.75:
-  version "0.0.75"
-  resolved "https://registry.npm.taobao.org/typeface-open-sans/download/typeface-open-sans-0.0.75.tgz#20d0c330f14c0c40463c334adbedd6005389abe4"
-  integrity sha1-INDDMPFMDEBGPDNK2+3WAFOJq+Q=
-
 typeface-roboto@^0.0.75:
   version "0.0.75"
   resolved "https://registry.npm.taobao.org/typeface-roboto/download/typeface-roboto-0.0.75.tgz#98d5ba35ec234bbc7172374c8297277099cc712b"
@@ -15208,6 +15218,11 @@ which@^2.0.1:
   integrity sha1-fGqN0KY2oDJ+ELWckobu6T8/UbE=
   dependencies:
     isexe "^2.0.0"
+
+wicg-inert@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.npm.taobao.org/wicg-inert/download/wicg-inert-3.0.3.tgz#7d05eaed64176887ee4c66fc0c4d6fe4b38ccce5"
+  integrity sha1-fQXq7WQXaIfuTGb8DE1v5LOMzOU=
 
 wide-align@^1.1.0:
   version "1.1.3"

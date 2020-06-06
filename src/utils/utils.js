@@ -16,7 +16,7 @@ export const openExtendLink = (link)=> {
 
 export const getHomeImg = ()=> {
   const img = isDebug() ? 
-    config.img.debug : 
+    config.img.debug.map(item=> `/default${item}`) : 
     config.img.home.map(item=> `${config.cdn}/website/home${item}`);
 
   return img;
@@ -24,7 +24,7 @@ export const getHomeImg = ()=> {
 
 export const getDefaultImg = ()=> {
   const img = isDebug() ? 
-  config.img.default : 
+  config.img.default.map(item=> `/default${item}`) : 
   config.img.default.map(item=> `${config.cdn}/website/home${item}`);
 
   return img;

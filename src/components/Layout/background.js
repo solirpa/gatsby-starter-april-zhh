@@ -4,30 +4,30 @@ import PropTypes from "prop-types";
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 
-import { getDefaultImg, getHomeImg, getOtherImg, getRandom } from '@/utils/utils';
+import { getDefaultImg, getHomeImg, getRandom } from '@/utils/utils';
 
 const useStyles = makeStyles(theme => ({
   backImgCtn: {
-    '&::before': {
-      content: "''",
-      backgroundImage: `url(${getOtherImg('dot')})`,
-      position: 'absolute',
-      width: '100%',
-      height: '50vh',
-      backgroundAttachment: 'fixed',
-    },
+    // '&::before': {
+    //   content: "''",
+    //   backgroundImage: `url(${getOtherImg('dot')})`,
+    //   position: 'absolute',
+    //   width: '100%',
+    //   height: '75vh',
+    //   backgroundAttachment: 'fixed',
+    // },
     '&::after': {
       position: 'absolute',
       content: "''",
       width: '100%',
       height: '10vh',
-      top: '50vh',
+      top: '75vh',
       left: 0,
       boxShadow: `0 -20px 10px 10px ${theme.palette.background.default}`,
     }
   },
   backgroundiv: {
-    height: '50vh',
+    height: '75vh',
     overflow: 'hidden',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
