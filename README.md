@@ -20,13 +20,18 @@
 git clone https://github.com/aprilyzl0405/gatsby-starter-april-zhh.git
 ```
 
-## 配置
+## 目录结构
+```
+gatsby-starter-april-zhh
+├── data                    // 文章目录
+├── config                  // 配置文件
+│   └── config.js
+│── src                     // 主题源码
+│── static                  // 静态文件
+└── package.json
+```
 
-### 文章所在目录 `/data`
-
-### 配置文件 `/config/config.js` 
-
-### 图床链接由 ```cdn + img``` 组合而成
+## 配置文件介绍
  - cdn：配置 ```cdn``` 域名
  - img
    - home：首页和各个引导页的背景图
@@ -56,6 +61,16 @@ description: 采用 Material Design 开发的响应式 Gatsby 主题。
 - v1.0.0
   - 网站基础功能
   - ```github action``` 自动构建
+- v1.1.0
+  - 首页优化
+    - 轮播图的切换
+    - 文章入口使用正方形 paper
+  - 更换 layout 默认字体
+  - header 优化
+  - 文章页面优化
+    - 目录默认改为二级目录显示
+    - 优化目录滚动时和 header 的贴合效果
+    - 标题显示优化
 
 
 ## 参考项目
