@@ -119,7 +119,7 @@ const useStyles = makeStyles(theme => ({
       paddingLeft: "0.5rem",
     },
 
-    "& pre[class*=\"language-\"]": {
+    "& pre[class*=\"language-\"], code[class*=language-]": {
       background: '#011627',
       border: 'unset'
     }
