@@ -1,18 +1,17 @@
-import React from "react"
-import PropTypes from "prop-types"
+import React, { FC } from "react";
 
-import { makeStyles } from "@material-ui/core/styles"
-import Typography from "@material-ui/core/Typography"
-import Grid from "@material-ui/core/Grid"
-import Box from "@material-ui/core/Box"
+import { makeStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
 
-import ArrowBackIosOutlinedIcon from "@material-ui/icons/ArrowBackIosOutlined"
-import ArrowForwardIosOutlinedIcon from "@material-ui/icons/ArrowForwardIosOutlined"
-import FormatQuoteIcon from "@material-ui/icons/FormatQuote"
+import ArrowBackIosOutlinedIcon from "@material-ui/icons/ArrowBackIosOutlined";
+import ArrowForwardIosOutlinedIcon from "@material-ui/icons/ArrowForwardIosOutlined";
+import FormatQuoteIcon from "@material-ui/icons/FormatQuote";
 
-import { getConfig, getLinkImg } from "@/utils/utils"
+import useConfig from '@/components/Config';
 
-import "./about.less"
+import "./about.less";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -64,12 +63,17 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-const Introduce = ({ disableArrow, onArrowLeftClick, onArrowRightClick }) => {
-  const classes = useStyles()
-  const config = getConfig()
+interface IntroduceProps {
+  disableArrow: string;
+  onArrowLeftClick: ()=> void;
+  onArrowRightClick: ()=> void;
+}
 
-  const openLink = type => {
-    console.log(type)
+const Introduce: FC<IntroduceProps> = ({ disableArrow, onArrowLeftClick, onArrowRightClick }) => {
+  const classes = useStyles();
+  const { config, getLinkImg } = useConfig();
+
+  const openLink = (type: string) => {
 
     if (type === "mail") {
       const mail = "mailto:" + config.link.mail
@@ -77,7 +81,7 @@ const Introduce = ({ disableArrow, onArrowLeftClick, onArrowRightClick }) => {
       return
     }
 
-    window.open(config.link[type])
+    window.open(config.link[type]);
   }
 
   return (
@@ -137,9 +141,4 @@ const Introduce = ({ disableArrow, onArrowLeftClick, onArrowRightClick }) => {
   )
 }
 
-Introduce.propTypes = {
-  onArrowLeftClick: PropTypes.func,
-  onArrowRightClick: PropTypes.func,
-}
-
-export default Introduce
+export default Introduce;

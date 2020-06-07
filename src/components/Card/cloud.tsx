@@ -1,7 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { FC } from 'react';
 
-import ReactWordcloud from 'react-wordcloud';
+import ReactWordcloud, { Word } from 'react-wordcloud';
 import { select } from 'd3-selection';
 
 import { openExtendLink } from '@/utils/utils';
@@ -12,12 +11,17 @@ const wordCloudColors = [
   '#85c1e9',
 ];
 
-const Cloud = ({ datas = [], link }) => {
+interface CloudProps { 
+  datas: any[];
+  link: string;
+}
 
-  const getCallback = callbackName => (word, event) => {
+const Cloud: FC<CloudProps> = ({ datas = [], link }) => {
+
+  const getCallback: (n: string)=> ((word: Word, event?: MouseEvent | undefined) => void) = callbackName => (word, event) => {
     const isActive = callbackName !== 'onWordMouseOut';
-    const element = event.target;
-    const text = select(element);
+    const element: any = (event as MouseEvent).target;
+    const text: any = select(element);
     text
       .on('click', () => {
         if (isActive) {
@@ -29,9 +33,9 @@ const Cloud = ({ datas = [], link }) => {
       .attr('text-decoration', isActive ? 'underline' : 'none')
   }
 
-  const archimedeanSpiral = (size) => {
+  const archimedeanSpiral = (size: number[]) => {
     const e = size[0] / size[1];
-    return function (t) {
+    return function (t: any) {
       return [e * (t *= .1) * Math.cos(t), t * Math.sin(t)];
     }
   }
@@ -48,9 +52,10 @@ const Cloud = ({ datas = [], link }) => {
         fontWeight: 'normal',
         padding: 3,
         rotations: 3,
-        rotationAngles: [0],
+        rotationAngles: [0, 0],
         scale: 'sqrt',
-        spiral: archimedeanSpiral,
+        // spiral: archimedeanSpiral,
+        spiral: "archimedean",
         transitionDuration: 100,
       }}
       callbacks={{
@@ -62,9 +67,5 @@ const Cloud = ({ datas = [], link }) => {
     />
   )
 }
-
-Cloud.propTypes = {
-  datas: PropTypes.array,
-};
 
 export default Cloud;

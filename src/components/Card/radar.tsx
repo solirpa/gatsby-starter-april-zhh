@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
+import React, { FC, useEffect } from 'react';
 
 import { useTheme } from '@material-ui/core/styles';
 
@@ -11,26 +10,30 @@ import 'echarts/lib/component/radar';
 import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/title';
 
-const Radar = ({ datas = [] }) => {
+interface RadarProps { 
+  datas: any[];
+}
+
+const Radar: FC<RadarProps> = ({ datas = [] }) => {
   const theme = useTheme();
 
   useEffect(() => {
     if (datas.length) {
-      const radarChart = echarts.init(document.getElementById('echarts-radar'));
+      const radarChart = echarts.init(document.getElementById('echarts-radar') as HTMLDivElement);
 
       // Find the maximum and average values of the post categories.
-      const radarValueArr = [];
+      const radarValueArr: number[] = [];
       datas.forEach(item => {
         radarValueArr.push(item.value);
       });
       const max = Math.max.apply(null, radarValueArr) + Math.min.apply(null, radarValueArr);
       // Calculate the data needed for the radar chart.
-      const indicatorArr = [];
+      const indicatorArr: { name: string; max: number; }[] = [];
       datas.forEach(item => {
         indicatorArr.push({ 'name': item.text, 'max': max });
       });
 
-      const option = {
+      const option: any = {
         title: {
           left: 'center',
           text: '文章分类雷达图',
@@ -44,7 +47,7 @@ const Radar = ({ datas = [] }) => {
         radar: {
           name: {
             textStyle: {
-              color: theme.palette.text.main,
+              color: theme.palette.text.primary,
             }
           },
           indicator: indicatorArr,
@@ -75,9 +78,5 @@ const Radar = ({ datas = [] }) => {
     </>
   )
 }
-
-Radar.propTypes = {
-  datas: PropTypes.array,
-};
 
 export default Radar;

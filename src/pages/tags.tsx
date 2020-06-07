@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { graphql } from 'gatsby';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -34,16 +34,30 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const TagsPage = ({ data }) => {
+interface TagsPageProps { 
+  data: {
+    allMarkdownRemark: {
+      edges: {
+        node: {
+          frontmatter: {
+            tags: string[];
+          }
+        };
+      }[];
+    }
+  }
+}
+
+const TagsPage: FC<TagsPageProps> = ({ data }) => {
   const classes = useStyles();
-  const [tags, setTags] = useState([]);
+  const [tags, setTags] = useState<{ text: string; value: number; }[]>([]);
 
   useEffect(() => {
     const tagMap = new Map();
     data.allMarkdownRemark.edges.forEach(({ node }) => {
       const { tags = [] } = node.frontmatter;
 
-      tags && tags.forEach((name) => {
+      tags && tags.forEach(name => {
         if (tagMap.has(name)) {
           tagMap.set(name, tagMap.get(name) + 1);
         } else {

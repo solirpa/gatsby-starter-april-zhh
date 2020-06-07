@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
+import React, { FC, useState, useEffect } from "react";
 
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 
-import { getDefaultImg, getHomeImg, getRandom } from '@/utils/utils';
+import useConfig from '@/components/Config';
+import { getRandom } from '@/utils/utils';
 
 const useStyles = makeStyles(theme => ({
   backImgCtn: {
@@ -42,9 +42,15 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const BackGround = ({ image, type }) => {
+interface BackGroundProps { 
+  image?: string;
+  type?: string;
+}
+
+const BackGround: FC<BackGroundProps> = ({ image = '', type }) => {
   const classes = useStyles();
-  const [showImage, setShowImage] = useState(image || null);
+  const { getDefaultImg, getHomeImg } = useConfig();
+  const [showImage, setShowImage] = useState(image);
 
   useEffect(()=> {
     let getImg = getDefaultImg;
@@ -59,12 +65,6 @@ const BackGround = ({ image, type }) => {
       <div className={classes.backgroundiv} style={{ backgroundImage: showImage && `url(${showImage})` }} />
     </Box>
   )
-}
-
-
-BackGround.propTypes = {
-  image: PropTypes.string,
-  type: PropTypes.string,
 }
 
 export default BackGround;

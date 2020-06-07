@@ -1,23 +1,24 @@
-import React, { useState } from "react"
-import PropTypes from "prop-types"
-import { graphql } from "gatsby"
+import React, { FC, useState } from "react";
+import { graphql } from "gatsby";
 
-import dayjs from "dayjs"
-import Carousel from "nuka-carousel"
+import dayjs from "dayjs";
+import Carousel from "nuka-carousel";
 
-import { makeStyles } from "@material-ui/core/styles"
-import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown"
-import Zoom from "@material-ui/core/Zoom"
-import Box from "@material-ui/core/Box"
-import Slide from "@material-ui/core/Slide"
-import NoSsr from "@material-ui/core/NoSsr"
+import { makeStyles } from "@material-ui/core/styles";
+import IconButton from "@material-ui/core/IconButton";
+import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
+import Zoom from "@material-ui/core/Zoom";
+import Box from "@material-ui/core/Box";
+import Slide from "@material-ui/core/Slide";
+import NoSsr from "@material-ui/core/NoSsr";
 
-import Layout from "@/components/Layout/layout"
-import Introduce from "@/components/About/introduce"
-import PostRectCard from "@/components/Card/postRect"
-import SEO from "@/components/Seo/seo"
+import Layout from "@/components/Layout/layout";
+import Introduce from "@/components/About/introduce";
+import PostRectCard from "@/components/Card/postRect";
+import SEO from "@/components/Seo/seo";
 
-import { getHomeImg, getDefaultImg, getRandom } from "@/utils/utils"
+import useConfig from '@/components/Config';
+import { getRandom } from "@/utils/utils"
 
 import "./index.less"
 
@@ -56,6 +57,9 @@ const useStyles = makeStyles(theme => ({
     cursor: "pointer",
   },
   downIcon: {
+    height: '3rem',
+    width: '3rem',
+    background: '#80808052',
     fontSize: "3rem",
     color: "#fff",
   },
@@ -76,12 +80,17 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-function ScrollTop(props) {
-  const { children } = props
-  const classes = useStyles()
+interface ScrollProps {
+  window?: () => Window;
+  children: React.ReactElement;
+}
 
-  const handleClick = event => {
-    const anchor = (event.target.ownerDocument || document).querySelector(
+function ScrollTop(props: ScrollProps) {
+  const classes = useStyles();
+  const { children } = props;
+
+  const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    const anchor = ((event.target as HTMLDivElement).ownerDocument || document).querySelector(
       "#content"
     )
 
@@ -92,31 +101,42 @@ function ScrollTop(props) {
 
   return (
     <Zoom in={true}>
-      <div onClick={handleClick} role="presentation" className={classes.root}>
+      <div onClick={handleClick} role="presentation">
         {children}
       </div>
     </Zoom>
   )
 }
 
-ScrollTop.propTypes = {
-  children: PropTypes.element.isRequired,
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
-  window: PropTypes.func,
+// ScrollTop.propTypes = {
+//   children: PropTypes.element.isRequired,
+//   /**
+//    * Injected by the documentation to work in an iframe.
+//    * You won't need it on your project.
+//    */
+//   window: PropTypes.func,
+// }
+
+interface IndexPageProps {
+  data: {
+    allMarkdownRemark: {
+      edges: {
+        node: any,
+      }[]
+    }
+  }
 }
 
-const imgs = getHomeImg().sort(()=> Math.random()>.5 ? -1 : 1);
-
-const IndexPage = props => {
+const IndexPage: FC<IndexPageProps> = (props) => {
   const classes = useStyles();
   const [slideIndex, setSlideIndex] = useState(2);
+  const { getHomeImg, getDefaultImg } = useConfig();
+  const imgs = getHomeImg().sort(() => Math.random() > .5 ? -1 : 1);
+
   const { data } = props;
   const { edges } = data.allMarkdownRemark;
 
-  const onArrowClick = direction => {
+  const onArrowClick = (direction: string) => {
     return () => {
       let index = 1;
       if (direction === 'right') {
@@ -143,35 +163,35 @@ const IndexPage = props => {
     <Layout>
       <SEO title="Home" />
       <NoSsr>
-          <Box className={classes.homeImgCtn}>
-            <div className={classes.homeImg}>
-              <Carousel
-                withoutControls={true}
-                slideIndex={slideIndex}
-                swiping={false}
-              >
-                {
-                  imgs.map((item, index)=> (
-                    <img key={`home_${index}`} className={classes.image} src={item} alt={`home_${index}`} />
-                  ))
-                }
-              </Carousel>
-            </div>
-          </Box>
+        <Box className={classes.homeImgCtn}>
+          <div className={classes.homeImg}>
+            <Carousel
+              withoutControls={true}
+              slideIndex={slideIndex}
+              swiping={false}
+            >
+              {
+                imgs.map((item, index) => (
+                  <img key={`home_${index}`} className={classes.image} src={item} alt={`home_${index}`} />
+                ))
+              }
+            </Carousel>
+          </div>
+        </Box>
         <Introduce
-          disableArrow={(()=> {
+          disableArrow={(() => {
             if (slideIndex === 0) return 'right';
             if (slideIndex === imgs.length - 1) return 'left';
+            return '';
           })()}
           onArrowLeftClick={onArrowClick("left")}
           onArrowRightClick={onArrowClick("right")}
         />
         <div className={`${classes.downIconCtn}`}>
-          <ScrollTop {...props}>
-            <KeyboardArrowDownIcon
-              size="large"
-              className={`${classes.downIcon} arrow-jump`}
-            />
+          <ScrollTop {...props} >
+            <IconButton size="medium" className={`${classes.downIcon} arrow-jump`}>
+              <KeyboardArrowDownIcon />
+            </IconButton>
           </ScrollTop>
         </div>
 
@@ -218,7 +238,7 @@ const IndexPage = props => {
   )
 }
 
-export default IndexPage
+export default IndexPage;
 
 export const pageQuery = graphql`
   query getAllPost {

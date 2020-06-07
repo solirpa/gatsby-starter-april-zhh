@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { FC, useEffect, useMemo } from 'react';
 import { graphql } from 'gatsby';
 
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -18,10 +18,13 @@ import 'echarts/lib/component/title';
 
 import dayjs from 'dayjs';
 
+// @ts-ignore
 import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeline-component';
 import 'react-vertical-timeline-component/style.min.css';
 
-import { getDefaultImg, getRandom } from '@/utils/utils';
+import useConfig from '@/components/Config';
+
+import { getRandom } from '@/utils/utils';
 
 import Layout from '@/components/Layout/layout';
 import BackGround from "@/components/Layout/background";
@@ -67,23 +70,47 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const TimelinePage = ({ data }) => {
+
+interface TimelinePageProps {
+  data: {
+    allMarkdownRemark: {
+      edges: {
+        node: {
+          fields: {
+            path: string;
+          };
+          frontmatter: {
+            date: string;
+            title: string;
+            tags: string[];
+            description?: string;
+            categories: string[];
+            image?: string;
+          };
+        };
+      }[];
+    }
+  }
+}
+
+const TimelinePage: FC<TimelinePageProps> = ({ data }) => {
   const classes = useStyles();
   const theme = useTheme();
+  const { getDefaultImg } = useConfig();
   // const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
 
   const matchesUp = useMediaQuery('(min-width:1170px)');
   const { allMarkdownRemark } = data;
 
   const timeline = useMemo(() => {
-    const _timeline = {};
+    const _timeline: any = {};
     allMarkdownRemark.edges.forEach(({ node }) => {
       const { frontmatter, fields: { path } } = node;
       const o = new Date(frontmatter.date);
 
-      const year = parseInt(o.getFullYear());
-      const month = parseInt(o.getMonth()) + 1;
-      const day = parseInt(o.getDate());
+      const year = o.getFullYear();
+      const month = o.getMonth() + 1;
+      const day = o.getDate();
 
       _timeline[year] = _timeline[year] || {};
 
@@ -91,7 +118,7 @@ const TimelinePage = ({ data }) => {
       _timeline[year][month][day] = _timeline[year][month][day] || [];
 
       _timeline[year][month][day].push({
-        timestamp: parseInt(o.getTime()),
+        timestamp: o.getTime(),
         formatDate: `${year}-${month < 10 ? `0${month}` : month}-${day < 10 ? `0${day}` : day}`,
         ...frontmatter,
         image: frontmatter.image || getRandom(getDefaultImg()),
@@ -103,7 +130,7 @@ const TimelinePage = ({ data }) => {
   }, [allMarkdownRemark.edges])
 
   useEffect(() => {
-    const myChart = echarts.init(document.getElementById('echarts'));
+    const myChart = echarts.init(document.getElementById('echarts') as HTMLDivElement);
 
     const startDate = dayjs().subtract(1, 'year');
     const endDate = dayjs();
@@ -121,7 +148,7 @@ const TimelinePage = ({ data }) => {
 
     const datePosts = [];
     const dayTime = 3600 * 24 * 1000;
-    for (let time = startDate; time <= endDate; time += dayTime) {
+    for (let time = Number(startDate); time <= Number(endDate); time += dayTime) {
       const date = dayjs(time).format('YYYY-MM-DD');
       datePosts.push([
         date,
@@ -149,7 +176,7 @@ const TimelinePage = ({ data }) => {
         backgroundColor: '#555',
         borderColor: '#777',
         borderWidth: 1,
-        formatter: function (obj) {
+        formatter: function (obj: { value: [number, number] }) {
           const value = obj.value;
           return '<div style="font-size: 14px;">' + value[0] + '：' + value[1] + '</div>';
         }
@@ -199,7 +226,7 @@ const TimelinePage = ({ data }) => {
         coordinateSystem: 'calendar',
         data: datePosts
       }
-    });
+    } as any);
   }, [theme.palette.text.secondary, timeline]);
 
   return (
@@ -215,7 +242,7 @@ const TimelinePage = ({ data }) => {
           <VerticalTimeline className={classes.verticalTlRoot}>
             {
               // year
-              Object.keys(timeline).sort((a, b) => b - a).map(y => (
+              Object.keys(timeline).sort((a, b) => Number(b) - Number(a)).map(y => (
                 <React.Fragment key={y}>
                   <VerticalTimelineElement
                     style={{
@@ -238,7 +265,7 @@ const TimelinePage = ({ data }) => {
                   />
                   {
                     // month
-                    Object.keys(timeline[y]).sort((a, b) => b - a).map(m => {
+                    Object.keys(timeline[y]).sort((a, b) => Number(b) - Number(a)).map(m => {
 
                       return (
                         <React.Fragment key={`${y}-${m}`}>
@@ -265,12 +292,12 @@ const TimelinePage = ({ data }) => {
                           />
                           {
                             // day
-                            Object.keys(timeline[y][m]).sort((a, b) => b - a).map(d => {
+                            Object.keys(timeline[y][m]).sort((a, b) => Number(b) - Number(a)).map(d => {
                               return (
-                                timeline[y][m][d].sort((a, b) => b.timestamp - a.timestamp).map(item => (
+                                timeline[y][m][d].sort((a: any, b: any) => b.timestamp - a.timestamp).map((item: any) => (
                                   <React.Fragment key={`${item.title}`}>
                                     <VerticalTimelineElement
-                                      className={classes.verticalContent}
+                                      // className={classes.verticalContent}
                                       style={{
                                         left: matchesUp ? '0.5rem' : 0,
                                         top: '1rem'
@@ -282,7 +309,7 @@ const TimelinePage = ({ data }) => {
                                         color: 'white',
                                         fontWeight: 800,
                                         background: '#ffa726',
-                                        zIndex: 1200
+                                        // zIndex: 1200
                                       }}
                                       contentStyle={{
                                         background: '#ffffff00',

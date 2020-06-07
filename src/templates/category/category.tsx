@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { graphql } from 'gatsby';
 
 import dayjs from 'dayjs';
@@ -14,11 +14,12 @@ import Slide from '@material-ui/core/Slide';
 import Box from '@material-ui/core/Box';
 import NoSsr from '@material-ui/core/NoSsr';
 
-import { getDefaultImg, getRandom } from '@/utils/utils';
+import { getRandom } from '@/utils/utils';
 
+import useConfig from '@/components/Config';
 import Layout from '@/components/Layout/layout';
 import BackGround from "@/components/Layout/background";
-import Tags from '@/components/Tags';
+import Categories from '@/components/Categories';
 import PostCard from '@/components/Card/post';
 
 const useStyles = makeStyles(theme => ({
@@ -32,7 +33,7 @@ const useStyles = makeStyles(theme => ({
     position: 'relative',
     top: '-3rem',
   },
-  tagCtn: {
+  categoryCtn: {
     display: '-webkit-flex',
     justifyContent: 'center',
     flexDirection: 'row',
@@ -40,11 +41,37 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-// eslint-disable-next-line react/prop-types
-const TagPage = ({ data, pageContext }) => {
+interface CategoryPageProps { 
+  pageContext: {
+    category: string;
+    categories: string[];
+  };
+  data: {
+    allMarkdownRemark: {
+      edges: {
+        node: {
+          fields: {
+            path: string;
+          };
+          frontmatter: {
+            date: string;
+            title: string;
+            tags: string[];
+            description?: string;
+            categories: string[];
+            image?: string;
+          };
+        };
+      }[];
+    }
+  }
+}
+
+const CategoryPage: FC<CategoryPageProps> = ({ data, pageContext }) => {
   const classes = useStyles();
+  const { getDefaultImg } = useConfig();
   const { edges } = data.allMarkdownRemark;
-  const { tag, tags } = pageContext;
+  const { category, categories } = pageContext;
 
   return (
     <Layout>
@@ -52,8 +79,8 @@ const TagPage = ({ data, pageContext }) => {
       <NoSsr>
         <Container>
 
-          <Paper elevation={3} className={`${classes.paper} ${classes.paperTop} ${classes.tagCtn}`}>
-            <Tags tags={tags} select={tag} type={useSearchParam("t")} />
+          <Paper elevation={3} className={`${classes.paper} ${classes.categoryCtn}`}>
+            <Categories categories={categories} select={category} type={useSearchParam("t") as 'wall' | 'radar'} />
           </Paper>
           <div className="col-xl-10 col-lg-7 col-md-12 col-xs-12 order-2">
             <div
@@ -65,7 +92,7 @@ const TagPage = ({ data, pageContext }) => {
             >
               {edges.length}
               &nbsp;Articles in&nbsp;
-              {tag}
+              {category}
             </div>
             <Grid container spacing={2}>
               {
@@ -73,7 +100,7 @@ const TagPage = ({ data, pageContext }) => {
                   const { frontmatter, fields: { path } } = node;
                   const image = frontmatter.image || getRandom(getDefaultImg());
                   const formatDate = dayjs(frontmatter.date).format('YYYY-MM-DD');
-                  const { title, description, categories } = frontmatter;
+                  const { title, description, tags, categories } = frontmatter;
 
                   return (
                     <Grid item xs={12} sm={6} md={4} key={title}>
@@ -86,7 +113,7 @@ const TagPage = ({ data, pageContext }) => {
                             date={formatDate}
                             title={title}
                             description={description}
-                            tagShow={false}
+                            tags={tags}
                             categories={categories}
                           />
                         </Box>
@@ -102,14 +129,14 @@ const TagPage = ({ data, pageContext }) => {
         </Container>
       </NoSsr>
     </Layout>
-  );
-};
+  )
+}
 
-export default TagPage;
+export default CategoryPage;
 
 export const pageQuery = graphql`
-  query tagQuery($tag: [String!]) {
-    allMarkdownRemark(filter: {frontmatter: {tags: {in: $tag}}}) {
+  query categoryQuery($category: [String!]) {
+    allMarkdownRemark(sort: {order: DESC, fields: frontmatter___date}, filter: {frontmatter: {categories: {in: $category}}}) {
       edges {
         node {
           id

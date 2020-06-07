@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+
+// @ts-ignore
 import Progress from 'scrollprogress';
 
 import { withStyles } from '@material-ui/core/styles';
@@ -26,7 +28,7 @@ const ScrollProgress = ()=> {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const progressObserver = new Progress((x, y) => {
+    const progressObserver = new Progress((_: any, y: number) => {
       setProgress(y * 100);
     })
 
@@ -35,22 +37,20 @@ const ScrollProgress = ()=> {
     }
   }, [progress]);
 
-  const style = {
-    height: '10px',
-    position: 'fixed',
-    padding: 0,
-    top: 0,
-    bottom: 0,
-    zIndex: 100,
-  }
-
   return (
     <PrettoSlider
-      style={style}
+      style={{
+        height: '10px',
+        position: 'fixed',
+        padding: 0,
+        top: 0,
+        bottom: 0,
+        zIndex: 100,
+      }}
       value={progress}
       min={0}
       max={100}
-      thumb={<span />}
+      // thumb={<span />}
     />
   )
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react"
+import React, { FC, useEffect, useMemo } from "react"
 import { graphql } from "gatsby"
 
 import dayjs from "dayjs"
@@ -17,8 +17,6 @@ import EventNoteOutlined from "@material-ui/icons/EventNoteOutlined"
 import * as tocbot from "tocbot"
 import "tocbot/dist/styles.css"
 import "tocbot/dist/tocbot.css"
-
-// import { getOtherImg } from "@/utils/utils"
 
 import Layout from "@/components/Layout/layout"
 import BackGround from "@/components/Layout/background"
@@ -161,25 +159,37 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-export default function PostPage(props) {
-  const classes = useStyles()
-  const { data, window } = props
+interface PostPageProps {
+  window?: () => Window;
+  data: {
+    markdownRemark: {
+      html: string;
+      frontmatter: {
+        date: string;
+        title: string;
+        image?: string;
+      };
+    };
+  };
+}
+
+const PostPage: FC<PostPageProps> = (props) => {
+  const classes = useStyles();
+  const { data, window } = props;
   const trigger = useScrollTrigger({
     disableHysteresis: true,
     target: window ? window() : undefined,
     threshold: 638,
-  })
-  const { markdownRemark } = data // data.markdownRemark holds your post data
-  const { frontmatter, html } = markdownRemark
+  });
+  const { markdownRemark } = data; // data.markdownRemark holds your post data
+  const { frontmatter, html } = markdownRemark;
 
-  const _html = useMemo(()=> {
-    return html.replace(/<\/h3>/g, '</h4>').replace(/<h3/g, '<h4')
-                .replace(/<\/h2>/g, '</h3>').replace(/<h2/g, '<h3')
-                .replace(/<\/h1>/g, '</h2>').replace(/<h1/g, '<h2');
+  const _html = useMemo(() => {
+    return html.replace(/<\/h3>/g, '</h4>').replace(/<h3/g, '<h4').replace(/<\/h2>/g, '</h3>').replace(/<h2/g, '<h3').replace(/<\/h1>/g, '</h2>').replace(/<h1/g, '<h2');
   }, [html]);
 
   useEffect(() => {
-    const offsetTop = 0 - document.getElementById("postoc").offsetTop
+    const offsetTop = 0 - (document.getElementById("postoc") as HTMLDivElement).offsetTop;
 
     tocbot.init({
       // Where to render the table of contents.
@@ -203,8 +213,8 @@ export default function PostPage(props) {
     })
     const tocListItem = document.getElementsByClassName(".toc-list-item")
     if (tocListItem.length > 0) {
-      const toc = document.getElementById("toc")
-      toc.style.visibility = "visible"
+      const toc = document.getElementById("toc") as HTMLDivElement;
+      toc.style.visibility = "visible";
     }
 
     return () => {
@@ -237,7 +247,7 @@ export default function PostPage(props) {
                   <div
                     id="post"
                     className={classes.blogPostContent}
-                    dangerouslySetInnerHTML={{ 
+                    dangerouslySetInnerHTML={{
                       __html: _html
                     }}
                   />
@@ -261,6 +271,8 @@ export default function PostPage(props) {
   )
 }
 
+export default PostPage;
+
 export const pageQuery = graphql`
   query($path: String!) {
     markdownRemark(fields: { path: { eq: $path } }) {
@@ -271,7 +283,6 @@ export const pageQuery = graphql`
         absolute: false
       )
       html
-      htmlAst
       frontmatter {
         date(formatString: "MMMM DD, YYYY")
         title

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import PropTypes from "prop-types";
+import React, { FC, useState } from 'react';
+import PropTypes, { InferProps } from "prop-types";
 
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
@@ -9,10 +9,17 @@ import Brightness4Icon from '@material-ui/icons/Brightness4';
 
 import { useLocalStorage } from 'react-use';
 
-export const useDarkMode = () => {
-  const [ctlDarkModeByLs, setCtlDarkModeByLs] = useLocalStorage('theme-key');
+export const ThemeSwitchTypes = {
+  mode: PropTypes.oneOf(['dark', 'light']),
+  onChange: PropTypes.func.isRequired
+};
+
+type ThemeSwitchProps = InferProps<typeof ThemeSwitchTypes>;
+
+export const useDarkMode: () => [string, ()=> void] = () => {
+  const [ctlDarkModeByLs, setCtlDarkModeByLs] = useLocalStorage<string>('theme-key');
   const timeNowHour = new Date().getHours();//取得当前时间的小时
-  const [ctlDarkMode, setCtlDarkMode] = useState(ctlDarkModeByLs ? ctlDarkModeByLs : (timeNowHour > 6 && timeNowHour < 18 ? 'dark' : 'light'));
+  const [ctlDarkMode, setCtlDarkMode] = useState<string>(ctlDarkModeByLs ? ctlDarkModeByLs : (timeNowHour > 6 && timeNowHour < 18 ? 'dark' : 'light'));
   const toggle = ()=> {
     setCtlDarkMode(ctlDarkMode === 'light' ? 'dark' : 'light');
     setCtlDarkModeByLs(ctlDarkMode === 'light' ? 'dark' : 'light');
@@ -21,7 +28,7 @@ export const useDarkMode = () => {
   return [ctlDarkMode, toggle];
 }
 
-export const ThemeSwitch = ({ mode, onChange })=> {
+export const ThemeSwitch: FC<ThemeSwitchProps> = ({ mode, onChange })=> {
   const Comp = mode === 'light' ? Brightness7Icon : Brightness4Icon;
 
   return (
@@ -29,7 +36,14 @@ export const ThemeSwitch = ({ mode, onChange })=> {
   );
 }
 
-export const Theme = ({ children, mode }) => {
+export const ThemeTypes = {
+  mode: PropTypes.oneOf(['dark', 'light']),
+  onChange: PropTypes.func
+};
+
+type ThemeProps = InferProps<typeof ThemeTypes>;
+
+export const Theme: FC<ThemeProps> = ({ children, mode }) => {
   const prefersDarkMode = useMediaQuery(`(prefers-color-scheme: ${mode})`);
 
   const theme = React.useMemo(() =>
@@ -52,17 +66,3 @@ export const Theme = ({ children, mode }) => {
     </>
   );
 }
-
-export const themeSwitchProp = {
-  mode: PropTypes.oneOf(['dark', 'light']),
-  onChange: PropTypes.func,
-};
-
-ThemeSwitch.propTypes = {
-  ...themeSwitchProp,
-};
-
-Theme.propTypes = {
-  children: PropTypes.node.isRequired,
-  mode: PropTypes.oneOf(['light', 'dark']),
-};

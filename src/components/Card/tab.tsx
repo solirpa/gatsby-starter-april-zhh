@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { FC } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
@@ -21,7 +20,15 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Tab = ({ name, count, colors, onClick, select }) => {
+interface TabProps { 
+  name: string;
+  count: number;
+  colors: string[];
+  onClick: any;
+  select: boolean;
+}
+
+const Tab: FC<TabProps> = ({ name, count = 0, colors, onClick, select }) => {
   const classes = useStyles();
 
   return (
@@ -33,18 +40,6 @@ const Tab = ({ name, count, colors, onClick, select }) => {
       onClick={()=> onClick()}
     />
   )
-};
-
-Tab.propTypes = {
-  name: PropTypes.string.isRequired,
-  count: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  colors: PropTypes.array,
-  select: PropTypes.bool,
-  onClick: PropTypes.func,
-};
-
-Tab.defaultProps = {
-  count: '',
 };
 
 export default Tab;

@@ -5,7 +5,7 @@
  * See: https://www.gatsbyjs.org/docs/use-static-query/
  */
 
-import React, { useEffect } from "react";
+import React, { useEffect, FC } from "react";
 import PropTypes from "prop-types";
 import { useStaticQuery, graphql } from "gatsby";
 
@@ -25,7 +25,7 @@ import ScrollProgress from "@/components/Progress/Scroll";
 import Head from "@/components/Layout/head";
 import Seo from "@/components/Seo/seo";
 
-import { getOtherImg, getConfig } from '@/utils/utils';
+import useConfig from '@/components/Config';
 
 import "./layout.css";
 import "./scroll.less";
@@ -43,7 +43,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function ScrollTop(props) {
+
+interface Props {
+  /**
+   * Injected by the documentation to work in an iframe.
+   * You won't need it on your project.
+   */
+  window?: () => Window;
+  children: React.ReactElement | React.ReactElement[];
+}
+
+const ScrollTop = (props: Props)=> {
   const { children, window } = props;
   const classes = useStyles();
   // Note that you normally won't need to set the window ref as useScrollTrigger
@@ -55,8 +65,8 @@ function ScrollTop(props) {
     threshold: 100,
   });
 
-  const handleClick = (event) => {
-    const anchor = (event.target.ownerDocument || document).querySelector('#back-to-top-anchor');
+  const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    const anchor = ((event.target as HTMLDivElement).ownerDocument || document).querySelector('#back-to-top-anchor');
 
     if (anchor) {
       anchor.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -82,8 +92,9 @@ ScrollTop.propTypes = {
 };
 
 
-const Layout = (props) => {
-  const config = getConfig();
+const Layout = (props: Props) => {
+  const { config, getOtherImg } = useConfig();
+  
   const data = useStaticQuery(graphql`
     query imageAndSiteTitleQuery {
       site {
@@ -100,12 +111,12 @@ const Layout = (props) => {
   useEffect(() => {
     const jssStyles = document.querySelector('#jss-server-side');
     if (jssStyles) {
-      jssStyles.parentElement.removeChild(jssStyles);
+      jssStyles!.parentElement!.removeChild(jssStyles);
     }
   }, []);
 
   useEffect(() => {
-    const script = document.createElement('script');
+    const script: any = document.createElement('script');
     script.type = 'text/javascript';
     script.size = 150;
     script.alpha = 0.6;
@@ -120,7 +131,6 @@ const Layout = (props) => {
       <Seo
         title={config.meta.title}
         description={config.meta.description}
-        author={config.about.name}
         lang={"zh"}
       />
       <Head />

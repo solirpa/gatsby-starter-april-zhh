@@ -1,4 +1,4 @@
-const config = {
+{
   "url": "https://april-zhh.cn",
   "cdn": "https://static.april-zhh.cn",
   "wordings": ["GatsbyJS", "React"],
@@ -13,14 +13,14 @@ const config = {
     "title": "Fishing Engineer",
     "slug": "踌躇满志磨洋工, 混吃等死一条鱼",
     "email": "996586214@qq.com",
-    "github": "https://github.com/aprilyzl0405",
+    "github": "https://github.com/aprilyzl0405"
   },
   "link": {
     "github": "https://github.com/aprilyzl0405",
     "mail": "aprilyzl0405@gmail.com",
     "zhihu": "https://www.zhihu.com/people/lan-jing-lin-88",
     "weibo": "https://weibo.com/2306221832/profile",
-    "rss": "/sitemap.xml",
+    "rss": "/sitemap.xml"
   },
   "img": {
     "home": [
@@ -28,28 +28,21 @@ const config = {
       "/vastforest.png.webp",
       "/skycloudsea.png.webp",
       "/eveningwas.png.webp",
-      "/vastfield.png.webp",
+      "/vastfield.png.webp"
     ],
     "default": [
       "/ponyo.png.webp",
       "/vastforest.png.webp",
       "/skycloudsea.png.webp",
       "/eveningwas.png.webp",
-      "/vastfield.png.webp",
+      "/vastfield.png.webp"
     ],
     "debug": [
-      // "/fakeface.png.webp",
-      // "/totoro.png.webp",
-      // "/arrowgirl.png.webp",
-      // "/sophon.png.webp",
-      // "/mapleleaf.png.webp",
-      // "/floatingcastle.png.webp",
-      // "/forest.png",
       "/ponyo.png.webp",
       "/vastforest.png.webp",
       "/skycloudsea.png.webp",
       "/eveningwas.png.webp",
-      "/vastfield.png.webp",
+      "/vastfield.png.webp"
     ],
     "link": {
       "github": "/github.png",
@@ -60,9 +53,7 @@ const config = {
     },
     "other": {
       "dot": "/dot.gif",
-      "scroll": "/scroll.png",
+      "scroll": "/scroll.png"
     }
   }
 }
-
-module.exports = config;

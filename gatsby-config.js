@@ -1,4 +1,6 @@
-const config = require('./config');
+const fs = require('fs');
+
+const config = JSON.parse(fs.readFileSync('./config/config.json').toString());
 
 module.exports = {
   siteMetadata: {
@@ -58,9 +60,7 @@ module.exports = {
         ],
       },
     },
-    {
-      resolve: 'gatsby-plugin-sitemap',
-    },
+    `gatsby-plugin-sitemap`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     `gatsby-plugin-less`,
@@ -108,9 +108,16 @@ module.exports = {
         }
       }
     },
+    `gatsby-plugin-zopfli`,
+    `gatsby-plugin-material-ui`,
+    `gatsby-plugin-typescript`,
+    `gatsby-transformer-json`,
     {
-      resolve: 'gatsby-plugin-zopfli'
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `${__dirname}/config/`,
+        name: `config`,
+      },
     },
-    `gatsby-plugin-material-ui`
   ],
 }

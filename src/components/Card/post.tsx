@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from "prop-types";
+import React, { FC } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Link from '@material-ui/core/Link';
@@ -84,11 +83,11 @@ const useStyles = makeStyles(theme => ({
   },
   tag: {
     // backgroundImage: 'linear-gradient(to right, #da8d00 0%,  #e46223 100%)',
-    background: theme.palette.background,
+    background: theme.palette.background.default,
     padding: '4px 6px',
     margin: '0 2px',
     fontSize: '0.8rem',
-    fontWeight: '400',
+    fontWeight: 400,
     lineHeight: '22px',
     color: theme.palette.text.secondary,
     borderRadius: '10px',
@@ -96,13 +95,26 @@ const useStyles = makeStyles(theme => ({
   },
   category: {
     fontSize: '0.8rem',
-    fontWeight: '400',
+    fontWeight: 400,
     color: theme.palette.text.secondary,
     zIndex: 1201,
   },
 }));
 
-const PostCard = ({
+
+export interface PostProps { 
+  path: string;
+  image?: string;
+  date: string;
+  title: string;
+  description?: string;
+  tags?: string[];
+  tagShow?: boolean;
+  categories?: string[];
+  categorieShow?: boolean;
+}
+
+const PostCard: FC<PostProps> = ({
   path,
   image,
   date,
@@ -115,7 +127,7 @@ const PostCard = ({
 }) => {
   const classes = useStyles();
 
-  const handleMore = (path) => {
+  const handleMore = (path: string) => {
     window.location.href = path;
   }
 
@@ -168,18 +180,6 @@ const PostCard = ({
       </CardActionArea>
     </Card>
   )
-}
-
-PostCard.propTypes = {
-  path: PropTypes.string,
-  image: PropTypes.string,
-  date: PropTypes.string,
-  title: PropTypes.string,
-  description: PropTypes.string,
-  tags: PropTypes.array,
-  categories: PropTypes.array,
-  tagShow: PropTypes.bool,
-  categorieShow: PropTypes.bool,
 }
 
 export default PostCard;

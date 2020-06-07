@@ -7,6 +7,9 @@
 // You can delete this file if you're not using it
 
 const path = require(`path`);
+const fs = require('fs');
+
+const config = JSON.parse(fs.readFileSync('./config/config.json').toString());
 const { createFilePath } = require(`gatsby-source-filesystem`);
 
 const dayjs = require('dayjs');
@@ -21,6 +24,28 @@ exports.onCreateWebpackConfig = ({ actions, stage }) => {
     })
   }
 };
+
+exports.sourceNodes = async ({
+  actions,
+  createContentDigest,
+  createNodeId,
+}) => {
+  const { createNode } = actions;
+  const CONFIG_NODE_TYPE = 'config';
+
+  createNode({
+    ...config,
+    id: createNodeId(`${CONFIG_NODE_TYPE}`),
+    parent: null,
+    children: [],
+    internal: {
+      type: CONFIG_NODE_TYPE,
+      // content: JSON.stringify(config),
+      contentDigest: createContentDigest(config),
+    },
+  })
+  return
+}
 
 exports.onCreateNode = ({ node, getNode, actions }) => {
   const { createNodeField } = actions;
@@ -66,11 +91,11 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
         }
       }
     }
-  `)
+  `);
   // Handle errors
   if (result.errors) {
     reporter.panicOnBuild(`Error while running GraphQL query.`)
-    return
+    return;
   }
 
   const tagSet = new Set();
@@ -112,7 +137,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
 
     createPage({
       path: fields.path,
-      component: path.resolve(`src/templates/post/post.js`),
+      component: path.resolve(`src/templates/post/post.tsx`),
       context: {}, // additional data can be passed via context
     });
   });
@@ -121,7 +146,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
 
     createPage({
       path: `/tags/${tag}-${crypto.createHash('md5').update(tag).digest("hex")}`,
-      component: path.resolve('src/templates/tag/tag.js'),
+      component: path.resolve('src/templates/tag/tag.tsx'),
       context: {
         tag,
         tags: Array.from(tagMap.keys()).map(tag => {
@@ -137,7 +162,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
   categorySet.forEach((category) => {
     createPage({
       path: `/categories/${category}-${crypto.createHash('md5').update(category).digest("hex")}`,
-      component: path.resolve('src/templates/category/category.js'),
+      component: path.resolve('src/templates/category/category.tsx'),
       context: {
         category,
         categories: Array.from(categoryMap.keys()).map(category => ({

@@ -1,4 +1,4 @@
-import React, { useState, useImperativeHandle, forwardRef } from 'react';
+import React, { FC, useState, useImperativeHandle, forwardRef } from 'react';
 import { graphql, useStaticQuery } from 'gatsby';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -10,7 +10,7 @@ import Modal from '@material-ui/core/Modal';
 import Fade from '@material-ui/core/Fade';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import { getConfig } from '@/utils/utils';
+import useConfig from '@/components/Config';
 
 const useStyles = makeStyles((theme) => ({
   backdrop: {
@@ -64,9 +64,18 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+export interface AboutProps {
+  toggle: ()=> void;
+}
+
+interface AboutRef extends React.ForwardRefExoticComponent<React.RefAttributes<any>> {
+  About: FC<AboutProps>;
+}
+
 /* eslint-disable */
-const About = (_, ref) => {
-  const config = getConfig();
+const About = forwardRef((_: any, ref) => {
+  const { config } = useConfig();
+
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [imgLoad, setImgLoad] = useState(true);
@@ -102,16 +111,16 @@ const About = (_, ref) => {
               <div className={classes.avatarCtn}>
                 {
                   imgLoad ? (
-                    <Box 
-                      component="button" 
-                      className={classes.button} 
-                      onClick={()=> window.open(config.about.github)} 
+                    <Box
+                      component="button"
+                      className={classes.button}
+                      onClick={() => window.open(config.about.github)}
                     >
                       <img
                         alt="avatar"
                         src={gravatar.url}
                         className={classes.img}
-                        onLoad={()=> setImgLoad(true)}
+                        onLoad={() => setImgLoad(true)}
                       />
                     </Box>
                   ) : <CircularProgress />
@@ -131,9 +140,9 @@ const About = (_, ref) => {
       </Modal>
     </>
   )
-}
+}) as AboutRef;
 
-export default forwardRef(About);
+export default About;
 
 export const query = graphql`
   query getGravatar {
@@ -141,5 +150,4 @@ export const query = graphql`
       url
     }
   }
-  
 `;

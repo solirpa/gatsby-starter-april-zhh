@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { graphql } from 'gatsby';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -28,16 +28,30 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const CategoryPage = ({ data }) => {
+interface CategoryPageProps { 
+  data: {
+    allMarkdownRemark: {
+      edges: {
+        node: {
+          frontmatter: {
+            categories: string[];
+          }
+        };
+      }[];
+    }
+  }
+}
+
+const CategoryPage: FC<CategoryPageProps> = ({ data }) => {
   const classes = useStyles();
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState<{ text: string; value: number; }[]>([]);
 
   useEffect(() => {
     const categoryMap = new Map();
     data.allMarkdownRemark.edges.forEach(({ node }) => {
       const { categories = [] } = node.frontmatter;
 
-      categories && categories.forEach((name) => {
+      categories && categories.forEach(name=> {
         if (categoryMap.has(name)) {
           categoryMap.set(name, categoryMap.get(name) + 1);
         } else {

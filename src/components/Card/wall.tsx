@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { FC } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -46,29 +45,34 @@ const colors = [
   '#f9ebea',
 ];
 
-const Wall = ({ datas = [], link, select }) => {
-  const classes = useStyles();
-  return (
-    datas && datas.map(item => (
-      <div key={item.text} className={classes.headerData}>
-        <Tab 
-          name={item.text} 
-          count={item.value} 
-          colors={colors} 
-          select={item.text === select} 
-          onClick={() => {
-            window.location.href = `/${link}/${openExtendLink(item.text)}?t=wall`
-          }}
-        />
-      </div>
-    ))
-  )
+interface WallProps {
+  datas: any[];
+  link: string;
+  select: string;
 }
 
-Wall.propTypes = {
-  datas: PropTypes.array,
-  link: PropTypes.string,
-  select: PropTypes.string,
-};
+const Wall: FC<WallProps> = ({ datas = [], link = '', select }) => {
+  const classes = useStyles();
+
+  return (
+    <>
+      {
+        datas && datas.map(item => (
+          <div key={item.text} className={classes.headerData}>
+            <Tab
+              name={item.text}
+              count={item.value}
+              colors={colors}
+              select={item.text === select}
+              onClick={() => {
+                window.location.href = `/${link}/${openExtendLink(item.text)}?t=wall`
+              }}
+            />
+          </div>
+        ))
+      }
+    </>
+  )
+}
 
 export default Wall;

@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from "prop-types";
+import React, { FC } from 'react';
 
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -17,11 +16,10 @@ import AccessTimeIcon from '@material-ui/icons/AccessTime';
 
 import { openExtendLink } from '@/utils/utils';
 
-import PostCard from './post';
+import PostCard, { PostProps } from './post';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    // borderRadius: '.5rem',
     color: '#000',
     width: '40rem',
     height: '15rem',
@@ -99,11 +97,11 @@ const useStyles = makeStyles(theme => ({
   },
   tag: {
     // backgroundImage: 'linear-gradient(to right, #da8d00 0%,  #e46223 100%)',
-    background: theme.palette.background,
+    background: theme.palette.background.default,
     padding: '4px 6px',
     margin: '0 2px',
     fontSize: '0.8rem',
-    fontWeight: '400',
+    fontWeight: 400,
     lineHeight: '22px',
     color: theme.palette.text.secondary,
     // borderRadius: '10px',
@@ -111,13 +109,14 @@ const useStyles = makeStyles(theme => ({
   },
   category: {
     fontSize: '0.8rem',
-    fontWeight: '400',
+    fontWeight: 400,
     color: theme.palette.text.secondary,
     zIndex: 1201,
   },
 }));
 
-const PostRectCard = (props) => {
+
+const PostRectCard: FC<PostProps & { direction?: "left" | "right" }> = (props) => {
   const {
     path,
     image,
@@ -135,7 +134,7 @@ const PostRectCard = (props) => {
   const matches = useMediaQuery(theme.breakpoints.up('md'));
   const classes = useStyles();
 
-  const handleMore = (path) => {
+  const handleMore = (path: string) => {
     window.location.href = path;
   }
 
@@ -192,19 +191,6 @@ const PostRectCard = (props) => {
       </Card>
     ) : <PostCard {...props} />
   )
-}
-
-PostRectCard.propTypes = {
-  direction: PropTypes.oneOf(['right', 'left']),
-  path: PropTypes.string,
-  image: PropTypes.string,
-  date: PropTypes.string,
-  title: PropTypes.string,
-  description: PropTypes.string,
-  tags: PropTypes.array,
-  categories: PropTypes.array,
-  tagShow: PropTypes.bool,
-  categorieShow: PropTypes.bool,
 }
 
 export default PostRectCard;

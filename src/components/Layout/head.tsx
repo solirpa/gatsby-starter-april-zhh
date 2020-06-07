@@ -1,12 +1,11 @@
 // <meta name="theme-color" content={config.meta.theme_color} />
 
-import React from 'react';
+import React, { FC } from 'react';
 import { Helmet } from 'react-helmet';
 
 import { useTheme } from '@material-ui/core/styles';
 
-
-const Head = (props) => {
+const Head: FC<{}> = () => {
   const theme = useTheme();
 
   return (

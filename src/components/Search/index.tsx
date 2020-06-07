@@ -1,4 +1,4 @@
-import React, { useState, useImperativeHandle, forwardRef, useRef } from 'react';
+import React, { useState, useImperativeHandle, forwardRef, useRef, FC } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Backdrop from '@material-ui/core/Backdrop';
@@ -41,9 +41,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Search = (_, ref) => {
+export interface SearchProps {
+  toggle: ()=> void;
+};
+
+interface SearchRef extends React.ForwardRefExoticComponent<React.RefAttributes<any>> {
+  Search: FC<SearchProps>;
+}
+
+const Search = forwardRef((_, ref) => {
   const classes = useStyles();
-  const inputRef = useRef();
+  const inputRef = useRef<HTMLInputElement>();
   const [open, setOpen] = useState(false);
   useImperativeHandle(ref, () => ({
     toggle: () => {
@@ -55,10 +63,10 @@ const Search = (_, ref) => {
     setOpen(false);
   };
 
-  const handleSearch = e=> {
+  const handleSearch = (e: React.FormEvent<HTMLDivElement>)=> {
     e.preventDefault();
 
-    window.open(`https://google.com.hk/search?&q=site%3Aapril-zhh.cn%2F+${inputRef.current.value}`);
+    window.open(`https://google.com.hk/search?&q=site%3Aapril-zhh.cn%2F+${inputRef.current!.value}`);
   }
 
   return (
@@ -97,6 +105,6 @@ const Search = (_, ref) => {
       </Modal>
     </>
   )
-}
+}) as SearchRef;
 
-export default forwardRef(Search);
+export default Search;
