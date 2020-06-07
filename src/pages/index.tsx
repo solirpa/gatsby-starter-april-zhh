@@ -52,7 +52,7 @@ const useStyles = makeStyles(theme => ({
     width: "100%",
     position: "absolute",
     top: "90vh",
-    zIndex: theme.zIndex.drawer + 1,
+    // zIndex: theme.zIndex.drawer + 1,
     textAlign: "center",
     cursor: "pointer",
   },
