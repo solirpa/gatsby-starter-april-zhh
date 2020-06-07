@@ -48,10 +48,10 @@ const colors = [
 interface WallProps {
   datas: any[];
   link: string;
-  select: string;
+  select?: string;
 }
 
-const Wall: FC<WallProps> = ({ datas = [], link = '', select }) => {
+const Wall: FC<WallProps> = ({ datas = [], link = '', select = '' }) => {
   const classes = useStyles();
 
   return (
