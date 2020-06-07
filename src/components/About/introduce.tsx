@@ -9,7 +9,7 @@ import ArrowBackIosOutlinedIcon from "@material-ui/icons/ArrowBackIosOutlined";
 import ArrowForwardIosOutlinedIcon from "@material-ui/icons/ArrowForwardIosOutlined";
 import FormatQuoteIcon from "@material-ui/icons/FormatQuote";
 
-import useConfig from '@/components/Config';
+import useConfig, { LinkTypes } from '@/components/Config';
 
 import "./about.less";
 
@@ -73,7 +73,7 @@ const Introduce: FC<IntroduceProps> = ({ disableArrow, onArrowLeftClick, onArrow
   const classes = useStyles();
   const { config, getLinkImg } = useConfig();
 
-  const openLink = (type: string) => {
+  const openLink = (type: LinkTypes) => {
 
     if (type === "mail") {
       const mail = "mailto:" + config.link.mail
@@ -109,7 +109,7 @@ const Introduce: FC<IntroduceProps> = ({ disableArrow, onArrowLeftClick, onArrow
             <FormatQuoteIcon />
           </Typography>
           <div className={classes.link}>
-            {Object.keys(config.link).map(item => (
+            {Object.keys(config.link).map((item: any) => (
               <Box
                 key={item}
                 className={classes.button}
