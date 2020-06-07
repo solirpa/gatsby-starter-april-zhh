@@ -65,7 +65,7 @@ const Wall: FC<WallProps> = ({ datas = [], link = '', select = '' }) => {
               colors={colors}
               select={item.text === select}
               onClick={() => {
-                window.location.href = `/${link}/${openExtendLink(item.text)}?t=wall`
+                window.location.href = `/${link}/${openExtendLink(item.text)}/?t=wall`
               }}
             />
           </div>

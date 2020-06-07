@@ -145,7 +145,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
   tagSet.forEach(tag => {
 
     createPage({
-      path: `/tags/${tag}-${crypto.createHash('md5').update(tag).digest("hex")}`,
+      path: `/tags/${tag}-${crypto.createHash('md5').update(tag).digest("hex")}/`,
       component: path.resolve('src/templates/tag/tag.tsx'),
       context: {
         tag,
@@ -161,7 +161,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
 
   categorySet.forEach((category) => {
     createPage({
-      path: `/categories/${category}-${crypto.createHash('md5').update(category).digest("hex")}`,
+      path: `/categories/${category}-${crypto.createHash('md5').update(category).digest("hex")}/`,
       component: path.resolve('src/templates/category/category.tsx'),
       context: {
         category,
