@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useStaticQuery, graphql } from "gatsby"
 
-import { isDebug } from '@/utils/utils';
+import { isDebug, getBrowser } from '@/utils/utils';
 
 export type LinkTypes = 'github' | 'mail' | 'rss' | 'weibo' | 'zhihu';
 export type OtherTypes = 'dot' | 'scroll';
@@ -27,7 +27,6 @@ export interface Config {
     [key in LinkTypes]: string;
   };
   img: {
-    debug: string[];
     default: string[];
     home: string[];
     link: {
@@ -67,7 +66,6 @@ const useConfig = () => {
           rss
         },
         img {
-          debug
           default
           home
           link {
@@ -86,14 +84,16 @@ const useConfig = () => {
     }
   `);
   const config = data.config;
+  const isSafari = getBrowser() === "Safari";
+
   const getConfig: ()=> any = () => {
     return config;
   };
 
   const getHomeImg = () => {
     const img = isDebug()
-      ? config.img.debug.map((item) => `/default${item}`)
-      : config.img.home.map((item) => `${config.cdn}/website/home${item}`);
+      ? config.img.default.map((item) => `/default${item}`)
+      : config.img.home.map((item) => `${config.cdn}/website/home${isSafari ? "" : "/webp"}${item}`);
   
     return img;
   };
@@ -101,7 +101,7 @@ const useConfig = () => {
   const getDefaultImg = () => {
     const img = isDebug()
       ? config.img.default.map((item) => `/default${item}`)
-      : config.img.default.map((item) => `${config.cdn}/website/home${item}`);
+      : config.img.default.map((item) => `${config.cdn}/website/home${isSafari ? "" : "/webp"}${item}`);
   
     return img;
   };

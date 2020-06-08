@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, useEffect } from "react";
 import { graphql } from "gatsby";
 
 import dayjs from "dayjs";
@@ -86,7 +86,6 @@ interface ScrollProps {
 }
 
 function ScrollTop(props: ScrollProps) {
-  const classes = useStyles();
   const { children } = props;
 
   const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
@@ -131,7 +130,7 @@ const IndexPage: FC<IndexPageProps> = (props) => {
   const classes = useStyles();
   const [slideIndex, setSlideIndex] = useState(2);
   const { getHomeImg, getDefaultImg } = useConfig();
-  const imgs = getHomeImg().sort(() => Math.random() > .5 ? -1 : 1);
+  const [imgs, setImgs] = useState<string[]>([]);
 
   const { data } = props;
   const { edges } = data.allMarkdownRemark;
@@ -158,6 +157,10 @@ const IndexPage: FC<IndexPageProps> = (props) => {
       setSlideIndex(index);
     }
   }
+
+  useEffect(() => {
+    setImgs(getHomeImg().sort(() => Math.random() > .5 ? -1 : 1))
+  }, []);
 
   return (
     <Layout>

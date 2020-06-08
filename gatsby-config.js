@@ -1,5 +1,9 @@
 const fs = require('fs');
 
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`,
+});
+
 const config = JSON.parse(fs.readFileSync('./config/config.json').toString());
 
 module.exports = {

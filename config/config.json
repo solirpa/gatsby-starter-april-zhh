@@ -24,25 +24,18 @@
   },
   "img": {
     "home": [
-      "/ponyo.png.webp",
-      "/vastforest.png.webp",
-      "/skycloudsea.png.webp",
-      "/eveningwas.png.webp",
-      "/vastfield.png.webp"
+      "/ponyo.png",
+      "/vastforest.png",
+      "/skycloudsea.png",
+      "/eveningwas.png",
+      "/vastfield.png"
     ],
     "default": [
-      "/ponyo.png.webp",
-      "/vastforest.png.webp",
-      "/skycloudsea.png.webp",
-      "/eveningwas.png.webp",
-      "/vastfield.png.webp"
-    ],
-    "debug": [
-      "/ponyo.png.webp",
-      "/vastforest.png.webp",
-      "/skycloudsea.png.webp",
-      "/eveningwas.png.webp",
-      "/vastfield.png.webp"
+      "/ponyo.png",
+      "/vastforest.png",
+      "/skycloudsea.png",
+      "/eveningwas.png",
+      "/vastfield.png"
     ],
     "link": {
       "github": "/github.png",
