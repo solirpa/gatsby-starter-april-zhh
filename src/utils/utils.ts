@@ -14,7 +14,7 @@ export const getRandom: (arr: any[]) => string = (arr) => {
 };
 
 export const getBrowser = () => {
-  const userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
+  const userAgent = typeof navigator !== `undefined` ? navigator.userAgent : ""; //取得浏览器的userAgent字符串
   const isOpera = userAgent.indexOf("Opera") > -1;
   if (isOpera) {
     return "Opera";
