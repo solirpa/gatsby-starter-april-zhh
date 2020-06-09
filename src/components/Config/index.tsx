@@ -93,7 +93,7 @@ const useConfig = () => {
   const getHomeImg = () => {
     const img = isDebug()
       ? config.img.default.map((item) => `/default${item}`)
-      : config.img.home.map((item) => `${config.cdn}/website/home${isSafari ? "" : "/webp"}${item}`);
+      : config.img.home.map((item) => `${config.cdn}/website/home${isSafari ? "" : "/webp"}${item}${isSafari ? "" : ".webp"}`);
   
     return img;
   };
@@ -101,7 +101,7 @@ const useConfig = () => {
   const getDefaultImg = () => {
     const img = isDebug()
       ? config.img.default.map((item) => `/default${item}`)
-      : config.img.default.map((item) => `${config.cdn}/website/home${isSafari ? "" : "/webp"}${item}`);
+      : config.img.default.map((item) => `${config.cdn}/website/home${isSafari ? "" : "/webp"}${item}${isSafari ? "" : ".webp"}`);
   
     return img;
   };
