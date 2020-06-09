@@ -71,6 +71,8 @@ description: 采用 Material Design 开发的响应式 Gatsby 主题。
     - 目录默认改为二级目录显示
     - 优化目录滚动时和 header 的贴合效果
     - 标题显示优化
+- v1.2.0
+  - 使用 Typescript 重构项目
 
 
 ## 参考项目
