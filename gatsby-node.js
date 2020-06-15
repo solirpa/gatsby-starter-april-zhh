@@ -6,32 +6,48 @@
 
 // You can delete this file if you're not using it
 
-const path = require(`path`);
-const fs = require('fs');
+const path = require(`path`)
+const fs = require("fs")
 
-const config = JSON.parse(fs.readFileSync('./config/config.json').toString());
-const { createFilePath } = require(`gatsby-source-filesystem`);
+const config = JSON.parse(fs.readFileSync("./config/config.json").toString())
+const { createFilePath } = require(`gatsby-source-filesystem`)
 
-const dayjs = require('dayjs');
-const crypto = require('crypto');
+const dayjs = require("dayjs")
+const crypto = require("crypto")
 
 // gatsby-node.js
 exports.onCreateWebpackConfig = ({ actions, stage }) => {
-  if (stage === 'build-javascript') {
+  if (stage === "build-javascript") {
     // turn off source-maps
     actions.setWebpackConfig({
-      devtool: false
+      devtool: false,
     })
   }
-};
+}
+
+exports.modifyWebpackConfig = ({ config, stage }) => {
+  if (stage === "build-javascript") {
+    const timestamp = Date.now()
+
+    config.merge({
+      devtool: false,
+      output: {
+        filename: `name-${timestamp}-[chunkhash].js`,
+        chunkFilename: `name-${timestamp}-[chunkhash].js`,
+      },
+    })
+  }
+
+  return config
+}
 
 exports.sourceNodes = async ({
   actions,
   createContentDigest,
   createNodeId,
 }) => {
-  const { createNode } = actions;
-  const CONFIG_NODE_TYPE = 'config';
+  const { createNode } = actions
+  const CONFIG_NODE_TYPE = "config"
 
   createNode({
     ...config,
@@ -48,30 +64,30 @@ exports.sourceNodes = async ({
 }
 
 exports.onCreateNode = ({ node, getNode, actions }) => {
-  const { createNodeField } = actions;
+  const { createNodeField } = actions
   // Ensures we are processing only markdown files
   if (node.internal.type === "MarkdownRemark") {
-    const { frontmatter } = node;
-    const { date } = frontmatter;
+    const { frontmatter } = node
+    const { date } = frontmatter
 
     // Use `createFilePath` to turn markdown files in our `data/faqs` directory into `/faqs/slug`
     const relativeFilePath = createFilePath({
       node,
       getNode,
       basePath: "data/",
-    });
+    })
 
     // Creates new query'able field with name of 'path'
     createNodeField({
       node,
       name: "path",
-      value: `/${dayjs(date).format('YYYY/MM/DD')}${relativeFilePath}`,
-    });
+      value: `/${dayjs(date).format("YYYY/MM/DD")}${relativeFilePath}`,
+    })
   }
 }
 
 exports.createPages = async ({ actions, graphql, reporter }) => {
-  const { createPage } = actions;
+  const { createPage } = actions
   const result = await graphql(`
     {
       allMarkdownRemark(
@@ -92,88 +108,92 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
         }
       }
     }
-  `);
+  `)
   // Handle errors
   if (result.errors) {
     reporter.panicOnBuild(`Error while running GraphQL query.`)
-    return;
+    return
   }
 
-  const tagSet = new Set();
-  const tagMap = new Map();
+  const tagSet = new Set()
+  const tagMap = new Map()
 
-  const categorySet = new Set();
-  const categoryMap = new Map();
+  const categorySet = new Set()
+  const categoryMap = new Map()
 
   result.data.allMarkdownRemark.edges.forEach(({ node }) => {
+    const { fields, frontmatter } = node
+    const { tags, categories, draft } = frontmatter
 
-    const { fields, frontmatter } = node;
-    const { tags, categories, draft } = frontmatter;
-
-    if (true === draft) return;
+    if (true === draft) return
 
     // 读取标签
     if (tags) {
       tags.forEach(item => {
-        tagSet.add(item);
+        tagSet.add(item)
 
         if (tagMap.has(item)) {
-          tagMap.set(item, tagMap.get(item) + 1);
+          tagMap.set(item, tagMap.get(item) + 1)
         } else {
-          tagMap.set(item, 1);
+          tagMap.set(item, 1)
         }
-      });
+      })
     }
 
     // 读取分类
     if (categories) {
       categories.forEach(item => {
-        item = item.toLowerCase();
-        categorySet.add(item);
+        item = item.toLowerCase()
+        categorySet.add(item)
 
         if (categoryMap.has(item)) {
-          categoryMap.set(item, categoryMap.get(item) + 1);
+          categoryMap.set(item, categoryMap.get(item) + 1)
         } else {
-          categoryMap.set(item, 1);
+          categoryMap.set(item, 1)
         }
-      });
+      })
     }
 
     createPage({
       path: fields.path,
       component: path.resolve(`src/templates/post/post.tsx`),
       context: {}, // additional data can be passed via context
-    });
-  });
+    })
+  })
 
   tagSet.forEach(tag => {
-
     createPage({
-      path: `/tags/${tag}-${crypto.createHash('md5').update(tag).digest("hex")}/`,
-      component: path.resolve('src/templates/tag/tag.tsx'),
+      path: `/tags/${tag}-${crypto
+        .createHash("md5")
+        .update(tag)
+        .digest("hex")}/`,
+      component: path.resolve("src/templates/tag/tag.tsx"),
       context: {
         tag,
         tags: Array.from(tagMap.keys()).map(tag => {
           return {
             text: tag,
-            value: tagMap.get(tag)
+            value: tagMap.get(tag),
           }
-        })
+        }),
       },
-    });
-  });
+    })
+  })
 
-  categorySet.forEach((category) => {
+  categorySet.forEach(category => {
     createPage({
-      path: `/categories/${category}-${crypto.createHash('md5').update(category).digest("hex")}/`,
-      component: path.resolve('src/templates/category/category.tsx'),
+      path: `/categories/${category}-${crypto
+        .createHash("md5")
+        .update(category)
+        .digest("hex")}/`,
+      component: path.resolve("src/templates/category/category.tsx"),
       context: {
         category,
         categories: Array.from(categoryMap.keys()).map(category => ({
           text: category,
-          value: categoryMap.get(category)
-        }))
+          value: categoryMap.get(category),
+        })),
       },
-    });
-  });
+    })
+  })
 }
