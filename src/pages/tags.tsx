@@ -97,7 +97,7 @@ export default TagsPage;
 
 export const pageQuery = graphql`
   query getAllTags {
-    allMarkdownRemark {
+    allMarkdownRemark(filter: {frontmatter: {draft: {ne: true}}}) {
       edges {
         node {
           frontmatter {

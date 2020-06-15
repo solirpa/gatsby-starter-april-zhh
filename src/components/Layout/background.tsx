@@ -52,12 +52,14 @@ const BackGround: FC<BackGroundProps> = ({ image = '', type }) => {
   const { getDefaultImg, getHomeImg } = useConfig();
   const [showImage, setShowImage] = useState(image);
 
-  useEffect(()=> {
-    let getImg = getDefaultImg;
+  useEffect(() => {
+    if (!image) {
+      let getImg = getDefaultImg;
 
-    if (type === 'home') getImg = getHomeImg;
-
-    setShowImage(getRandom(getImg()));
+      if (type === 'home') getImg = getHomeImg;
+  
+      setShowImage(getRandom(getImg()));
+    }
   }, [type]);
 
   return (

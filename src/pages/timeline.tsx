@@ -367,7 +367,7 @@ export default TimelinePage;
 
 export const pageQuery = graphql`
   query getAllDate {
-    allMarkdownRemark {
+    allMarkdownRemark(filter: {frontmatter: {draft: {ne: true}}}) {
       edges {
         node {
           fields {
