@@ -16,16 +16,13 @@ const dayjs = require("dayjs")
 const crypto = require("crypto")
 
 // gatsby-node.js
-exports.onCreateWebpackConfig = ({ config, actions, stage }) => {
+exports.onCreateWebpackConfig = ({ getConfig, actions, stage }) => {
+  const config = getConfig()
   if (stage === "build-javascript") {
     const timestamp = Date.now()
 
     // turn off source-maps
     actions.setWebpackConfig({
-      devtool: false,
-    })
-
-    config.merge({
       devtool: false,
       output: {
         filename: `name-${timestamp}-[chunkhash].js`,
@@ -33,8 +30,6 @@ exports.onCreateWebpackConfig = ({ config, actions, stage }) => {
       },
     })
   }
-
-  return config
 }
 
 exports.sourceNodes = async ({
