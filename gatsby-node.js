@@ -16,18 +16,14 @@ const dayjs = require("dayjs")
 const crypto = require("crypto")
 
 // gatsby-node.js
-exports.onCreateWebpackConfig = ({ actions, stage }) => {
+exports.onCreateWebpackConfig = ({ config, actions, stage }) => {
   if (stage === "build-javascript") {
+    const timestamp = Date.now()
+
     // turn off source-maps
     actions.setWebpackConfig({
       devtool: false,
     })
-  }
-}
-
-exports.modifyWebpackConfig = ({ config, stage }) => {
-  if (stage === "build-javascript") {
-    const timestamp = Date.now()
 
     config.merge({
       devtool: false,
