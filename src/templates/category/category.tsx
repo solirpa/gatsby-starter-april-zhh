@@ -136,7 +136,7 @@ export default CategoryPage;
 
 export const pageQuery = graphql`
   query categoryQuery($category: [String!]) {
-    allMarkdownRemark(sort: {order: DESC, fields: frontmatter___date}, filter: {frontmatter: {categories: {in: $category}}}) {
+    allMarkdownRemark(sort: {order: DESC, fields: frontmatter___date}, filter: {frontmatter: {categories: {in: $category}, draft: {ne: true}}}) {
       edges {
         node {
           id

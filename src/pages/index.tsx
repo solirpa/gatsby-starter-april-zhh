@@ -247,6 +247,7 @@ export const pageQuery = graphql`
   query getAllPost {
     allMarkdownRemark(
       sort: { order: DESC, fields: frontmatter___date }
+      filter: {frontmatter: {draft: {ne: true}}}
       limit: 10
     ) {
       edges {
@@ -262,6 +263,7 @@ export const pageQuery = graphql`
             categories
             description
             image
+            draft
           }
         }
       }

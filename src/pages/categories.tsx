@@ -28,7 +28,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-interface CategoryPageProps { 
+interface CategoryPageProps {
   data: {
     allMarkdownRemark: {
       edges: {
@@ -51,7 +51,7 @@ const CategoryPage: FC<CategoryPageProps> = ({ data }) => {
     data.allMarkdownRemark.edges.forEach(({ node }) => {
       const { categories = [] } = node.frontmatter;
 
-      categories && categories.forEach(name=> {
+      categories && categories.forEach(name => {
         if (categoryMap.has(name)) {
           categoryMap.set(name, categoryMap.get(name) + 1);
         } else {
@@ -89,7 +89,7 @@ export default CategoryPage;
 
 export const pageQuery = graphql`
   query getAllCategories {
-    allMarkdownRemark {
+    allMarkdownRemark(filter: {frontmatter: {draft: {ne: true}}}) {
       edges {
         node {
           frontmatter {

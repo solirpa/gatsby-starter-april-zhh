@@ -86,6 +86,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
             frontmatter {
               tags
               categories
+              draft
             }
           }
         }
@@ -105,8 +106,11 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
   const categoryMap = new Map();
 
   result.data.allMarkdownRemark.edges.forEach(({ node }) => {
+
     const { fields, frontmatter } = node;
-    const { tags, categories } = frontmatter;
+    const { tags, categories, draft } = frontmatter;
+
+    if (true === draft) return;
 
     // 读取标签
     if (tags) {
