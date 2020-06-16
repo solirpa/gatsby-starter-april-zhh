@@ -118,7 +118,7 @@ const useStyles = makeStyles(theme => ({
     },
 
     "& pre[class*=\"language-\"], code[class*=language-]": {
-      background: '#011627',
+      // background: '#011627',
       border: 'unset'
     }
   },

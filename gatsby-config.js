@@ -39,6 +39,8 @@ module.exports = {
             resolve: 'gatsby-remark-prismjs',
             options: {
               showLineNumbers: true,
+              inlineCodeMarker: null,
+              noInlineHighlight: true,
             },
           },
           {
