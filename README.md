@@ -47,12 +47,14 @@ markdown ```frontmatter``` 示例
 ---
 title: gatsby-starter-april-zhh
 date: 2020-06-06T06:06:06+08:00
+image: ''
 tags: 
 - gatsby
 - theme
 categories: 
 - gatsby-starter
 description: 采用 Material Design 开发的响应式 Gatsby 主题。
+draft: false
 ---
 ```
 
