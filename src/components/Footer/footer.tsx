@@ -15,6 +15,7 @@ const useStyles = makeStyles(theme => ({
     top: 'auto',
     bottom: 0,
     textAlign: 'center',
+    marginBottom: '1rem'
   },
 }));
 

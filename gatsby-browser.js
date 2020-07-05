@@ -17,6 +17,6 @@ export const onServiceWorkerUpdateFound = () => {
   const answer = window.confirm(`The page has been updated, whether to reload?`)
 
   if (answer === true) {
-    window.location.reload()
+    window.location.reload() 
   }
 }

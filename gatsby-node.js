@@ -16,18 +16,11 @@ const dayjs = require("dayjs")
 const crypto = require("crypto")
 
 // gatsby-node.js
-exports.onCreateWebpackConfig = ({ getConfig, actions, stage }) => {
-  const config = getConfig()
+exports.onCreateWebpackConfig = ({ actions, stage }) => {
   if (stage === "build-javascript") {
-    const timestamp = Date.now()
-
     // turn off source-maps
     actions.setWebpackConfig({
       devtool: false,
-      output: {
-        filename: `name-${timestamp}-[chunkhash].js`,
-        chunkFilename: `name-${timestamp}-[chunkhash].js`,
-      },
     })
   }
 }

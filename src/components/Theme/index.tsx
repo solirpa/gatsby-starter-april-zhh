@@ -14,7 +14,7 @@ export const ThemeSwitchTypes = {
   onChange: PropTypes.func.isRequired
 };
 
-type ThemeSwitchProps = InferProps<typeof ThemeSwitchTypes>;
+export type ThemeSwitchProps = InferProps<typeof ThemeSwitchTypes>;
 
 export const useDarkMode: () => [string, ()=> void] = () => {
   const [ctlDarkModeByLs, setCtlDarkModeByLs] = useLocalStorage<string>('theme-key');
